@@ -1,13 +1,22 @@
+/**
+ * ContactForm component (src/components/ContactForm.tsx)
+ *
+ * The contact form rendered on the /contact page. Structurally identical to
+ * AanmeldenForm — same state machine, same fetch pattern — but collects
+ * different fields (message instead of address) and posts to /api/contact.
+ *
+ * See AanmeldenForm.tsx for detailed comments on useState, handleSubmit,
+ * FormData, and the conditional rendering patterns used here.
+ */
 "use client";
 
-import { useState, FormEvent } from "react";
 import Button from "./Button";
+import { useFormSubmit } from "@/lib/useFormSubmit";
 
-type FormState = "idle" | "loading" | "success" | "error";
-
-// -------------------------------------------------------
-// Contact topics — edit this list as needed
-// -------------------------------------------------------
+/**
+ * topics — options for the subject dropdown.
+ * To add or remove a topic, edit this array.
+ */
 const topics = [
   "Vraag over de dienst",
   "Vraag over aanmelden",
@@ -17,41 +26,17 @@ const topics = [
 ];
 
 export default function ContactForm() {
-  const [state, setState] = useState<FormState>("idle");
-  const [errorMessage, setErrorMessage] = useState("");
+  /**
+   * Submit logic is shared with AanmeldenForm via the useFormSubmit hook
+   * (src/lib/useFormSubmit.ts). We just point it at the contact API route.
+   */
+  const { state, errorMessage, handleSubmit } = useFormSubmit("/api/contact");
 
-  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    setState("loading");
-    setErrorMessage("");
-
-    const formData = new FormData(e.currentTarget);
-    const data = Object.fromEntries(formData.entries());
-
-    try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
-
-      if (res.ok) {
-        setState("success");
-      } else {
-        const json = await res.json();
-        setErrorMessage(
-          json.message || "Er is iets misgegaan. Probeer het opnieuw."
-        );
-        setState("error");
-      }
-    } catch {
-      setErrorMessage(
-        "Er kon geen verbinding worden gemaakt. Controleer je internetverbinding."
-      );
-      setState("error");
-    }
-  }
-
+  /**
+   * Early return: when submission succeeds, swap the entire form for
+   * a confirmation message. React re-renders this component when state
+   * changes, so this block takes over automatically.
+   */
   if (state === "success") {
     return (
       <div className="rounded-sm border border-green/30 bg-green/5 p-8 text-center">
@@ -72,14 +57,19 @@ export default function ContactForm() {
 
   return (
     <form onSubmit={handleSubmit} noValidate className="space-y-6">
-      {/* Naam */}
+
+      {/* ── Naam ── */}
       <div>
+        {/*
+          htmlFor must match the input's id — links the label to the input.
+          Clicking the label focuses the input (standard HTML/accessibility behaviour).
+        */}
         <label htmlFor="contact-naam" className="form-label">
           Naam <span className="text-green">*</span>
         </label>
         <input
           id="contact-naam"
-          name="naam"
+          name="naam"        // key used in FormData + checked in the API route
           type="text"
           required
           autoComplete="name"
@@ -88,7 +78,7 @@ export default function ContactForm() {
         />
       </div>
 
-      {/* E-mail */}
+      {/* ── E-mail ── */}
       <div>
         <label htmlFor="contact-email" className="form-label">
           E-mailadres <span className="text-green">*</span>
@@ -104,11 +94,16 @@ export default function ContactForm() {
         />
       </div>
 
-      {/* Onderwerp */}
+      {/* ── Onderwerp (optional dropdown) ── */}
       <div>
         <label htmlFor="contact-onderwerp" className="form-label">
           Onderwerp
+          {/* No asterisk — this field is optional (not required in the API validation) */}
         </label>
+        {/*
+          defaultValue="" means nothing is selected initially.
+          The first option is disabled so it acts purely as a placeholder.
+        */}
         <select
           id="contact-onderwerp"
           name="onderwerp"
@@ -124,11 +119,16 @@ export default function ContactForm() {
         </select>
       </div>
 
-      {/* Bericht */}
+      {/* ── Bericht (required textarea) ── */}
       <div>
         <label htmlFor="contact-bericht" className="form-label">
           Bericht <span className="text-green">*</span>
         </label>
+        {/*
+          rows={5} sets the initial visible height of the textarea.
+          resize-none prevents the user from dragging to resize it.
+          The API route requires at least 10 characters in this field.
+        */}
         <textarea
           id="contact-bericht"
           name="bericht"
@@ -139,13 +139,21 @@ export default function ContactForm() {
         />
       </div>
 
-      {/* Error */}
+      {/*
+        Error message — only rendered when state is "error" AND a message exists.
+        {condition && <element>} is React's shorthand for conditional rendering.
+      */}
       {state === "error" && errorMessage && (
         <p className="text-sm text-red-600">{errorMessage}</p>
       )}
 
-      {/* Submit */}
+      {/* ── Submit button ── */}
       <div>
+        {/*
+          disabled={state === "loading"} greys out the button while the request
+          is in flight — prevents double-submissions.
+          Button text changes based on state (React re-renders automatically).
+        */}
         <Button
           type="submit"
           disabled={state === "loading"}

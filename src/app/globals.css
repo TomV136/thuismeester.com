@@ -1,75 +1,172 @@
+/**
+ * globals.css — site-wide styles
+ *
+ * This file is imported once in layout.tsx and applies to every page.
+ *
+ * Tailwind organises styles into three "layers". Order matters: later layers
+ * can override earlier ones, and Tailwind uses layers to keep specificity
+ * predictable. Think of them as three sequential CSS stylesheets:
+ *
+ *   @layer base       → resets + element defaults (like a CSS normaliser)
+ *   @layer components → reusable multi-property class combinations
+ *   @layer utilities  → single-purpose helpers (like Tailwind's built-ins)
+ *
+ * The three @tailwind directives below pull in Tailwind's own styles for
+ * each layer. Your custom rules below then get merged into the same layers,
+ * meaning they'll respect the same cascade and specificity rules.
+ */
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 /* -------------------------------------------------------
-   Google Fonts — Playfair Display (headings) + Inter (body)
-   Import via <link> in layout.tsx for performance.
+   BASE LAYER — element-level defaults
+   These styles apply to raw HTML tags (body, h1–h4, img, etc.)
+   without needing any class name. Equivalent to writing in a
+   global reset stylesheet.
    ------------------------------------------------------- */
-
 @layer base {
   html {
+    /* Makes anchor links (#section) scroll smoothly instead of jumping */
     scroll-behavior: smooth;
   }
 
   body {
+    /**
+     * @apply is Tailwind's way of using utility classes inside a CSS rule.
+     * It's equivalent to adding these class names to <body> in the HTML.
+     *
+     * font-sans   → Inter (defined in tailwind.config.js)
+     * text-ink    → #1A2018 (near-black, easier on eyes than pure black)
+     * antialiased → smoother font rendering on macOS/retina screens
+     * bg-beige-light → #FAF8F4 (warm off-white page background)
+     */
     @apply font-sans text-ink antialiased bg-beige-light;
   }
 
   h1, h2, h3, h4 {
+    /**
+     * All headings use the serif font (Playfair Display) and the deep
+     * ink colour by default. Individual heading styles are then set via
+     * Tailwind classes in each component.
+     *
+     * font-feature-settings enables kerning (tighter letter pairs like "AV")
+     * and ligatures (combined glyphs like "fi") for polished typography.
+     */
     @apply font-serif text-ink;
     font-feature-settings: "kern" 1, "liga" 1;
   }
 
-  /* Remove default button & input focus rings; add custom ones */
+  /**
+   * :focus-visible targets elements that are focused via keyboard navigation
+   * (Tab key), but NOT elements clicked with a mouse. This is the modern
+   * accessibility pattern — sighted mouse users don't see distracting outlines,
+   * but keyboard users still get clear focus indicators.
+   *
+   * We remove the browser default (usually a blue ring) and replace it with
+   * our brand green outline.
+   */
   *:focus-visible {
     @apply outline-2 outline-offset-2 outline-green;
   }
 
-  /* Smooth image rendering */
   img {
+    /* Prevents users from accidentally selecting/highlighting images */
     @apply select-none;
   }
 }
 
+/* -------------------------------------------------------
+   COMPONENTS LAYER — reusable multi-property class combinations
+   Unlike Tailwind utilities (one property each), these classes bundle
+   several properties together for commonly repeated patterns.
+   Define once here, use the class name anywhere in JSX.
+   ------------------------------------------------------- */
 @layer components {
-  /* -------------------------------------------------------
-     Reusable section wrapper
-     ------------------------------------------------------- */
+  /**
+   * .section-wrapper
+   * Centres content horizontally and adds consistent side padding.
+   * Used on almost every section: <div className="section-wrapper">
+   *
+   * mx-auto          → margin-left: auto; margin-right: auto (centres the div)
+   * max-w-content    → max-width: 1200px (from tailwind.config.js)
+   * px-6 lg:px-12    → 24px horizontal padding on mobile, 48px on large screens
+   *                    (lg: is a responsive breakpoint prefix — "at 1024px+")
+   */
   .section-wrapper {
     @apply mx-auto max-w-content px-6 lg:px-12;
   }
 
-  /* -------------------------------------------------------
-     Divider line — thin beige-dark separator
-     ------------------------------------------------------- */
+  /**
+   * .section-divider
+   * A thin horizontal rule between sections.
+   * border-t          → border-top
+   * border-beige-dark → #E4DBCc (warm beige border)
+   */
   .section-divider {
     @apply border-t border-beige-dark;
   }
 
-  /* -------------------------------------------------------
-     Form inputs
-     ------------------------------------------------------- */
+  /**
+   * .form-input
+   * Applies to all <input>, <textarea>, and <select> elements in forms.
+   * Provides consistent sizing, colours, and a branded focus ring.
+   *
+   * rounded-none  → no border radius (flat / architectural aesthetic)
+   * transition-colors duration-150 → smooth 150ms colour animation on focus
+   * focus:border-green  → border turns brand-green when focused
+   * focus:ring-1        → adds a thin ring inside the border on focus
+   */
   .form-input {
     @apply w-full rounded-none border border-beige-dark bg-white px-4 py-3 text-ink
            placeholder-stone transition-colors duration-150
            focus:border-green focus:outline-none focus:ring-1 focus:ring-green;
   }
 
+  /**
+   * .form-label
+   * Applies to all <label> elements in forms.
+   * mb-1      → small gap between label and input
+   * block     → labels are inline by default; block makes them full-width
+   * text-sm   → 14px
+   * font-medium text-ink-soft → slightly lighter than body text
+   */
   .form-label {
     @apply mb-1 block text-sm font-medium text-ink-soft;
   }
 
-  /* -------------------------------------------------------
-     Tag / pill badge
-     ------------------------------------------------------- */
+  /**
+   * .badge
+   * Small pill-shaped tag (used for "Amersfoort · Start januari 2027" etc.)
+   *
+   * rounded-full         → fully rounded pill shape
+   * bg-green/10          → green at 10% opacity (the / syntax is Tailwind's
+   *                         shorthand for rgba transparency)
+   * uppercase tracking-widest → all-caps with extra letter spacing
+   */
   .badge {
     @apply inline-block rounded-full bg-green/10 px-3 py-1 text-xs font-medium
            uppercase tracking-widest text-green;
   }
 }
 
+/* -------------------------------------------------------
+   UTILITIES LAYER — single-purpose helper classes
+   These slot in alongside Tailwind's own utility classes.
+   ------------------------------------------------------- */
 @layer utilities {
+  /**
+   * .text-balance
+   * Applies "text-wrap: balance" — a modern CSS property that distributes
+   * text evenly across lines in headings, avoiding awkward single-word
+   * orphans on the last line.
+   * Example: instead of
+   *   "Rust in huis."
+   *   "Regel het met jouw"
+   *   "Thuismeester."
+   * you get more evenly balanced line lengths.
+   */
   .text-balance {
     text-wrap: balance;
   }
