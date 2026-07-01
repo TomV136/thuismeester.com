@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import SectionLabel from "@/components/SectionLabel";
-import AanmeldenForm from "@/components/AanmeldenForm";
+import RegisterForm from "@/components/RegisterForm";
 
 export const metadata: Metadata = {
     title: "Aanmelden",
@@ -46,8 +46,8 @@ export default function AanmeldenPage() {
                             </p>
 
                             <div className="mt-8">
-                                {/* AanmeldenForm is a client component to handle state & submission */}
-                                <AanmeldenForm />
+                                {/* RegisterForm is a client component to handle state & submission */}
+                                <RegisterForm />
                             </div>
 
                             <p className="mt-6 text-xs leading-relaxed text-ink-muted">

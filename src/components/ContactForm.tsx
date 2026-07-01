@@ -1,13 +1,11 @@
 "use client";
 
-import { useState, FormEvent } from "react";
 import Button from "./Button";
+import { useFormSubmit } from "@/lib/useFormSubmit";
 
-type FormState = "idle" | "loading" | "success" | "error";
-
-// -------------------------------------------------------
-// Contact topics — edit this list as needed
-// -------------------------------------------------------
+/**
+ * topics — options for the subject dropdown.
+ */
 export const topics = [
     "Vraag over de dienst",
     "Vraag over aanmelden",
@@ -17,41 +15,13 @@ export const topics = [
 ];
 
 export default function ContactForm() {
-    const [state, setState] = useState<FormState>("idle");
-    const [errorMessage, setErrorMessage] = useState("");
+    const { state, errorMessage, warningMessage, handleSubmit } = useFormSubmit("/api/contact");
 
-    async function handleSubmit(e: FormEvent<HTMLFormElement>) {
-        e.preventDefault();
-        setState("loading");
-        setErrorMessage("");
-
-        const formData = new FormData(e.currentTarget);
-        const data = Object.fromEntries(formData.entries());
-
-        try {
-            const res = await fetch("/api/contact", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(data),
-            });
-
-            if (res.ok) {
-                setState("success");
-            } else {
-                const json = await res.json();
-                setErrorMessage(
-                    json.message || "Er is iets misgegaan. Probeer het opnieuw."
-                );
-                setState("error");
-            }
-        } catch {
-            setErrorMessage(
-                "Er kon geen verbinding worden gemaakt. Controleer je internetverbinding."
-            );
-            setState("error");
-        }
-    }
-
+    /**
+     * Early return: when submission succeeds, swap the entire form for
+     * a confirmation message. React re-renders this component when state
+     * changes, so this block takes over automatically.
+     */
     if (state === "success") {
         return (
             <div className="rounded-sm border border-green/30 bg-green/5 p-8 text-center">
@@ -66,20 +36,31 @@ export default function ContactForm() {
                     Dank voor je bericht. We reageren zo snel mogelijk, doorgaans binnen
                     één werkdag.
                 </p>
+                {/* Non-fatal issue (e.g. confirmation email failed): the
+                    message reached us, but the visitor should know why no
+                    confirmation email is coming. */}
+                {warningMessage && (
+                    <p className="mt-4 rounded-sm border border-amber-200 bg-amber-50 px-4 py-3 text-left text-sm leading-relaxed text-amber-800">
+                        {warningMessage}
+                    </p>
+                )}
             </div>
         );
     }
 
     return (
         <form onSubmit={handleSubmit} noValidate className="space-y-6">
-            {/* Naam */}
+            {/* ── Honey pot ── */}
+            <input type="text" name="_hp" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden="true" />
+
+            {/* ── Name ── */}
             <div>
-                <label htmlFor="contact-naam" className="form-label">
+                <label htmlFor="contact-name" className="form-label">
                     Naam <span className="text-green">*</span>
                 </label>
                 <input
-                    id="contact-naam"
-                    name="naam"
+                    id="contact-name"
+                    name="name"        // key used in FormData + checked in the API route
                     type="text"
                     required
                     autoComplete="name"
@@ -88,7 +69,7 @@ export default function ContactForm() {
                 />
             </div>
 
-            {/* E-mail */}
+            {/* ── E-mail ── */}
             <div>
                 <label htmlFor="contact-email" className="form-label">
                     E-mailadres <span className="text-green">*</span>
@@ -104,14 +85,15 @@ export default function ContactForm() {
                 />
             </div>
 
-            {/* Onderwerp */}
+            {/* ── Subject (dropdown) ── */}
             <div>
-                <label htmlFor="contact-onderwerp" className="form-label">
-                    Onderwerp
+                <label htmlFor="contact-subject" className="form-label">
+                    Onderwerp <span className="text-green">*</span>
                 </label>
                 <select
-                    id="contact-onderwerp"
-                    name="onderwerp"
+                    id="contact-subject"
+                    name="subject"
+                    required
                     className="form-input bg-white"
                     defaultValue=""
                 >
@@ -124,14 +106,14 @@ export default function ContactForm() {
                 </select>
             </div>
 
-            {/* Bericht */}
+            {/* ── Message ── */}
             <div>
-                <label htmlFor="contact-bericht" className="form-label">
+                <label htmlFor="contact-message" className="form-label">
                     Bericht <span className="text-green">*</span>
                 </label>
                 <textarea
-                    id="contact-bericht"
-                    name="bericht"
+                    id="contact-message"
+                    name="message"
                     required
                     rows={5}
                     placeholder="Schrijf hier je vraag of opmerking…"
@@ -139,12 +121,11 @@ export default function ContactForm() {
                 />
             </div>
 
-            {/* Error */}
             {state === "error" && errorMessage && (
                 <p className="text-sm text-red-600">{errorMessage}</p>
             )}
 
-            {/* Submit */}
+            {/* ── Submit button ── */}
             <div>
                 <Button
                     type="submit"

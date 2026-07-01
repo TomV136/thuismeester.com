@@ -1,0 +1,140 @@
+import { NextRequest, NextResponse } from "next/server";
+import { getSupabaseClient } from '@/lib/supabase'
+import { isValidEmail, normalisePostcode, sanitiseMultiLine, sanitiseSingleLine } from "@/lib/validation";
+import { CONTACT_EMAIL } from "@/lib/site";
+
+/**
+ * The one message shown for every server-side failure: it tells the visitor
+ * what happened and that they can (if they want to) reach us directly.
+ */
+const FAILURE_MESSAGE =
+    `Er is bij ons iets misgegaan en je aanmelding is niet opgeslagen. ` +
+    `Probeer het later opnieuw, of mail ons gerust via ${CONTACT_EMAIL}.`;
+
+interface RegistrationDetails {
+    name: string;
+    email: string;
+    postcode: string;
+    area: string;
+    remark?: string;
+}
+
+function validatePayload(body: unknown): { valid: true; data: RegistrationDetails } | { valid: false; message: string } {
+    if (!body || typeof body !== "object") {
+        return { valid: false, message: "Ongeldig verzoek." };
+    }
+
+    const b = body as Record<string, unknown>;
+
+    if (!b.name || typeof b.name !== "string" || b.name.trim().length < 2)
+        return { valid: false, message: "Vul een geldige naam in." };
+
+    if (!b.email || typeof b.email !== "string" || !isValidEmail(b.email))
+        return { valid: false, message: "Vul een geldig e-mailadres in." };
+
+    if (!b.postcode || typeof b.postcode !== "string" || b.postcode.trim().length < 4)
+        return { valid: false, message: "Vul een geldige postcode in." };
+
+    if (!b.area || typeof b.area !== "string" || b.area.trim().length < 1)
+        return { valid: false, message: "Selecteer een woonplaats." };
+
+    // Single-line fields go through sanitiseSingleLine to strip control
+    // characters (CR/LF included): they end up in email content and in log
+    // lines, where embedded newlines would enable header injection and log
+    // forging. The remark keeps its newlines (multi-line by design) but is
+    // stripped of all other control characters.
+    return {
+        valid: true,
+        data: {
+            name: sanitiseSingleLine(b.name),
+            email: sanitiseSingleLine(b.email.toLowerCase().trim()),
+            postcode: normalisePostcode(sanitiseSingleLine(b.postcode)),
+            area: sanitiseSingleLine(b.area),
+            remark: b.remark ? sanitiseMultiLine(String(b.remark)) : undefined,
+        },
+    };
+}
+
+export async function POST(req: NextRequest) {
+    let body: unknown;
+    try {
+        // Read and parse the JSON body that the browser sent
+        body = await req.json();
+    } catch (err) {
+        console.log("[Thuismeester] Signup: rejected, invalid JSON body:", err);
+        // A body that isn't JSON is a malformed request, not a failure on our
+        // side, so this doesn't use FAILURE_MESSAGE ("er is bij ons iets
+        // misgegaan").
+        return NextResponse.json(
+            { message: "Ongeldig verzoek." },
+            { status: 400 }
+        );
+    }
+
+    try {
+        if (body && typeof body === "object" && "_hp" in body && body._hp) {
+            console.log("[Thuismeester] Signup: bot caught by honeypot, returning fake 200");
+            return NextResponse.json({ message: "Aanmelding ontvangen." }, { status: 200 });
+        }
+
+        // Validate the data — return 400 Bad Request if anything is wrong
+        const result = validatePayload(body);
+        if (!result.valid) {
+            console.log("[Thuismeester] Signup: rejected, validation failed:", result.message);
+            return NextResponse.json({ message: result.message }, { status: 400 });
+        }
+
+        const { data: cleanedData } = result;
+        console.log(`[Thuismeester] Signup: received valid submission from ${cleanedData.email} (${cleanedData.postcode}, ${cleanedData.area})`);
+
+        const { error } = await getSupabaseClient()
+            .from('subscriptions')
+            .insert({ name: cleanedData.name, email: cleanedData.email, postcode: cleanedData.postcode, area: cleanedData.area, remark: cleanedData.remark });
+
+        // error code 23505 = breaking a uniqueness rule: this address is
+        // already registered. Deliberately NOT reported to the browser — a
+        // "this address is already registered" response would let anyone
+        // probe which addresses are subscribed (enumeration). Instead the
+        // visitor sees the normal success and the address itself receives an
+        // email explaining that the earlier registration still stands.
+        const isDuplicate = error?.code === '23505';
+
+        if (error && !isDuplicate) {
+            // Supabase is the system of record: the registration failed, so no
+            // confirmation email goes out and the visitor is told directly.
+            console.error("[Thuismeester] Signup: database insert failed:", error);
+            return NextResponse.json(
+                { message: FAILURE_MESSAGE },
+                { status: 500 }
+            );
+        }
+
+        console.log(
+            isDuplicate
+                ? `[Thuismeester] Signup: ${cleanedData.email} is already registered — sending repeat-signup email, responding as success`
+                : `[Thuismeester] Signup for ${cleanedData.email}: stored in 'subscriptions', sending confirmation email`
+        );
+        // TODO: Send the person an email confirming they have applied
+
+        // Completion marker (the contact route has the same): its absence in
+        // the logs after a "stored in 'subscriptions'" line pinpoints a
+        // failure to the email step when diagnosing an incident.
+        console.log(`[Thuismeester] Signup: completed for ${cleanedData.email}`);
+        return NextResponse.json({ message: "Aanmelding ontvangen." }, { status: 200 });
+    } catch (err) {
+        console.error("[Thuismeester] Signup: unexpected error:", err);
+        return NextResponse.json(
+            { message: FAILURE_MESSAGE },
+            { status: 500 }
+        );
+    }
+}
+
+/**
+ * GET handler — returns 405 Method Not Allowed.
+ * Only POST is supported on this endpoint. Without this, Next.js would return
+ * a 404 for GET requests, which is misleading. 405 is the correct HTTP status.
+ */
+export function GET() {
+    return NextResponse.json({ message: "Method not allowed." }, { status: 405 });
+}

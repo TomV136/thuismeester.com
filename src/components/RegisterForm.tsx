@@ -1,11 +1,9 @@
 "use client";
 
-import { useState, FormEvent } from "react";
 import Button from "./Button";
+import { useFormSubmit } from "@/lib/useFormSubmit";
 
-type FormState = "idle" | "loading" | "success" | "error";
-
-export const woonplaatsen = [
+export const towns = [
     "Amersfoort",
     "Leusden",
     "Hoevelaken",
@@ -14,37 +12,8 @@ export const woonplaatsen = [
     "Anders",
 ];
 
-export default function AanmeldenForm() {
-    const [state, setState] = useState<FormState>("idle");
-    const [errorMessage, setErrorMessage] = useState("");
-
-    async function handleSubmit(e: FormEvent<HTMLFormElement>) {
-        e.preventDefault();
-        setState("loading");
-        setErrorMessage("");
-
-        const formData = new FormData(e.currentTarget);
-        const data = Object.fromEntries(formData.entries());
-
-        try {
-            const res = await fetch("/api/aanmelden", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(data),
-            });
-
-            if (res.ok) {
-                setState("success");
-            } else {
-                const json = await res.json();
-                setErrorMessage(json.message || "Er is iets misgegaan. Probeer het opnieuw.");
-                setState("error");
-            }
-        } catch {
-            setErrorMessage("Er kon geen verbinding worden gemaakt. Controleer je internetverbinding.");
-            setState("error");
-        }
-    }
+export default function RegisterForm() {
+    const { state, errorMessage, warningMessage, handleSubmit } = useFormSubmit("/api/register");
 
     if (state === "success") {
         return (
@@ -57,33 +26,42 @@ export default function AanmeldenForm() {
                 </h3>
                 <p className="mt-3 text-sm leading-relaxed text-ink-muted">
                     Bedankt voor je aanmelding. We hebben je gegevens ontvangen en nemen binnenkort contact met je op.
+                    Was je al aangemeld? Dan ontvang je daarvan per e-mail een bevestiging.
                 </p>
+                {/* Non-fatal issue (e.g. confirmation email failed): the
+                    registration succeeded, but the visitor should know why
+                    no email is coming. */}
+                {warningMessage && (
+                    <p className="mt-4 rounded-sm border border-amber-200 bg-amber-50 px-4 py-3 text-left text-sm leading-relaxed text-amber-800">
+                        {warningMessage}
+                    </p>
+                )}
             </div>
         );
     }
 
     return (
         <form onSubmit={handleSubmit} noValidate className="space-y-6">
-            {/* Honeypot — verborgen voor mensen, ingevuld door bots */}
+            {/* ── Honey pot ── */}
             <input type="text" name="_hp" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden="true" />
 
-            {/* Naam */}
+            {/* ── Name ── */}
             <div>
-                <label htmlFor="naam" className="form-label">
+                <label htmlFor="name" className="form-label">
                     Naam <span className="text-green" aria-hidden="true">*</span>
                 </label>
                 <input
-                    id="naam"
-                    name="naam"
+                    id="name"
+                    name="name"
                     type="text"
-                    required
-                    autoComplete="name"
+                    required // HTML5 hint (though we've disabled browser validation)
+                    autoComplete="name" // hints the browser to offer saved names
                     placeholder="Voor- en achternaam"
                     className="form-input"
                 />
             </div>
 
-            {/* E-mail */}
+            {/* ── E-mail ── */}
             <div>
                 <label htmlFor="email" className="form-label">
                     E-mailadres <span className="text-green" aria-hidden="true">*</span>
@@ -99,7 +77,12 @@ export default function AanmeldenForm() {
                 />
             </div>
 
-            {/* Postcode + Woonplaats */}
+            {/*
+        ── Postcode + town/city ──
+        Two fields side by side using a CSS Grid.
+        grid gap-4        → 16px gap between the two columns
+        sm:grid-cols-2    → two columns on screens ≥ 640px; stacked on mobile
+      */}
             <div className="grid gap-4 sm:grid-cols-2">
                 <div>
                     <label htmlFor="postcode" className="form-label">
@@ -113,52 +96,50 @@ export default function AanmeldenForm() {
                         autoComplete="postal-code"
                         placeholder="1234 AB"
                         className="form-input"
-                        maxLength={7}
+                        maxLength={7}  // "1234 AB" = 7 characters max
                     />
                 </div>
 
                 <div>
-                    <label htmlFor="woonplaats" className="form-label">
+                    <label htmlFor="town" className="form-label">
                         Woonplaats <span className="text-green" aria-hidden="true">*</span>
                     </label>
                     <select
-                        id="woonplaats"
-                        name="woonplaats"
+                        id="town"
+                        name="area"
                         required
                         className="form-input bg-white"
                         defaultValue=""
                     >
                         <option value="" disabled>Selecteer woonplaats</option>
-                        {woonplaatsen.map((w) => (
+                        {towns.map((w) => (
                             <option key={w} value={w}>{w}</option>
                         ))}
                     </select>
                 </div>
             </div>
 
-            {/* Opmerkingen */}
+            {/* ── Opmerkingen (optional) ── */}
             <div>
-                <label htmlFor="opmerkingen" className="form-label">
+                <label htmlFor="remark" className="form-label">
                     Opmerkingen
                     <span className="ml-1 text-xs text-ink-muted">(optioneel)</span>
                 </label>
                 <textarea
-                    id="opmerkingen"
-                    name="opmerkingen"
+                    id="remark"
+                    name="remark"
                     rows={4}
                     placeholder="Vragen, wensen of aanvullende informatie…"
                     className="form-input resize-none"
                 />
             </div>
-
-            {/* Error */}
             {state === "error" && errorMessage && (
                 <p className="rounded-sm bg-red-50 px-4 py-3 text-sm text-red-700">
                     {errorMessage}
                 </p>
             )}
 
-            {/* Submit */}
+            {/* ── Submit button ── */}
             <div>
                 <Button
                     type="submit"
