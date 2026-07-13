@@ -1,4 +1,4 @@
-import { CreateEmailResponse, Resend } from 'resend';
+import { CreateEmailResponse, WebhookEventPayload, Resend } from 'resend';
 
 /**
  * The Resend client is created lazily instead of at module scope.
@@ -59,4 +59,43 @@ export async function sendMail(from: string, to: string, subject: string, body: 
         console.error(`[Thuismeester] Email: failed to send "${subject}" to ${to}:`, err);
         return false;
     }
+}
+
+/**
+ * Webhook verification gets its own client instead of going through
+ * getResend(): `webhooks.verify` is pure HMAC checking (svix) done locally
+ * with RESEND_WEBHOOK_SECRET and never calls the Resend API, so it must not
+ * fail on a deployment where RESEND_SEND_API_KEY is missing. The placeholder
+ * key only exists because the Resend constructor refuses an empty one; it is
+ * never sent anywhere.
+ */
+let webhookVerifier: Resend | null = null;
+
+function getWebhookVerifier(): Resend {
+    if (!webhookVerifier) {
+        if (!process.env.RESEND_WEBHOOK_SECRET) {
+            throw new Error("[Thuismeester] Email: RESEND_WEBHOOK_SECRET is not set — webhooks cannot be verified");
+        }
+
+        webhookVerifier = new Resend("re_local_webhook_verification_only"); // We need a string - this could be anything
+    }
+    return webhookVerifier;
+}
+
+/**
+ * Verifies that a webhook request genuinely came from Resend (svix HMAC
+ * signature check). Throws when the signature is invalid.
+ *
+ * This pattern has been copied from https://resend.com/docs/webhooks/verify-webhooks-requests
+ */
+export function verifyWebhook(payload: string, svixId: string, svixTimestamp: string, svixSignature: string): WebhookEventPayload {
+    return getWebhookVerifier().webhooks.verify({
+        payload,
+        headers: {
+            id: svixId,
+            timestamp: svixTimestamp,
+            signature: svixSignature,
+        },
+        webhookSecret: process.env.RESEND_WEBHOOK_SECRET!,
+    });
 }
