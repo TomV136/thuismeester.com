@@ -5,6 +5,7 @@ const REGION_NOTE = "Amersfoort en omstreken";
 const footerLinks = [
     { label: "Hoe werkt het", href: "/hoe-werkt-het" },
     { label: "Diensten", href: "/diensten" },
+    { label: "Veelgestelde vragen", href: "/veelgestelde-vragen" },
     { label: "Over Thuismeester", href: "/over-thuismeester" },
     { label: "Aanmelden", href: "/aanmelden" },
     { label: "Contact", href: "/contact" },

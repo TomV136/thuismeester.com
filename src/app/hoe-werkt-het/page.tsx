@@ -56,29 +56,6 @@ const exampleScenario = [
     },
 ];
 
-const faqs = [
-    {
-        q: "Wanneer gaat Thuismeester van start?",
-        a: "De dienstverlening start in januari 2027, zodra er voldoende aanmeldingen zijn in Amersfoort en omstreken.",
-    },
-    {
-        q: "Wat kost Thuismeester?",
-        a: "Het vaste abonnement kost €10 per maand. Extra hulp en werkzaamheden worden uitgevoerd tegen uurtarief of op offertebasis.",
-    },
-    {
-        q: "In welke gebieden is Thuismeester actief?",
-        a: "In de eerste fase richt Thuismeester zich op Amersfoort, Leusden, Hoevelaken, Nijkerk en Soest.",
-    },
-    {
-        q: "Zit ik vast aan een contract bij aanmelding?",
-        a: "Nee. De aanmelding is volledig vrijblijvend en gratis. Je geeft alleen aan dat je geïnteresseerd bent.",
-    },
-    {
-        q: "Wat voor soort hulp kan ik verwachten?",
-        a: "Thuismeester helpt bij praktische zaken rondom je woning: van organisatievragen en onderhoud tot het vinden van betrouwbare vakmensen en coördinatie van klussen.",
-    },
-];
-
 /**
  * The top section. 
  */
@@ -140,38 +117,6 @@ function StepsSection(): JSX.Element {
                         </div>
                     </div>
                 ))}
-            </div>
-        </div>
-    </>);
-}
-
-/**
- * Sections containing FAQs.
- */
-function FAQsSection(): JSX.Element {
-    return (<>
-        <HouseSilhouette variant="stepped" className="right-0 w-80 text-white/[0.07]" />
-        <div className="section-wrapper">
-            <div className="mx-auto max-w-3xl">
-                <SectionLabel>Veelgestelde vragen</SectionLabel>
-                <h2 className="font-serif text-display-md font-semibold text-ink">
-                    Veel gestelde vragen
-                </h2>
-
-                <div className="mt-12 divide-y divide-beige-dark">
-                    {faqs.map(({ q, a }) => (
-                        <details key={q} className="group py-6">
-                            <summary className="flex cursor-pointer list-none items-center justify-between
-                                      gap-4 font-serif text-base font-semibold text-ink">
-                                {q}
-                                <span className="shrink-0 text-green transition-transform group-open:rotate-45">
-                                    +
-                                </span>
-                            </summary>
-                            <p className="mt-4 text-sm leading-relaxed text-ink-muted">{a}</p>
-                        </details>
-                    ))}
-                </div>
             </div>
         </div>
     </>);
@@ -270,10 +215,6 @@ export default function HoeWerktHetPage() {
 
             <section className="relative overflow-hidden bg-green py-section text-white">
                 <PracticalExampleSection />
-            </section>
-
-            <section className="bg-beige py-section">
-                <FAQsSection />
             </section>
 
             <section className="relative overflow-hidden bg-beige py-section">
