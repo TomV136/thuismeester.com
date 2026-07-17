@@ -2,6 +2,10 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Button from "@/components/Button";
 import SectionLabel from "@/components/SectionLabel";
+import iconCommunication from "@/media/communication.png";
+import iconTools from "@/media/tools.png";
+import iconTrustworthy from "@/media/trustworthy.png";
+import iconClipboard from "@/media/clipboard2.png";
 import { JSX } from "react";
 
 export const metadata: Metadata = {
@@ -18,25 +22,25 @@ const regio = ["Amersfoort", "Leusden", "Hoevelaken", "Nijkerk", "Soest"];
 // -------------------------------------------------------
 const services = [
     {
-        icon: "💬",
+        icon: iconCommunication,
         title: "Vast aanspreekpunt",
         body:
             "Één vertrouwde persoon die meedenkt bij praktische vragen rondom je woning.",
     },
     {
-        icon: "🔧",
+        icon: iconTools,
         title: "Onderhoud & organisatie",
         body:
             "Hulp bij onderhoud, kleine organisatievragen en zaken die aandacht vragen.",
     },
     {
-        icon: "🤝",
+        icon: iconTrustworthy,
         title: "Betrouwbare vakmensen",
         body:
             "Doorverwijzing naar goed gescreende vakmensen en begeleiding bij het traject.",
     },
     {
-        icon: "📋",
+        icon: iconClipboard,
         title: "Coördinatie",
         body:
             "Coordinatie bij terugkerende of losse woningzaken, zodat jij er niet aan hoeft te denken.",
@@ -307,7 +311,13 @@ function ServicesSummarySection(): JSX.Element {
                         className="flex flex-col gap-4 border border-beige-dark bg-white p-8
                            transition-shadow hover:shadow-sm"
                     >
-                        <span className="text-2xl" aria-hidden="true">{d.icon}</span>
+                        <Image
+                            src={d.icon}
+                            alt=""
+                            aria-hidden="true"
+                            className="h-14 w-14"
+                            sizes="56px"
+                        />
                         <h3 className="font-serif text-lg font-semibold text-ink">
                             {d.title}
                         </h3>
