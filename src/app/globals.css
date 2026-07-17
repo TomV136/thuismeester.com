@@ -74,4 +74,23 @@
     .text-balance {
         text-wrap: balance;
     }
+
+    /**
+   * .scrollbar-hidden
+   * Hides the scrollbar of a scroll container without disabling scrolling.
+   * Used by the services carousel on /diensten, where the arrow buttons
+   * (plus touch/trackpad swiping) are the intended way to move through
+   * the cards — a visible scrollbar underneath would just add noise.
+   */
+    .scrollbar-hidden {
+        scrollbar-width: none;
+        /* Firefox */
+        -ms-overflow-style: none;
+        /* old Edge/IE */
+    }
+
+    .scrollbar-hidden::-webkit-scrollbar {
+        display: none;
+        /* Chrome/Safari */
+    }
 }

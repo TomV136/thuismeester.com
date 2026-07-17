@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Button from "@/components/Button";
 import SectionLabel from "@/components/SectionLabel";
+import ServicesCarousel from "@/components/ServicesCarousel";
 import { JSX } from "react";
 
 export const metadata: Metadata = {
@@ -89,29 +90,15 @@ function TopSection(): JSX.Element {
 
 /**
  * Section showing all services that thuismeester offers.
- * Services arranged in a grid.
+ * Services arranged in a carousel.
  */
 function ServicesSection(): JSX.Element {
     return (<>
-        <div className="section-wrapper">
-            <div className="grid gap-px bg-beige-dark sm:grid-cols-2 lg:grid-cols-3">
-                {services.map((service) => (
-                    <div
-                        key={service.title}
-                        className="flex flex-col gap-4 bg-white p-10 transition-shadow hover:shadow-sm"
-                    >
-                        <h2 className="font-serif text-xl font-semibold text-ink">
-                            {service.title}
-                        </h2>
-                        <p className="text-sm leading-relaxed text-ink-muted">
-                            {service.description}
-                        </p>
-                        <p className="mt-auto pt-4 text-xs leading-relaxed text-ink-muted/70 border-t border-beige-dark">
-                            {service.detail}
-                        </p>
-                    </div>
-                ))}
-            </div>
+        {/* Shifted left of centre. Adjust the pixel value to taste; only
+          Tailwind's own steps (…-6, …-24, …-48) or an arbitrary [value]
+          work here — a made-up step like -translate-x-50 generates nothing. */}
+        <div className="section-wrapper lg:-translate-x-[200px]">
+            <ServicesCarousel services={services} />
         </div>
     </>);
 }
