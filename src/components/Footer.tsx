@@ -17,7 +17,6 @@ export default function Footer() {
         <footer className="bg-green text-white">
             <div className="section-wrapper py-16">
                 <div className="grid gap-12 md:grid-cols-3">
-                    {/* Brand column */}
                     <div>
                         <p className="font-serif text-xl font-semibold tracking-tight">
                             Thuismeester
@@ -26,15 +25,11 @@ export default function Footer() {
                             Jouw vaste aanspreekpunt voor praktische hulp en organisatie
                             rondom je woning.
                         </p>
-                        {/* -------------------------------------------------------
-                Region label — edit REGION_NOTE at top of this file
-                ------------------------------------------------------- */}
                         <p className="mt-4 text-xs uppercase tracking-widest text-white/50">
                             {REGION_NOTE}
                         </p>
                     </div>
 
-                    {/* Navigation column */}
                     <div>
                         <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-white/50">
                             Navigatie
@@ -53,12 +48,10 @@ export default function Footer() {
                         </ul>
                     </div>
 
-                    {/* Contact column */}
                     <div>
                         <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-white/50">
                             Contact
                         </p>
-                        {/* Pre-launch note */}
                         <div className="rounded-sm border border-white/20 p-4">
                             <p className="text-xs leading-relaxed text-white/60">
                                 Thuismeester start in januari 2027 bij voldoende aanmeldingen
@@ -68,7 +61,6 @@ export default function Footer() {
                     </div>
                 </div>
 
-                {/* Bottom bar */}
                 <div className="mt-12 border-t border-white/15 pt-6 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
                     <p className="text-xs text-white/40">
                         © {year} Thuismeester. Alle rechten voorbehouden.

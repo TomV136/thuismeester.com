@@ -4,9 +4,6 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-// -------------------------------------------------------
-// Navigation links — edit text and hrefs here
-// -------------------------------------------------------
 const navLinks = [
     { label: "Hoe werkt het", href: "/hoe-werkt-het" },
     { label: "Diensten", href: "/diensten" },
@@ -19,14 +16,12 @@ export default function Navigation() {
     const [scrolled, setScrolled] = useState(false);
     const pathname = usePathname();
 
-    // Add a subtle shadow once the user scrolls
     useEffect(() => {
         const handleScroll = () => setScrolled(window.scrollY > 16);
         window.addEventListener("scroll", handleScroll, { passive: true });
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
-    // Close mobile menu on route change
     useEffect(() => { setMenuOpen(false); }, [pathname]);
 
     return (
@@ -35,7 +30,7 @@ export default function Navigation() {
                 }`}
         >
             <nav className="section-wrapper flex h-16 items-center justify-between md:h-20">
-                {/* Logo / wordmark */}
+
                 <Link
                     href="/"
                     className="font-serif text-xl font-semibold text-green tracking-tight"
@@ -43,7 +38,6 @@ export default function Navigation() {
                     Thuismeester
                 </Link>
 
-                {/* Desktop links */}
                 <ul className="hidden items-center gap-8 md:flex">
                     {navLinks.map((link) => (
                         <li key={link.href}>
@@ -60,7 +54,6 @@ export default function Navigation() {
                     ))}
                 </ul>
 
-                {/* Desktop CTA */}
                 <div className="hidden md:block">
                     <Link
                         href="/aanmelden"
@@ -71,7 +64,6 @@ export default function Navigation() {
                     </Link>
                 </div>
 
-                {/* Mobile hamburger */}
                 <button
                     aria-label="Menu openen"
                     className="flex flex-col gap-1.5 p-2 md:hidden"
@@ -92,7 +84,6 @@ export default function Navigation() {
                 </button>
             </nav>
 
-            {/* Mobile menu drawer */}
             {menuOpen && (
                 <div className="border-t border-beige-dark bg-beige-light md:hidden">
                     <ul className="section-wrapper flex flex-col gap-4 py-6">
