@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Button from "@/components/Button";
 import SectionLabel from "@/components/SectionLabel";
+import HouseSilhouette from "@/components/HouseSilhouette";
 import iconCommunication from "@/media/communication.png";
 import iconTools from "@/media/tools.png";
 import iconTrustworthy from "@/media/trustworthy.png";
@@ -124,6 +125,7 @@ function TopSection(): JSX.Element {
  */
 function RegionsSection(): JSX.Element {
     return (<>
+        <HouseSilhouette variant="gable" className="right-0 w-96 text-green/[0.08]" />
         <div className="section-wrapper">
             <div className="mx-auto max-w-3xl text-center">
                 <SectionLabel>Lokaal</SectionLabel>
@@ -157,6 +159,7 @@ function RegionsSection(): JSX.Element {
  */
 function ProblemSection(): JSX.Element {
     return (<>
+        <HouseSilhouette variant="stepped" className="right-0 w-80 text-green/[0.07]" />
         <div className="section-wrapper">
             <div className="grid items-center gap-16 lg:grid-cols-2">
                 {/* Text */}
@@ -209,6 +212,7 @@ function ProblemSection(): JSX.Element {
  */
 function SolutionsSection(): JSX.Element {
     return (<>
+        <HouseSilhouette variant="row" className="right-0 w-[36rem] text-white/[0.07]" />
         <div className="section-wrapper">
             <div className="grid items-center gap-16 lg:grid-cols-2">
                 {/* Image block — left on desktop */}
@@ -253,6 +257,7 @@ function SolutionsSection(): JSX.Element {
  */
 function HowItWorksSummarySection(): JSX.Element {
     return (<>
+        <HouseSilhouette variant="tall" className="right-0 w-96 text-green/[0.08]" />
         <div className="section-wrapper">
             <div className="mx-auto max-w-3xl text-center">
                 <SectionLabel>Werkwijze</SectionLabel>
@@ -292,6 +297,7 @@ function HowItWorksSummarySection(): JSX.Element {
  */
 function ServicesSummarySection(): JSX.Element {
     return (<>
+        <HouseSilhouette variant="gable" className="right-0 w-72 text-green/[0.07]" />
         <div className="section-wrapper">
             <div className="mx-auto max-w-3xl text-center">
                 <SectionLabel>Diensten</SectionLabel>
@@ -340,6 +346,7 @@ function ServicesSummarySection(): JSX.Element {
  */
 function PricingInfoSection(): JSX.Element {
     return (<>
+        <HouseSilhouette variant="stepped" className="right-0 w-96 text-green/[0.08]" />
         <div className="section-wrapper">
             <div className="mx-auto max-w-4xl">
                 <div className="grid items-center gap-12 lg:grid-cols-2">
@@ -406,6 +413,7 @@ function PreLaunchInfoSection(): JSX.Element {
             sizes="100vw"
         />
         <div className="absolute inset-0 bg-green/85" />
+        <HouseSilhouette variant="gable" className="right-0 w-80 text-white/[0.09]" />
 
         <div className="section-wrapper relative z-10">
             <div className="mx-auto max-w-2xl text-center text-white">
@@ -430,6 +438,7 @@ function PreLaunchInfoSection(): JSX.Element {
  */
 function FinalSection(): JSX.Element {
     return (<>
+        <HouseSilhouette variant="row" className="right-0 w-[32rem] text-green/[0.07]" />
         <div className="section-wrapper">
             <div className="mx-auto max-w-2xl text-center">
                 <h2 className="font-serif text-display-lg font-semibold text-ink">

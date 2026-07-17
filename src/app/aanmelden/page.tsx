@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import SectionLabel from "@/components/SectionLabel";
 import RegisterForm from "@/components/RegisterForm";
+import HouseSilhouette from "@/components/HouseSilhouette";
 import { JSX } from "react";
 
 export const metadata: Metadata = {
@@ -17,6 +18,7 @@ const regions = ["Amersfoort", "Leusden", "Hoevelaken", "Nijkerk", "Soest"];
  */
 function TopSection(): JSX.Element {
     return (<>
+        <HouseSilhouette variant="row" className="right-0 w-[32rem] text-white/[0.08]" />
         <div className="section-wrapper">
             <SectionLabel>
                 <span className="text-white/60">Inschrijven</span>
@@ -121,6 +123,7 @@ export default function AanmeldenPage() {
             </section>
 
             <section className="bg-beige-light py-section">
+                <HouseSilhouette variant="stepped" className="right-0 w-80 text-green/[0.07]" />
                 <div className="section-wrapper">
                     <div className="grid items-start gap-16 lg:grid-cols-[1fr_380px]">
                         <Form />

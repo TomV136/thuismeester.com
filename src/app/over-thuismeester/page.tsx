@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Button from "@/components/Button";
 import SectionLabel from "@/components/SectionLabel";
+import HouseSilhouette from "@/components/HouseSilhouette";
 import { JSX } from "react";
 
 export const metadata: Metadata = {
@@ -49,6 +50,7 @@ function TopSection(): JSX.Element {
             className="object-cover object-center opacity-20"
             sizes="100vw"
         />
+        <HouseSilhouette variant="gable" className="right-0 w-80 text-white/[0.08]" />
         <div className="section-wrapper relative z-10">
             <SectionLabel>
                 <span className="text-white/60">Over ons</span>
@@ -69,6 +71,7 @@ function TopSection(): JSX.Element {
  */
 function StorySection(): JSX.Element {
     return (<>
+        <HouseSilhouette variant="stepped" className="right-0 w-80 text-green/[0.07]" />
         <div className="section-wrapper">
             <div className="grid items-center gap-16 lg:grid-cols-2">
                 <div>
@@ -116,6 +119,7 @@ function StorySection(): JSX.Element {
  */
 function ValuesSection(): JSX.Element {
     return (<>
+        <HouseSilhouette variant="gable" className="right-0 w-72 text-green/[0.07]" />
         <div className="section-wrapper">
             <div className="mx-auto max-w-3xl text-center">
                 <SectionLabel>Kernwaarden</SectionLabel>
@@ -145,6 +149,7 @@ function ValuesSection(): JSX.Element {
  */
 function FillerSection(): JSX.Element {
     return (<>
+        <HouseSilhouette variant="stepped" className="right-0 w-72 text-green/[0.07]" />
         <div className="section-wrapper">
             <div className="grid gap-6 sm:grid-cols-2">
                 <div className="relative aspect-square overflow-hidden">
@@ -179,6 +184,7 @@ function FillerSection(): JSX.Element {
  */
 function GeneralInfoSection(): JSX.Element {
     return (<>
+        <HouseSilhouette variant="row" className="right-0 w-[36rem] text-white/[0.07]" />
         <div className="section-wrapper">
             <div className="mx-auto max-w-3xl">
                 <SectionLabel>
@@ -208,6 +214,7 @@ function GeneralInfoSection(): JSX.Element {
  */
 function BrochureSection(): JSX.Element {
     return (<>
+        <HouseSilhouette variant="gable" className="right-0 w-80 text-green/[0.08]" />
         <div className="section-wrapper">
             <div className="mx-auto max-w-2xl border border-dashed border-beige-dark bg-white p-10 text-center">
                 <SectionLabel>Binnenkort</SectionLabel>

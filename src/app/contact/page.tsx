@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import SectionLabel from "@/components/SectionLabel";
 import ContactForm from "@/components/ContactForm";
+import HouseSilhouette from "@/components/HouseSilhouette";
 import { JSX } from "react";
 
 export const metadata: Metadata = {
@@ -15,6 +16,7 @@ export const metadata: Metadata = {
  */
 function TopSection(): JSX.Element {
     return (<>
+        <HouseSilhouette variant="stepped" className="right-0 w-72 text-white/[0.08]" />
         <div className="section-wrapper">
             <SectionLabel>
                 <span className="text-white/60">Bereikbaarheid</span>
@@ -101,6 +103,7 @@ export default function ContactPage() {
             </section>
 
             <section className="bg-beige-light py-section">
+                <HouseSilhouette variant="gable" className="right-0 w-80 text-green/[0.07]" />
                 <div className="section-wrapper">
                     <div className="grid items-start gap-16 lg:grid-cols-[1fr_340px]">
                         <Form />

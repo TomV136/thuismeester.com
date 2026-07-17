@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Button from "@/components/Button";
 import SectionLabel from "@/components/SectionLabel";
+import HouseSilhouette from "@/components/HouseSilhouette";
 import { JSX } from "react";
 
 export const metadata: Metadata = {
@@ -68,6 +69,7 @@ const faqs = [
  */
 function TopSection(): JSX.Element {
     return (<>
+        <HouseSilhouette variant="tall" className="right-0 w-80 text-white/[0.08]" />
         <div className="section-wrapper">
             <SectionLabel>
                 <span className="text-white/60">Werkwijze</span>
@@ -88,6 +90,7 @@ function TopSection(): JSX.Element {
  */
 function StepsSection(): JSX.Element {
     return (<>
+        <HouseSilhouette variant="gable" className="right-0 w-96 text-green/[0.07]" />
         <div className="section-wrapper">
             <div className="space-y-28">
                 {steps.map((step, i) => (
@@ -131,6 +134,7 @@ function StepsSection(): JSX.Element {
  */
 function FAQsSection(): JSX.Element {
     return (<>
+        <HouseSilhouette variant="stepped" className="right-0 w-80 text-white/[0.07]" />
         <div className="section-wrapper">
             <div className="mx-auto max-w-3xl">
                 <SectionLabel>Veelgestelde vragen</SectionLabel>
@@ -162,6 +166,7 @@ function FAQsSection(): JSX.Element {
  */
 function FinalSection(): JSX.Element {
     return (<>
+        <HouseSilhouette variant="row" className="right-0 w-[32rem] text-green/[0.08]" />
         <div className="section-wrapper text-center">
             <h2 className="font-serif text-2xl font-semibold">
                 Klaar om je in te schrijven?

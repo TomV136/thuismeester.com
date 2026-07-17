@@ -3,6 +3,7 @@ import Image from "next/image";
 import Button from "@/components/Button";
 import SectionLabel from "@/components/SectionLabel";
 import ServicesCarousel from "@/components/ServicesCarousel";
+import HouseSilhouette from "@/components/HouseSilhouette";
 import { JSX } from "react";
 
 export const metadata: Metadata = {
@@ -73,6 +74,7 @@ function TopSection(): JSX.Element {
             className="object-cover object-center opacity-20"
             sizes="100vw"
         />
+        <HouseSilhouette variant="stepped" className="right-0 w-80 text-white/[0.08]" />
         <div className="section-wrapper relative z-10">
             <SectionLabel>
                 <span className="text-white/60">Wat we doen</span>
@@ -94,6 +96,7 @@ function TopSection(): JSX.Element {
  */
 function ServicesSection(): JSX.Element {
     return (<>
+        <HouseSilhouette variant="gable" className="right-0 w-[26rem] text-green/[0.07]" />
         {/* Shifted left of centre. Adjust the pixel value to taste; only
           Tailwind's own steps (…-6, …-24, …-48) or an arbitrary [value]
           work here — a made-up step like -translate-x-50 generates nothing. */}
@@ -108,6 +111,7 @@ function ServicesSection(): JSX.Element {
  */
 function WhatDoesThuismeesterNotDoSection(): JSX.Element {
     return (<>
+        <HouseSilhouette variant="tall" className="right-0 w-96 text-green/[0.08]" />
         <div className="section-wrapper">
             <div className="mx-auto max-w-3xl">
                 <SectionLabel>Afbakening</SectionLabel>
@@ -131,6 +135,7 @@ function WhatDoesThuismeesterNotDoSection(): JSX.Element {
  */
 function PricingSection(): JSX.Element {
     return (<>
+        <HouseSilhouette variant="row" className="right-0 w-[36rem] text-white/[0.07]" />
         <div className="section-wrapper">
             <div className="grid items-center gap-12 lg:grid-cols-2">
                 <div className="relative aspect-[4/3] overflow-hidden">
