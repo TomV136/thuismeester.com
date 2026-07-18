@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import SectionLabel from "@/components/SectionLabel";
 import HouseSilhouette from "@/components/HouseSilhouette";
 import { JSX } from "react";
@@ -162,6 +163,43 @@ function FAQsSection(): JSX.Element {
 }
 
 /**
+ * Section asking user if they want to sign up.
+ */
+function PricingInfoSection(): JSX.Element {
+    return (<>
+        <HouseSilhouette variant="row" className="right-0 w-[32rem] text-green/[0.08]" />
+        <div className="section-wrapper">
+            <div className="mx-auto max-w-3xl">
+                <SectionLabel>Helder afgesproken</SectionLabel>
+                <h2 className="font-serif text-display-md font-semibold text-ink">
+                    Wat het kost, en wat niet
+                </h2>
+                <p className="mt-6 max-w-prose text-base leading-relaxed text-ink-muted">
+                    Het abonnement kost <strong className="text-ink">€10 per maand</strong>.
+                    Daarvoor heb je een vaste Thuismeester die jou en je woning kent,
+                    die meedenkt bij vragen en beslissingen, en die je toegang geeft
+                    tot een netwerk van gescreende vakmensen. Aanmelden vóór de start
+                    is gratis en verplicht je tot niets.
+                </p>
+                <p className="mt-4 max-w-prose text-base leading-relaxed text-ink-muted">
+                    Uitvoerend werk — door een vakman of extra hulp van je
+                    Thuismeester — valt buiten het abonnement en wordt altijd vooraf
+                    besproken: tegen uurtarief of op offertebasis. Je komt dus nooit
+                    voor verrassingen te staan.
+                </p>
+                <p className="mt-6 max-w-prose text-sm leading-relaxed text-ink-muted">
+                    Meer weten? Bekijk de{" "}
+                    <Link href="/veelgestelde-vragen" className="font-medium text-green underline underline-offset-2 hover:text-green-light">
+                        veelgestelde vragen
+                    </Link>
+                    .
+                </p>
+            </div>
+        </div>
+    </>);
+}
+
+/**
  * @returns the 'how does it work' page
  */
 export default function HoeWerktHetPage() {
@@ -177,6 +215,10 @@ export default function HoeWerktHetPage() {
 
             <section className="bg-beige py-section">
                 <FAQsSection />
+            </section>
+
+            <section className="relative overflow-hidden bg-beige py-section">
+                <PricingInfoSection />
             </section>
         </>
     );
