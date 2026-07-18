@@ -114,6 +114,68 @@ function StorySection(): JSX.Element {
 }
 
 /**
+ * Section containing about the founder.
+ */
+function AboutFounderSection(): JSX.Element {
+    return (<>
+        <HouseSilhouette variant="tall" className="right-0 w-96 text-green/[0.08]" />
+        <div className="section-wrapper">
+            <div className="grid items-center gap-16 lg:grid-cols-[380px_1fr]">
+                {/* Portrait */}
+                <div className="relative mx-auto aspect-[3/4] w-full max-w-sm overflow-hidden shadow-sm">
+                    <Image
+                        src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=800&q=80"
+                        alt="[NAAM], oprichter van Thuismeester"
+                        fill
+                        className="object-cover object-center"
+                        sizes="(min-width: 1024px) 380px, 100vw"
+                    />
+                </div>
+
+                {/* Bio */}
+                <div>
+                    <SectionLabel>De oprichter</SectionLabel>
+                    <h2 className="font-serif text-display-md font-semibold text-ink">
+                        Aangenaam: [NAAM], jouw Thuismeester
+                    </h2>
+                    <div className="mt-6 space-y-5 max-w-prose text-base leading-relaxed text-ink-muted">
+                        <p>
+                            Thuismeester is het initiatief van [NAAM], geboren en
+                            getogen in [PLAATS — bijv. de regio Amersfoort]. Na
+                            [ACHTERGROND — bijv. jaren ervaring in techniek, bouw of
+                            facilitaire dienstverlening] zag hij hoe vaak bewoners
+                            vastlopen op precies hetzelfde: geen tijd, geen overzicht en
+                            geen betrouwbare vakman in het adresboek.
+                        </p>
+                        <p>
+                            [PERSOONLIJKE MOTIVATIE — bijv. &ldquo;Toen mijn ouders
+                            ouder werden, merkte ik hoeveel rust het gaf dat er iemand
+                            was die alles rondom hun huis in de gaten hield. Dat gun ik
+                            iedere bewoner.&rdquo;]
+                        </p>
+                        <p>
+                            Als Thuismeester is hij straks het vaste gezicht voor
+                            bewoners in de regio: de persoon die je belt bij een vraag,
+                            die de juiste vakman regelt en die zorgt dat afspraken
+                            worden nagekomen. Persoonlijk kennismaken? Dat kan altijd —
+                            stuur gerust een bericht via de contactpagina.
+                        </p>
+                    </div>
+
+                    {/* Signature-style closing */}
+                    <p className="mt-8 font-serif text-xl italic text-ink">
+                        [NAAM]
+                    </p>
+                    <p className="text-sm text-ink-muted">
+                        Oprichter van Thuismeester
+                    </p>
+                </div>
+            </div>
+        </div>
+    </>);
+}
+
+/**
  * Section containing the values of thuismeester.
  */
 function ValuesSection(): JSX.Element {
@@ -217,6 +279,9 @@ export default function OverThuismeesterPage() {
             </section>
             <section className="relative overflow-hidden bg-beige-light py-section">
                 <StorySection />
+            </section>
+            <section className="relative overflow-hidden bg-beige py-section">
+                <AboutFounderSection />
             </section>
             <section className="relative overflow-hidden bg-beige-light py-section">
                 <ValuesSection />
