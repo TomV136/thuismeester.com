@@ -64,6 +64,13 @@ export default function Footer() {
                 <div className="mt-12 border-t border-white/15 pt-6 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
                     <p className="text-xs text-white/40">
                         © {year} Thuismeester. Alle rechten voorbehouden.
+                        {" · "}
+                        <Link
+                            href="/privacybeleid"
+                            className="underline transition-colors hover:text-white/70"
+                        >
+                            Privacybeleid
+                        </Link>
                     </p>
                     <p className="text-xs text-white/40">
                         {REGION_NOTE}

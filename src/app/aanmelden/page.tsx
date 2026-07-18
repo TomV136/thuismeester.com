@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import SectionLabel from "@/components/SectionLabel";
 import RegisterForm from "@/components/RegisterForm";
 import HouseSilhouette from "@/components/HouseSilhouette";
@@ -57,7 +58,10 @@ function Form(): JSX.Element {
                 Wij starten zodra er voldoende aanmeldingen zijn in Amersfoort
                 en omstreken. Je gegevens worden vertrouwelijk behandeld en
                 alleen gebruikt voor communicatie over de start van
-                Thuismeester.
+                Thuismeester. Lees meer in ons{" "}
+                <Link href="/privacybeleid" className="underline hover:text-ink">
+                    privacybeleid
+                </Link>.
             </p>
         </div>
     </>);
