@@ -236,26 +236,6 @@ function BrochureSection(): JSX.Element {
     </>);
 }
 
-/**
- * Section asking the user if they want to sign up.
- */
-function FinalSection(): JSX.Element {
-    return (<>
-        <div className="section-wrapper text-center">
-            <h2 className="font-serif text-2xl font-semibold text-ink">
-                Interesse in Thuismeester?
-            </h2>
-            <p className="mt-3 text-ink-muted">
-                Schrijf je vrijblijvend in voor de start in jouw regio.
-            </p>
-            <div className="mt-6 flex flex-wrap justify-center gap-4">
-                <Button href="/aanmelden" size="lg">Aanmelden</Button>
-                <Button href="/contact" variant="outline" size="lg">Contact</Button>
-            </div>
-        </div>
-    </>);
-}
-
 export default function OverThuismeesterPage() {
     return (
         <>
@@ -276,9 +256,6 @@ export default function OverThuismeesterPage() {
             </section>
             <section className="bg-beige py-section">
                 <BrochureSection />
-            </section>
-            <section className="bg-beige-light py-section-sm">
-                <FinalSection />
             </section>
         </>
     );
