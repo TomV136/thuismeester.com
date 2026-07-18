@@ -100,7 +100,8 @@ function StepsSection(): JSX.Element {
                     >
                         {/* Text */}
                         <div>
-                            <p className="font-serif text-6xl font-semibold leading-none text-green/15">
+                            {/* Oversized step number in the faded accent purple */}
+                            <p className="font-serif text-6xl font-semibold leading-none text-purple/25">
                                 {step.number}
                             </p>
                             <h2 className="mt-4 font-serif text-display-md font-semibold text-ink">
@@ -166,11 +167,11 @@ function FAQsSection(): JSX.Element {
 export default function HoeWerktHetPage() {
     return (
         <>
-            <section className="bg-green py-20 text-white">
+            <section className="relative overflow-hidden bg-green py-20 text-white">
                 <TopSection />
             </section>
 
-            <section className="bg-beige-light py-section">
+            <section className="relative overflow-hidden bg-beige-light py-section">
                 <StepsSection />
             </section>
 

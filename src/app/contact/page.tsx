@@ -37,7 +37,7 @@ function TopSection(): JSX.Element {
  */
 function Form(): JSX.Element {
     return (<>
-        <div className="bg-white p-8 shadow-sm sm:p-12">
+        <div className="bg-white p-8 shadow-accent-l-lg sm:p-12">
             <h2 className="font-serif text-2xl font-semibold text-ink">
                 Stuur een bericht
             </h2>
@@ -98,11 +98,11 @@ function Sidebar(): JSX.Element {
 export default function ContactPage() {
     return (
         <>
-            <section className="bg-green py-20 text-white">
+            <section className="relative overflow-hidden bg-green py-20 text-white">
                 <TopSection />
             </section>
 
-            <section className="bg-beige-light py-section">
+            <section className="relative overflow-hidden bg-beige-light py-section">
                 <HouseSilhouette variant="gable" className="right-0 w-80 text-green/[0.07]" />
                 <div className="section-wrapper">
                     <div className="grid items-start gap-16 lg:grid-cols-[1fr_340px]">

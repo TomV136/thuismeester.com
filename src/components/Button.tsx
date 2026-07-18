@@ -14,11 +14,11 @@ interface ButtonProps {
 
 const variantClasses = {
     primary:
-        "bg-green text-white hover:bg-green-light focus-visible:ring-green",
+        "bg-green text-white shadow-accent-b hover:bg-green-light hover:translate-y-[3px] active:bg-purple-light focus-visible:ring-green",
     outline:
-        "border border-green text-green bg-transparent hover:bg-green hover:text-white focus-visible:ring-green",
+        "border border-green text-green bg-transparent shadow-accent-b hover:bg-green hover:text-white hover:translate-y-[3px] active:border-purple-light active:bg-purple-light active:text-white focus-visible:ring-green",
     ghost:
-        "text-green underline underline-offset-4 hover:text-green-light focus-visible:ring-green",
+        "text-green underline underline-offset-4 hover:text-purple active:text-purple-light focus-visible:ring-green",
 };
 
 const sizeClasses = {
@@ -39,7 +39,7 @@ export default function Button({
 }: ButtonProps) {
     const base = [
         "inline-flex items-center justify-center font-medium tracking-wide",
-        "transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2",
+        "transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2",
         variantClasses[variant],
         sizeClasses[size],
         disabled ? "opacity-50 cursor-not-allowed pointer-events-none" : "",

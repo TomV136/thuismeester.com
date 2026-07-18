@@ -143,7 +143,8 @@ function RegionsSection(): JSX.Element {
                     {regio.map((plaats) => (
                         <li key={plaats}>
                             <span className="inline-block rounded-full border border-green/30 bg-beige-light
-                                   px-5 py-2 font-serif text-sm font-medium text-ink">
+                                   px-5 py-2 font-serif text-sm font-medium text-ink
+                                   transition-colors duration-150 hover:border-green/60">
                                 {plaats}
                             </span>
                         </li>
@@ -269,7 +270,8 @@ function HowItWorksSummarySection(): JSX.Element {
             <div className="mt-16 grid gap-8 sm:grid-cols-3">
                 {steps.map((step) => (
                     <div key={step.number} className="relative pl-0 text-left">
-                        <p className="font-serif text-5xl font-semibold text-green/20 leading-none">
+                        {/* Oversized step number in the accent purple, well faded */}
+                        <p className="font-serif text-5xl font-semibold text-purple/30 leading-none">
                             {step.number}
                         </p>
                         <h3 className="mt-4 font-serif text-xl font-semibold text-ink">
@@ -315,7 +317,7 @@ function ServicesSummarySection(): JSX.Element {
                     <div
                         key={d.title}
                         className="flex flex-col gap-4 border border-beige-dark bg-white p-8
-                           transition-shadow hover:shadow-sm"
+                           transition-all duration-150 hover:shadow-accent-l"
                     >
                         <Image
                             src={d.icon}
@@ -366,8 +368,9 @@ function PricingInfoSection(): JSX.Element {
                         </p>
                     </div>
 
-                    {/* Pricing card */}
-                    <div className="border border-beige-dark bg-white p-10">
+                    {/* Pricing card — carries the wide purple left-edge accent so the
+                  price block is the clear focal point of this section */}
+                    <div className="border border-beige-dark bg-white p-10 shadow-accent-l-lg">
                         <p className="text-xs font-semibold uppercase tracking-widest text-ink-muted">
                             Maandelijks abonnement
                         </p>
@@ -470,28 +473,28 @@ export default function HomePage(): JSX.Element {
             < section className="relative flex min-h-[90vh] items-end bg-green" >
                 <TopSection />
             </section >
-            <section className="bg-beige py-section">
+            <section className="relative overflow-hidden bg-beige py-section">
                 <RegionsSection />
             </section>
-            <section className="bg-beige-light py-section">
+            <section className="relative overflow-hidden bg-beige-light py-section">
                 <ProblemSection />
             </section>
-            <section className="bg-green py-section text-white">
+            <section className="relative overflow-hidden bg-green py-section text-white">
                 <SolutionsSection />
             </section>
-            <section className="bg-beige py-section" id="hoe-werkt-het">
+            <section className="relative overflow-hidden bg-beige py-section" id="hoe-werkt-het">
                 <HowItWorksSummarySection />
             </section>
-            <section className="bg-beige-light py-section">
+            <section className="relative overflow-hidden bg-beige-light py-section">
                 <ServicesSummarySection />
             </section>
-            <section className="bg-beige py-section">
+            <section className="relative overflow-hidden bg-beige py-section">
                 <PricingInfoSection />
             </section>
-            <section className="relative py-section">
+            <section className="relative overflow-hidden py-section">
                 <PreLaunchInfoSection />
             </section>
-            <section className="bg-beige-light py-section">
+            <section className="relative overflow-hidden bg-beige-light py-section">
                 <FinalSection />
             </section>
         </>

@@ -128,8 +128,9 @@ function ValuesSection(): JSX.Element {
             </div>
 
             <div className="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+                {/* Each core value card has a purple left border as accent line */}
                 {values.map((v) => (
-                    <div key={v.title} className="border-t-2 border-green pt-6">
+                    <div key={v.title} className="border-l-2 border-purple pl-5">
                         <h3 className="font-serif text-xl font-semibold text-ink">
                             {v.title}
                         </h3>
@@ -214,16 +215,16 @@ export default function OverThuismeesterPage() {
             <section className="relative overflow-hidden bg-green py-28 text-white">
                 <TopSection />
             </section>
-            <section className="bg-beige-light py-section">
+            <section className="relative overflow-hidden bg-beige-light py-section">
                 <StorySection />
             </section>
-            <section className="bg-beige py-section">
+            <section className="relative overflow-hidden bg-beige-light py-section">
                 <ValuesSection />
             </section>
-            <section className="bg-beige-light py-section">
+            <section className="relative overflow-hidden bg-green py-section text-white">
                 <FillerSection />
             </section>
-            <section className="bg-green py-section text-white">
+            <section className="relative overflow-hidden bg-beige-light py-section">
                 <GeneralInfoSection />
             </section>
         </>

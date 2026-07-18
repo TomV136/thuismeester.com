@@ -182,15 +182,15 @@ export default function ServicesPage() {
                 <TopSection />
             </section>
 
-            <section className="bg-beige-light py-section">
+            <section className="relative overflow-hidden bg-beige-light py-section">
                 <ServicesSection />
             </section>
 
-            <section className="bg-beige py-section">
+            <section className="relative overflow-hidden bg-beige py-section">
                 <WhatDoesThuismeesterNotDoSection />
             </section>
 
-            <section className="bg-green py-section text-white">
+            <section className="relative overflow-hidden bg-green py-section text-white">
                 <PricingSection />
             </section>
         </>
