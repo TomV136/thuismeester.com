@@ -9,8 +9,13 @@ const navLinks = [
     { label: "Diensten", href: "/diensten" },
     { label: "Veelgestelde vragen", href: "/veelgestelde-vragen" },
     { label: "Over Thuismeester", href: "/over-thuismeester" },
-    { label: "Contact", href: "/contact" },
 ];
+
+const ctaLinks = [
+    { label: "Contact", href: "/contact" },
+    { label: "Aanmelden", href: "/aanmelden" },
+];
+
 
 export default function Navigation() {
     const [menuOpen, setMenuOpen] = useState(false);
@@ -61,16 +66,20 @@ export default function Navigation() {
                     ))}
                 </ul>
 
-                <div className="hidden lg:block">
-                    <Link
-                        href="/aanmelden"
-                        className="inline-block bg-green px-5 py-2.5 text-sm font-medium text-white shadow-accent-b
-                       transition-all duration-150 hover:bg-green-light
-                       hover:translate-y-[3px] active:bg-purple-light"
-                    >
-                        Aanmelden
-                    </Link>
+                <div className="hidden items-center gap-3 lg:flex">
+                    {ctaLinks.map((link) => (
+                        <Link
+                            key={link.href}
+                            href={link.href}
+                            className="inline-block bg-green px-5 py-2.5 text-sm font-medium text-white shadow-accent-b
+                         transition-all duration-150 hover:bg-green-light
+                         hover:translate-y-[3px] active:bg-purple-light"
+                        >
+                            {link.label}
+                        </Link>
+                    ))}
                 </div>
+
 
                 <button
                     aria-label="Menu openen"   // accessibility: screen reader label
@@ -109,15 +118,18 @@ export default function Navigation() {
                                 </Link>
                             </li>
                         ))}
-                        <li className="pt-2">
-                            <Link
-                                href="/aanmelden"
-                                onClick={closeMenu}
-                                className="inline-block w-full bg-green px-5 py-3 text-center text-sm
-                           font-medium text-white transition-colors hover:bg-green-light"
-                            >
-                                Aanmelden
-                            </Link>
+                        <li className="flex flex-col gap-3 pt-2">
+                            {ctaLinks.map((link) => (
+                                <Link
+                                    key={link.href}
+                                    href={link.href}
+                                    onClick={closeMenu}
+                                    className="inline-block w-full bg-green px-5 py-3 text-center text-sm
+                             font-medium text-white transition-colors hover:bg-green-light"
+                                >
+                                    {link.label}
+                                </Link>
+                            ))}
                         </li>
                     </ul>
                 </div>
