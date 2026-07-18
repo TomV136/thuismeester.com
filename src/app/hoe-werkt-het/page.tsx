@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Button from "@/components/Button";
 import SectionLabel from "@/components/SectionLabel";
 import HouseSilhouette from "@/components/HouseSilhouette";
 import { JSX } from "react";
@@ -162,27 +161,6 @@ function FAQsSection(): JSX.Element {
 }
 
 /**
- * Section asking user if they want to sign up.
- */
-function FinalSection(): JSX.Element {
-    return (<>
-        <HouseSilhouette variant="row" className="right-0 w-[32rem] text-green/[0.08]" />
-        <div className="section-wrapper text-center">
-            <h2 className="font-serif text-2xl font-semibold">
-                Klaar om je in te schrijven?
-            </h2>
-            <p className="mt-3 text-white/70">Vrijblijvend en gratis.</p>
-            <div className="mt-6">
-                <Button href="/aanmelden" size="lg"
-                    className="bg-white text-green hover:bg-beige">
-                    Aanmelden
-                </Button>
-            </div>
-        </div>
-    </>);
-}
-
-/**
  * @returns the 'how does it work' page
  */
 export default function HoeWerktHetPage() {
@@ -198,10 +176,6 @@ export default function HoeWerktHetPage() {
 
             <section className="bg-beige py-section">
                 <FAQsSection />
-            </section>
-
-            <section className="bg-green py-section-sm text-white">
-                <FinalSection />
             </section>
         </>
     );
