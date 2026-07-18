@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Button from "@/components/Button";
 import SectionLabel from "@/components/SectionLabel";
 import HouseSilhouette from "@/components/HouseSilhouette";
 import { JSX } from "react";
@@ -209,33 +208,6 @@ function GeneralInfoSection(): JSX.Element {
     </>);
 }
 
-/**
- * Section containing information about brochures.
- */
-function BrochureSection(): JSX.Element {
-    return (<>
-        <HouseSilhouette variant="gable" className="right-0 w-80 text-green/[0.08]" />
-        <div className="section-wrapper">
-            <div className="mx-auto max-w-2xl border border-dashed border-beige-dark bg-white p-10 text-center">
-                <SectionLabel>Binnenkort</SectionLabel>
-                <h2 className="font-serif text-2xl font-semibold text-ink">
-                    Binnenkort beschikbaar: brochure
-                </h2>
-                <p className="mt-4 text-sm leading-relaxed text-ink-muted">
-                    We werken aan een informatieve brochure over Thuismeester — voor
-                    wie meer wil weten of de informatie wil delen met anderen. Houd
-                    deze pagina in de gaten of meld je aan voor updates.
-                </p>
-                <div className="mt-6">
-                    <Button href="/aanmelden" variant="outline">
-                        Aanmelden voor updates
-                    </Button>
-                </div>
-            </div>
-        </div>
-    </>);
-}
-
 export default function OverThuismeesterPage() {
     return (
         <>
@@ -253,9 +225,6 @@ export default function OverThuismeesterPage() {
             </section>
             <section className="bg-green py-section text-white">
                 <GeneralInfoSection />
-            </section>
-            <section className="bg-beige py-section">
-                <BrochureSection />
             </section>
         </>
     );
