@@ -41,6 +41,21 @@ const steps = [
     },
 ];
 
+const exampleScenario = [
+    {
+        title: "Je meldt het",
+        body: "Na een storm hangt de dakgoot los. Je stuurt jouw Thuismeester een berichtje — meer hoef je niet te doen.",
+    },
+    {
+        title: "Wij regelen de juiste vakman",
+        body: "Jouw Thuismeester kent de situatie van je woning, schat in wat er nodig is en benadert een betrouwbare vakman uit ons netwerk. Jij ontvangt één helder voorstel met prijs.",
+    },
+    {
+        title: "De klus wordt gedaan — en opgevolgd",
+        body: "Na jouw akkoord wordt de afspraak ingepland. Jouw Thuismeester houdt in de gaten dat het werk goed en op tijd gebeurt, en checkt achteraf of alles naar wens is.",
+    },
+];
+
 const faqs = [
     {
         q: "Wanneer gaat Thuismeester van start?",
@@ -163,6 +178,46 @@ function FAQsSection(): JSX.Element {
 }
 
 /**
+ * Section containing a practical example.
+ */
+function PracticalExampleSection(): JSX.Element {
+    return (<>
+        <HouseSilhouette variant="stepped" className="right-0 w-80 text-white/[0.07]" />
+        <div className="section-wrapper">
+            <div className="mx-auto max-w-3xl text-center">
+                <SectionLabel>
+                    <span className="text-white/60">In de praktijk</span>
+                </SectionLabel>
+                <h2 className="font-serif text-display-md font-semibold">
+                    Zo gaat dat straks: de losse dakgoot
+                </h2>
+                <p className="mx-auto mt-5 max-w-prose text-base leading-relaxed text-white/75">
+                    Een voorbeeld van hoe een alledaagse woningklus verloopt zodra
+                    Thuismeester actief is. Jij houdt de regie, wij doen het
+                    regelwerk.
+                </p>
+            </div>
+
+            <div className="mt-14 grid gap-10 sm:grid-cols-3">
+                {exampleScenario.map((step, i) => (
+                    <div key={step.title} className="border-l-2 border-purple-300/60 pl-5 text-left">
+                        <p className="font-serif text-3xl font-semibold text-white/30">
+                            {i + 1}
+                        </p>
+                        <h3 className="mt-3 font-serif text-lg font-semibold text-white">
+                            {step.title}
+                        </h3>
+                        <p className="mt-3 text-sm leading-relaxed text-white/70">
+                            {step.body}
+                        </p>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </>);
+}
+
+/**
  * Section asking user if they want to sign up.
  */
 function PricingInfoSection(): JSX.Element {
@@ -211,6 +266,10 @@ export default function HoeWerktHetPage() {
 
             <section className="relative overflow-hidden bg-beige-light py-section">
                 <StepsSection />
+            </section>
+
+            <section className="relative overflow-hidden bg-green py-section text-white">
+                <PracticalExampleSection />
             </section>
 
             <section className="bg-beige py-section">
