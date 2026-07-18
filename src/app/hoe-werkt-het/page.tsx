@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import PageHeader from "@/components/PageHeader";
+import Section from "@/components/Section";
 import SectionLabel from "@/components/SectionLabel";
-import HouseSilhouette from "@/components/HouseSilhouette";
 import { JSX } from "react";
 
 export const metadata: Metadata = {
@@ -57,32 +58,10 @@ const exampleScenario = [
 ];
 
 /**
- * The top section. 
- */
-function TopSection(): JSX.Element {
-    return (<>
-        <HouseSilhouette variant="tall" className="right-0 w-80 text-white/[0.08]" />
-        <div className="section-wrapper">
-            <SectionLabel>
-                <span className="text-white/60">Werkwijze</span>
-            </SectionLabel>
-            <h1 className="font-serif text-display-lg font-semibold text-white">
-                Hoe werkt het?
-            </h1>
-            <p className="mt-5 max-w-prose text-base leading-relaxed text-white/75">
-                Van aanmelding tot jouw vaste aanspreekpunt — in drie heldere
-                stappen.
-            </p>
-        </div>
-    </>);
-}
-
-/**
  * Section containing the steps of signingup->being notified.
  */
 function StepsSection(): JSX.Element {
     return (<>
-        <HouseSilhouette variant="gable" className="right-0 w-96 text-green/[0.07]" />
         <div className="section-wrapper">
             <div className="space-y-28">
                 {steps.map((step, i) => (
@@ -127,7 +106,6 @@ function StepsSection(): JSX.Element {
  */
 function PracticalExampleSection(): JSX.Element {
     return (<>
-        <HouseSilhouette variant="stepped" className="right-0 w-80 text-white/[0.07]" />
         <div className="section-wrapper">
             <div className="mx-auto max-w-3xl text-center">
                 <SectionLabel>
@@ -167,7 +145,6 @@ function PracticalExampleSection(): JSX.Element {
  */
 function PricingInfoSection(): JSX.Element {
     return (<>
-        <HouseSilhouette variant="row" className="right-0 w-[32rem] text-green/[0.08]" />
         <div className="section-wrapper">
             <div className="mx-auto max-w-3xl">
                 <SectionLabel>Helder afgesproken</SectionLabel>
@@ -205,21 +182,25 @@ function PricingInfoSection(): JSX.Element {
 export default function HoeWerktHetPage() {
     return (
         <>
-            <section className="relative overflow-hidden bg-green py-20 text-white">
-                <TopSection />
-            </section>
+            <PageHeader
+                label="Werkwijze"
+                title="Hoe werkt het?"
+                intro="Van aanmelding tot jouw vaste aanspreekpunt — in drie heldere
+                    stappen."
+                silhouetteVariant="stepped"
+            />
 
-            <section className="relative overflow-hidden bg-beige-light py-section">
+            <Section background="beige" scene="court" sceneWidth="w-96">
                 <StepsSection />
-            </section>
+            </Section>
 
-            <section className="relative overflow-hidden bg-green py-section text-white">
+            <Section background="green" scene="stepped" sceneWidth="w-80">
                 <PracticalExampleSection />
-            </section>
+            </Section>
 
-            <section className="relative overflow-hidden bg-beige py-section">
+            <Section background="mint" scene="orchard" sceneWidth="w-[26rem]">
                 <PricingInfoSection />
-            </section>
+            </Section>
         </>
     );
 }

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import SectionLabel from "@/components/SectionLabel";
-import HouseSilhouette from "@/components/HouseSilhouette";
+import PageHeader from "@/components/PageHeader";
+import Section from "@/components/Section";
 import { JSX } from "react";
 
 export const metadata: Metadata = {
@@ -48,36 +48,10 @@ const policySections = [
 ]
 
 /**
- * The top section.
- */
-function TopSection(): JSX.Element {
-	return (<>
-		<HouseSilhouette variant="gable" className="right-0 w-80 text-white/[0.08]" />
-		<div className="section-wrapper">
-			<SectionLabel>
-				<span className="text-white/60">Jouw gegevens</span>
-			</SectionLabel>
-			<h1 className="font-serif text-display-lg font-semibold">
-				Privacybeleid
-			</h1>
-			<p className="mt-5 max-w-prose text-base leading-relaxed text-white/75">
-				We verzamelen zo min mogelijk gegevens en gebruiken ze alleen
-				waarvoor je ze achterliet. Hieronder lees je precies wat we
-				bewaren, waarom, en welke rechten je hebt.
-			</p>
-			<p className="mt-4 text-xs uppercase tracking-widest text-white/50">
-				Laatst bijgewerkt: {LAST_UPDATED}
-			</p>
-		</div>
-	</>);
-}
-
-/**
  * Section containing the policy itself.
  */
 function PolicySection(): JSX.Element {
 	return (<>
-		<HouseSilhouette variant="row" className="right-0 w-[32rem] text-green/[0.07]" />
 		<div className="section-wrapper">
 			<div className="mx-auto max-w-3xl divide-y divide-beige-dark border-y border-beige-dark">
 				{policySections.map(({ q, a }) => (
@@ -99,12 +73,21 @@ function PolicySection(): JSX.Element {
 export default function PrivacybeleidPage() {
 	return (
 		<>
-			<section className="relative overflow-hidden bg-green py-20 text-white">
-				<TopSection />
-			</section>
-			<section className="relative overflow-hidden bg-beige-light py-section">
+			<PageHeader
+				label="Jouw gegevens"
+				title="Privacybeleid"
+				intro="We verzamelen zo min mogelijk gegevens en gebruiken ze alleen
+					waarvoor je ze achterliet. Hieronder lees je precies wat we
+					bewaren, waarom, en welke rechten je hebt."
+				silhouetteVariant="gable"
+			>
+				<p className="mt-4 text-xs uppercase tracking-widest text-white/50">
+					Laatst bijgewerkt: {LAST_UPDATED}
+				</p>
+			</PageHeader>
+			<Section background="beige-light" scene="row" sceneWidth="w-[32rem]">
 				<PolicySection />
-			</section>
+			</Section>
 		</>
 	);
 }

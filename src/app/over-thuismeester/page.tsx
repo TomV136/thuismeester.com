@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import PageHeader from "@/components/PageHeader";
+import Section from "@/components/Section";
 import SectionLabel from "@/components/SectionLabel";
-import HouseSilhouette from "@/components/HouseSilhouette";
 import { JSX } from "react";
 import { REGION_NOTE } from "@/lib/site";
 
@@ -38,40 +39,10 @@ const values = [
 ];
 
 /**
- *  The top section.
- */
-function TopSection(): JSX.Element {
-    return (<>
-        <Image
-            src="https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?w=1800&q=80"
-            alt="Over Thuismeester — lokaal, betrouwbaar en persoonlijk"
-            fill
-            priority
-            className="object-cover object-center opacity-20"
-            sizes="100vw"
-        />
-        <HouseSilhouette variant="gable" className="right-0 w-80 text-white/[0.08]" />
-        <div className="section-wrapper relative z-10">
-            <SectionLabel>
-                <span className="text-white/60">Over ons</span>
-            </SectionLabel>
-            <h1 className="font-serif text-display-lg font-semibold">
-                Over Thuismeester
-            </h1>
-            <p className="mt-5 max-w-prose text-base leading-relaxed text-white/75">
-                Lokaal, betrouwbaar en persoonlijk. Dat is de kern van
-                Thuismeester.
-            </p>
-        </div>
-    </>);
-}
-
-/**
  * Section containing story about use of thuismeester.
  */
 function StorySection(): JSX.Element {
     return (<>
-        <HouseSilhouette variant="stepped" className="right-0 w-80 text-green/[0.07]" />
         <div className="section-wrapper">
             <div className="grid items-center gap-16 lg:grid-cols-2">
                 <div>
@@ -119,7 +90,6 @@ function StorySection(): JSX.Element {
  */
 function AboutFounderSection(): JSX.Element {
     return (<>
-        <HouseSilhouette variant="tall" className="right-0 w-96 text-green/[0.08]" />
         <div className="section-wrapper">
             <div className="grid items-center gap-16 lg:grid-cols-[380px_1fr]">
                 {/* Portrait */}
@@ -181,7 +151,6 @@ function AboutFounderSection(): JSX.Element {
  */
 function ValuesSection(): JSX.Element {
     return (<>
-        <HouseSilhouette variant="gable" className="right-0 w-72 text-green/[0.07]" />
         <div className="section-wrapper">
             <div className="mx-auto max-w-3xl text-center">
                 <SectionLabel>Kernwaarden</SectionLabel>
@@ -212,7 +181,6 @@ function ValuesSection(): JSX.Element {
  */
 function FillerSection(): JSX.Element {
     return (<>
-        <HouseSilhouette variant="stepped" className="right-0 w-72 text-green/[0.07]" />
         <div className="section-wrapper">
             <div className="grid gap-6 sm:grid-cols-2">
                 <div className="relative aspect-square overflow-hidden">
@@ -247,7 +215,6 @@ function FillerSection(): JSX.Element {
  */
 function GeneralInfoSection(): JSX.Element {
     return (<>
-        <HouseSilhouette variant="row" className="right-0 w-[36rem] text-white/[0.07]" />
         <div className="section-wrapper">
             <div className="mx-auto max-w-3xl">
                 <SectionLabel>
@@ -275,24 +242,32 @@ function GeneralInfoSection(): JSX.Element {
 export default function OverThuismeesterPage() {
     return (
         <>
-            <section className="relative overflow-hidden bg-green py-28 text-white">
-                <TopSection />
-            </section>
-            <section className="relative overflow-hidden bg-beige-light py-section">
+            <PageHeader
+                label="Over ons"
+                title="Over Thuismeester"
+                intro="Lokaal, betrouwbaar en persoonlijk. Dat is de kern van
+                    Thuismeester."
+                silhouetteVariant="row"
+                image={{
+                    src: "https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?w=1800&q=80",
+                    alt: "Over Thuismeester — lokaal, betrouwbaar en persoonlijk",
+                }}
+            />
+            <Section background="beige-light" scene="play" sceneWidth="w-80">
                 <StorySection />
-            </section>
-            <section className="relative overflow-hidden bg-beige py-section">
+            </Section>
+            <Section background="mint" scene="lane" sceneWidth="w-[28rem]">
                 <AboutFounderSection />
-            </section>
-            <section className="relative overflow-hidden bg-beige-light py-section">
+            </Section>
+            <Section background="beige" scene="tall" sceneWidth="w-96">
                 <ValuesSection />
-            </section>
-            <section className="relative overflow-hidden bg-green py-section text-white">
+            </Section>
+            <Section background="mint" scene="gable" sceneWidth="w-72">
                 <FillerSection />
-            </section>
-            <section className="relative overflow-hidden bg-beige-light py-section">
+            </Section>
+            <Section background="beige-light" scene="row" sceneWidth="w-[36rem]">
                 <GeneralInfoSection />
-            </section>
+            </Section>
         </>
     );
 }

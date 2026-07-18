@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
+import PageHeader from "@/components/PageHeader";
+import Section from "@/components/Section";
 import SectionLabel from "@/components/SectionLabel";
-import HouseSilhouette from "@/components/HouseSilhouette";
 import { JSX } from "react";
 
 export const metadata: Metadata = {
@@ -44,33 +45,10 @@ const faqGroups = [
 ]
 
 /**
- * The top section.
- */
-function TopSection(): JSX.Element {
-	return (<>
-		<HouseSilhouette variant="gable" className="right-0 w-80 text-white/[0.08]" />
-		<div className="section-wrapper">
-			<SectionLabel>
-				<span className="text-white/60">Vragen &amp; antwoorden</span>
-			</SectionLabel>
-			<h1 className="font-serif text-display-lg font-semibold">
-				Veelgestelde vragen
-			</h1>
-			<p className="mt-5 max-w-prose text-base leading-relaxed text-white/75">
-				Alles wat je wilt weten over Thuismeester: wat het is, wat het
-				kost, hoe de aanmelding werkt en wanneer we starten. Staat je
-				vraag er niet tussen? Stel hem gerust via de contactpagina.
-			</p>
-		</div>
-	</>);
-}
-
-/**
  * Section containing FAQs.
  */
 function FAQSection(): JSX.Element {
 	return (<>
-		<HouseSilhouette variant="row" className="right-0 w-[32rem] text-green/[0.07]" />
 		<div className="section-wrapper">
 			<div className="mx-auto max-w-3xl space-y-16">
 				{faqGroups.map(({ group, items }) => (
@@ -104,12 +82,17 @@ function FAQSection(): JSX.Element {
 export default function FAQPage() {
 	return (
 		<>
-			<section className="relative overflow-hidden bg-green py-20 text-white">
-				<TopSection />
-			</section>
-			<section className="relative overflow-hidden bg-beige-light py-section">
+			<PageHeader
+				label="Vragen & antwoorden"
+				title="Veelgestelde vragen"
+				intro="Alles wat je wilt weten over Thuismeester: wat het is, wat het
+					kost, hoe de aanmelding werkt en wanneer we starten. Staat je
+					vraag er niet tussen? Stel hem gerust via de contactpagina."
+				silhouetteVariant="gable"
+			/>
+			<Section background="beige-light" scene="lane" sceneWidth="w-[30rem]">
 				<FAQSection />
-			</section>
+			</Section>
 		</>
 	);
 }

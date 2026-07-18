@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Button from "@/components/Button";
+import Section from "@/components/Section";
 import SectionLabel from "@/components/SectionLabel";
-import HouseSilhouette from "@/components/HouseSilhouette";
 import iconCommunication from "@/media/communication.png";
 import iconTools from "@/media/tools.png";
 import iconTrustworthy from "@/media/trustworthy.png";
@@ -72,23 +72,8 @@ const steps = [
  * Main section the main page.
  */
 function TopSection(): JSX.Element {
-    return (<>
-        {/* Background photo */}
-        < Image
-            src="/images/jaren-30-woning.jpg"
-            alt="Een nette Nederlandse gezinswoning in Amersfoort en omstreken"
-            fill
-            priority
-            className="object-cover object-[center_30%]"
-            sizes="100vw"
-        />
-
-
-        {/* Gradient overlay — darkens bottom for text legibility */}
-        < div className="absolute inset-0 bg-gradient-to-t from-green/90 via-green/40 to-transparent" />
-
-        {/* Content */}
-        < div className="section-wrapper relative z-10 pb-20 pt-32" >
+    return (
+        <div className="section-wrapper pb-20 pt-32">
             <div className="max-w-2xl">
                 <span className="badge mb-6 border border-white/30 bg-white/10 text-white">
                     {REGION_NOTE} · Start januari 2027
@@ -112,8 +97,8 @@ function TopSection(): JSX.Element {
                     </Button>
                 </div>
             </div>
-        </div >
-    </>);
+        </div>
+    );
 }
 
 /**
@@ -121,7 +106,6 @@ function TopSection(): JSX.Element {
  */
 function RegionsSection(): JSX.Element {
     return (<>
-        <HouseSilhouette variant="gable" className="right-0 w-96 text-green/[0.08]" />
         <div className="section-wrapper">
             <div className="mx-auto max-w-3xl text-center">
                 <SectionLabel>Lokaal</SectionLabel>
@@ -156,7 +140,6 @@ function RegionsSection(): JSX.Element {
  */
 function ProblemSection(): JSX.Element {
     return (<>
-        <HouseSilhouette variant="stepped" className="right-0 w-80 text-green/[0.07]" />
         <div className="section-wrapper">
             <div className="grid items-center gap-16 lg:grid-cols-2">
                 {/* Text */}
@@ -209,7 +192,6 @@ function ProblemSection(): JSX.Element {
  */
 function SolutionsSection(): JSX.Element {
     return (<>
-        <HouseSilhouette variant="row" className="right-0 w-[36rem] text-white/[0.07]" />
         <div className="section-wrapper">
             <div className="grid items-center gap-16 lg:grid-cols-2">
                 {/* Image block — left on desktop */}
@@ -254,7 +236,6 @@ function SolutionsSection(): JSX.Element {
  */
 function HowItWorksSummarySection(): JSX.Element {
     return (<>
-        <HouseSilhouette variant="tall" className="right-0 w-96 text-green/[0.08]" />
         <div className="section-wrapper">
             <div className="mx-auto max-w-3xl text-center">
                 <SectionLabel>Werkwijze</SectionLabel>
@@ -295,7 +276,6 @@ function HowItWorksSummarySection(): JSX.Element {
  */
 function ServicesSummarySection(): JSX.Element {
     return (<>
-        <HouseSilhouette variant="gable" className="right-0 w-72 text-green/[0.07]" />
         <div className="section-wrapper">
             <div className="mx-auto max-w-3xl text-center">
                 <SectionLabel>Diensten</SectionLabel>
@@ -344,7 +324,6 @@ function ServicesSummarySection(): JSX.Element {
  */
 function PricingInfoSection(): JSX.Element {
     return (<>
-        <HouseSilhouette variant="stepped" className="right-0 w-96 text-green/[0.08]" />
         <div className="section-wrapper">
             <div className="mx-auto max-w-4xl">
                 <div className="grid items-center gap-12 lg:grid-cols-2">
@@ -404,16 +383,6 @@ function PricingInfoSection(): JSX.Element {
  */
 function PreLaunchInfoSection(): JSX.Element {
     return (<>
-        <Image
-            src="https://images.unsplash.com/photo-1449844908441-8829872d2607?w=1800&q=80"
-            alt="Rustige woonstraat in Amersfoort en omstreken"
-            fill
-            className="object-cover object-center"
-            sizes="100vw"
-        />
-        <div className="absolute inset-0 bg-green/85" />
-        <HouseSilhouette variant="gable" className="right-0 w-80 text-white/[0.09]" />
-
         <div className="section-wrapper relative z-10">
             <div className="mx-auto max-w-2xl text-center text-white">
                 <SectionLabel>
@@ -437,7 +406,6 @@ function PreLaunchInfoSection(): JSX.Element {
  */
 function FinalSection(): JSX.Element {
     return (<>
-        <HouseSilhouette variant="row" className="right-0 w-[32rem] text-green/[0.07]" />
         <div className="section-wrapper">
             <div className="mx-auto max-w-2xl text-center">
                 <h2 className="font-serif text-display-lg font-semibold text-ink">
@@ -466,33 +434,66 @@ function FinalSection(): JSX.Element {
 export default function HomePage(): JSX.Element {
     return (
         <>
-            < section className="relative flex min-h-[90vh] items-end bg-green" >
+            {/* Backgrounds alternate between the warm beiges, cool mint and
+                dark green so no two adjacent sections (incl. the green
+                footer) look alike; every section gets its own scene. */}
+            <Section
+                background="green"
+                padding=""
+                className="flex min-h-[90vh] items-end"
+                backdrop={<>
+                    <Image
+                        src="/images/jaren-30-woning.jpg"
+                        alt="Een nette Nederlandse gezinswoning in Amersfoort en omstreken"
+                        fill
+                        priority
+                        className="object-cover object-[center_30%]"
+                        sizes="100vw"
+                    />
+                    {/* Gradient overlay — darkens bottom for text legibility */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-green/90 via-green/40 to-transparent" />
+                </>}
+            >
                 <TopSection />
-            </section >
-            <section className="relative overflow-hidden bg-beige py-section">
+            </Section>
+            <Section background="beige" scene="gable" sceneWidth="w-96">
                 <RegionsSection />
-            </section>
-            <section className="relative overflow-hidden bg-beige-light py-section">
+            </Section>
+            <Section background="mint" scene="play" sceneWidth="w-80">
                 <ProblemSection />
-            </section>
-            <section className="relative overflow-hidden bg-green py-section text-white">
+            </Section>
+            <Section background="green" scene="row" sceneWidth="w-[36rem]">
                 <SolutionsSection />
-            </section>
-            <section className="relative overflow-hidden bg-beige py-section" id="hoe-werkt-het">
+            </Section>
+            <Section background="beige-light" scene="court" sceneWidth="w-96">
                 <HowItWorksSummarySection />
-            </section>
-            <section className="relative overflow-hidden bg-beige-light py-section">
+            </Section>
+            <Section background="mint" scene="stepped" sceneWidth="w-72">
                 <ServicesSummarySection />
-            </section>
-            <section className="relative overflow-hidden bg-beige py-section">
+            </Section>
+            <Section background="beige" scene="stepped" sceneWidth="w-96">
                 <PricingInfoSection />
-            </section>
-            <section className="relative overflow-hidden py-section">
+            </Section>
+            <Section
+                background="green"
+                scene="lane"
+                sceneWidth="w-[32rem]"
+                backdrop={<>
+                    <Image
+                        src="https://images.unsplash.com/photo-1449844908441-8829872d2607?w=1800&q=80"
+                        alt="Rustige woonstraat in Amersfoort en omstreken"
+                        fill
+                        className="object-cover object-center"
+                        sizes="100vw"
+                    />
+                    <div className="absolute inset-0 bg-green/85" />
+                </>}
+            >
                 <PreLaunchInfoSection />
-            </section>
-            <section className="relative overflow-hidden bg-beige-light py-section">
+            </Section>
+            <Section background="beige" scene="orchard" sceneWidth="w-96">
                 <FinalSection />
-            </section>
+            </Section>
         </>
     );
 }

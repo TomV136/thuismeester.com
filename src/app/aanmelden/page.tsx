@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import SectionLabel from "@/components/SectionLabel";
+import PageHeader from "@/components/PageHeader";
 import RegisterForm from "@/components/RegisterForm";
-import HouseSilhouette from "@/components/HouseSilhouette";
+import Section from "@/components/Section";
 import { JSX } from "react";
 import { REGIONS } from "@/lib/site";
 
@@ -12,28 +12,6 @@ export const metadata: Metadata = {
     description:
         "Schrijf je vrijblijvend in voor Thuismeester in Amersfoort en omstreken. Start in januari 2027 bij voldoende aanmeldingen.",
 };
-
-/**
- * Top section.
- */
-function TopSection(): JSX.Element {
-    return (<>
-        <HouseSilhouette variant="row" className="right-0 w-[32rem] text-white/[0.08]" />
-        <div className="section-wrapper">
-            <SectionLabel>
-                <span className="text-white/60">Inschrijven</span>
-            </SectionLabel>
-            <h1 className="font-serif text-display-lg font-semibold">
-                Aanmelden
-            </h1>
-            <p className="mt-5 max-w-prose text-base leading-relaxed text-white/75">
-                Schrijf je vrijblijvend in en laat weten dat er in jouw regio
-                behoefte is aan Thuismeester. Geen verplichtingen, geen kosten bij
-                aanmelding.
-            </p>
-        </div>
-    </>);
-}
 
 /**
  * Form component.
@@ -121,19 +99,24 @@ function Sidebar(): JSX.Element {
 export default function AanmeldenPage() {
     return (
         <>
-            <section className="relative overflow-hidden bg-green py-20 text-white">
-                <TopSection />
-            </section>
+            <PageHeader
+                label="Inschrijven"
+                title="Aanmelden"
+                intro="Schrijf je vrijblijvend in en laat weten dat er in jouw regio
+                    behoefte is aan Thuismeester. Geen verplichtingen, geen kosten bij
+                    aanmelding."
+                silhouetteVariant="lane"
+                silhouetteWidth="w-[30rem]"
+            />
 
-            <section className="relative overflow-hidden bg-beige-light py-section">
-                <HouseSilhouette variant="stepped" className="right-0 w-80 text-green/[0.07]" />
+            <Section background="beige-light" scene="stepped" sceneWidth="w-80">
                 <div className="section-wrapper">
                     <div className="grid items-start gap-16 lg:grid-cols-[1fr_380px]">
                         <Form />
                         <Sidebar />
                     </div>
                 </div>
-            </section>
+            </Section>
         </>
     );
 }

@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Button from "@/components/Button";
+import PageHeader from "@/components/PageHeader";
+import Section from "@/components/Section";
 import SectionLabel from "@/components/SectionLabel";
 import ServicesCarousel from "@/components/ServicesCarousel";
-import HouseSilhouette from "@/components/HouseSilhouette";
 import { JSX } from "react";
 
 export const metadata: Metadata = {
@@ -62,41 +63,11 @@ const services = [
 ];
 
 /**
- * Top section.
- */
-function TopSection(): JSX.Element {
-    return (<>
-        <Image
-            src="https://images.unsplash.com/photo-1480074568708-e7b720bb3f09?w=1800&q=80"
-            alt="Gewone gezinswoning in Amersfoort — praktische hulp bij woningzaken"
-            fill
-            priority
-            className="object-cover object-center opacity-20"
-            sizes="100vw"
-        />
-        <HouseSilhouette variant="stepped" className="right-0 w-80 text-white/[0.08]" />
-        <div className="section-wrapper relative z-10">
-            <SectionLabel>
-                <span className="text-white/60">Wat we doen</span>
-            </SectionLabel>
-            <h1 className="font-serif text-display-lg font-semibold">
-                Diensten
-            </h1>
-            <p className="mt-5 max-w-prose text-base leading-relaxed text-white/75">
-                Thuismeester biedt praktische ondersteuning rondom je woning — van
-                organisatie en advies tot coördinatie en vakmansnetwerk.
-            </p>
-        </div>
-    </>);
-}
-
-/**
  * Section showing all services that thuismeester offers.
  * Services arranged in a carousel.
  */
 function ServicesSection(): JSX.Element {
     return (<>
-        <HouseSilhouette variant="gable" className="right-0 w-[26rem] text-green/[0.07]" />
         {/* Shifted left of centre. Adjust the pixel value to taste; only
           Tailwind's own steps (…-6, …-24, …-48) or an arbitrary [value]
           work here — a made-up step like -translate-x-50 generates nothing. */}
@@ -111,7 +82,6 @@ function ServicesSection(): JSX.Element {
  */
 function WhatDoesThuismeesterNotDoSection(): JSX.Element {
     return (<>
-        <HouseSilhouette variant="tall" className="right-0 w-96 text-green/[0.08]" />
         <div className="section-wrapper">
             <div className="mx-auto max-w-3xl">
                 <SectionLabel>Afbakening</SectionLabel>
@@ -135,7 +105,6 @@ function WhatDoesThuismeesterNotDoSection(): JSX.Element {
  */
 function PricingSection(): JSX.Element {
     return (<>
-        <HouseSilhouette variant="row" className="right-0 w-[36rem] text-white/[0.07]" />
         <div className="section-wrapper">
             <div className="grid items-center gap-12 lg:grid-cols-2">
                 <div className="relative aspect-[4/3] overflow-hidden">
@@ -178,21 +147,29 @@ function PricingSection(): JSX.Element {
 export default function ServicesPage() {
     return (
         <>
-            <section className="relative py-28 bg-green text-white overflow-hidden">
-                <TopSection />
-            </section>
+            <PageHeader
+                label="Wat we doen"
+                title="Diensten"
+                intro="Thuismeester biedt praktische ondersteuning rondom je woning — van
+                    organisatie en advies tot coördinatie en vakmansnetwerk."
+                silhouetteVariant="tall"
+                image={{
+                    src: "https://images.unsplash.com/photo-1480074568708-e7b720bb3f09?w=1800&q=80",
+                    alt: "Gewone gezinswoning in Amersfoort — praktische hulp bij woningzaken",
+                }}
+            />
 
-            <section className="relative overflow-hidden bg-beige-light py-section">
+            <Section background="beige-light" scene="orchard" sceneWidth="w-[26rem]">
                 <ServicesSection />
-            </section>
+            </Section>
 
-            <section className="relative overflow-hidden bg-beige py-section">
+            <Section background="green" scene="lane" sceneWidth="w-[30rem]">
                 <WhatDoesThuismeesterNotDoSection />
-            </section>
+            </Section>
 
-            <section className="relative overflow-hidden bg-green py-section text-white">
+            <Section background="mint" scene="row" sceneWidth="w-[36rem]">
                 <PricingSection />
-            </section>
+            </Section>
         </>
     );
 }

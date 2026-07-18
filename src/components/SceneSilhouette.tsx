@@ -1,5 +1,5 @@
 /**
- * HouseSilhouette component (src/components/HouseSilhouette.tsx)
+ * SceneSilhouette component (src/components/SceneSilhouette.tsx)
  *
  * A decorative, low-opacity silhouette scene that sits on the bottom-right
  * edge of a section — a recurring visual motif across the site. Each scene
@@ -8,12 +8,12 @@
  * a lone building. Every variant arranges different scenery, so sections
  * never feel copy-pasted.
  *
- * Usage — the parent <section> must be `relative` (and ideally
- * `overflow-hidden`), then:
+ * Normally you don't use this directly: the Section component renders it
+ * with the site-wide position and tint, and pages just pick a `scene` and
+ * `sceneWidth`. If you do use it standalone, the parent must be `relative`
+ * (and ideally `overflow-hidden`), then:
  *
- *   <HouseSilhouette variant="stepped" className="right-0 w-80 text-green/[0.08]" />
- *
- * On dark green sections pass a white tint instead: `text-white/[0.07]`.
+ *   <SceneSilhouette variant="stepped" className="right-8 w-80 text-green/[0.08]" />
  *
  * The SVG uses fill="currentColor", so the colour is controlled entirely by
  * a text-* class. It is aria-hidden (pure decoration) and pointer-events-none
@@ -149,23 +149,57 @@ const SCENES: Record<
             { shape: "hut", x: 198 },
         ],
     },
+    // Scenery-first arrangements: the garden comes before the house, so the
+    // motif never reads as "always a house, then a tree".
+    orchard: {
+        width: 212,
+        items: [
+            { shape: "tree", x: 0 },
+            { shape: "gable", x: 42 },
+            { shape: "bush", x: 172 },
+        ],
+    },
+    play: {
+        width: 218,
+        items: [
+            { shape: "swing", x: 0 },
+            { shape: "stepped", x: 58 },
+            { shape: "pine", x: 186 },
+        ],
+    },
+    lane: {
+        width: 284,
+        items: [
+            { shape: "tree", x: 0 },
+            { shape: "row", x: 44 },
+            { shape: "bush", x: 244 },
+        ],
+    },
+    court: {
+        width: 270,
+        items: [
+            { shape: "hut", x: 0 },
+            { shape: "tall", x: 76 },
+            { shape: "hedge", x: 214 },
+        ],
+    },
 };
 
-interface HouseSilhouetteProps {
+interface SceneSilhouetteProps {
     /** Which scene to draw (default: "gable") */
     variant?: keyof typeof SCENES;
     /**
-     * Size and colour classes — e.g. "right-0 w-[26rem] text-green/[0.08]".
-     * Scenes sit flush against the right edge (right-0); vary the width and
-     * variant per section so it never feels copy-pasted.
+     * Position, size and colour classes — e.g. "right-8 w-[26rem]
+     * text-green/[0.08]". The Section component supplies these site-wide;
+     * vary the width and variant per section so it never feels copy-pasted.
      */
     className?: string;
 }
 
-export default function HouseSilhouette({
+export default function SceneSilhouette({
     variant = "gable",
-    className = "right-0 w-96 text-green/[0.08]",
-}: HouseSilhouetteProps) {
+    className = "right-8 w-96 text-green/[0.08]",
+}: SceneSilhouetteProps) {
     const scene = SCENES[variant];
 
     return (

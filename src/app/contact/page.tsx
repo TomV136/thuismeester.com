@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import SectionLabel from "@/components/SectionLabel";
+import PageHeader from "@/components/PageHeader";
 import ContactForm from "@/components/ContactForm";
-import HouseSilhouette from "@/components/HouseSilhouette";
+import Section from "@/components/Section";
 import { JSX } from "react";
 import { REGION_NOTE, REGIONS } from "@/lib/site";
 
@@ -11,27 +11,6 @@ export const metadata: Metadata = {
     description:
         "Neem contact op met Thuismeester. Actief in voorbereiding voor Amersfoort en omstreken.",
 };
-
-/**
- * The top section.
- */
-function TopSection(): JSX.Element {
-    return (<>
-        <HouseSilhouette variant="stepped" className="right-0 w-72 text-white/[0.08]" />
-        <div className="section-wrapper">
-            <SectionLabel>
-                <span className="text-white/60">Bereikbaarheid</span>
-            </SectionLabel>
-            <h1 className="font-serif text-display-lg font-semibold">
-                Contact
-            </h1>
-            <p className="mt-5 max-w-prose text-base leading-relaxed text-white/75">
-                Heb je een vraag over Thuismeester, de aanmelding of de dienst?
-                Neem gerust contact op.
-            </p>
-        </div>
-    </>);
-}
 
 /**
  * The form component.
@@ -99,19 +78,23 @@ function Sidebar(): JSX.Element {
 export default function ContactPage() {
     return (
         <>
-            <section className="relative overflow-hidden bg-green py-20 text-white">
-                <TopSection />
-            </section>
+            <PageHeader
+                label="Bereikbaarheid"
+                title="Contact"
+                intro="Heb je een vraag over Thuismeester, de aanmelding of de dienst?
+                    Neem gerust contact op."
+                silhouetteVariant="court"
+                silhouetteWidth="w-80"
+            />
 
-            <section className="relative overflow-hidden bg-beige-light py-section">
-                <HouseSilhouette variant="gable" className="right-0 w-80 text-green/[0.07]" />
+            <Section background="beige-light" scene="play" sceneWidth="w-80">
                 <div className="section-wrapper">
                     <div className="grid items-start gap-16 lg:grid-cols-[1fr_340px]">
                         <Form />
                         <Sidebar />
                     </div>
                 </div>
-            </section>
+            </Section>
         </>
     );
 }
