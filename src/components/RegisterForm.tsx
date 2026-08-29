@@ -1,16 +1,10 @@
 "use client";
 
+import { REGIONS } from "@/lib/site";
 import Button from "./Button";
 import { useFormSubmit } from "@/lib/useFormSubmit";
 
-export const towns = [
-    "Amersfoort",
-    "Leusden",
-    "Hoevelaken",
-    "Nijkerk",
-    "Soest",
-    "Anders",
-];
+export const towns = REGIONS.concat(["Anders"]);
 
 export default function RegisterForm() {
     const { state, errorMessage, warningMessage, handleSubmit } = useFormSubmit("/api/register");

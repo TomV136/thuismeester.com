@@ -8,15 +8,11 @@ import iconTools from "@/media/tools.png";
 import iconTrustworthy from "@/media/trustworthy.png";
 import iconClipboard from "@/media/clipboard2.png";
 import { JSX } from "react";
+import { REGION_NOTE, REGIONS } from "@/lib/site";
 
 export const metadata: Metadata = {
-    title: "Thuismeester — Rust in huis voor Amersfoort en omstreken",
+    title: "Thuismeester — Rust in huis voor ${REGION_NOTE}",
 };
-
-// -------------------------------------------------------
-// Regio's — edit this list to add/remove locations
-// -------------------------------------------------------
-const regio = ["Amersfoort", "Leusden", "Hoevelaken", "Nijkerk", "Soest"];
 
 // -------------------------------------------------------
 // Services listed on homepage — keep broad and professional
@@ -95,14 +91,14 @@ function TopSection(): JSX.Element {
         < div className="section-wrapper relative z-10 pb-20 pt-32" >
             <div className="max-w-2xl">
                 <span className="badge mb-6 border border-white/30 bg-white/10 text-white">
-                    Amersfoort en omstreken · Start januari 2027
+                    {REGION_NOTE} · Start januari 2027
                 </span>
                 <h1 className="font-serif text-4xl font-semibold leading-tight text-white sm:text-5xl lg:text-6xl">
                     Rust in huis.<br />
                     <span className="italic">Regel het met jouw Thuismeester.</span>
                 </h1>
                 <p className="mt-6 max-w-xl text-base leading-relaxed text-white/80 sm:text-lg">
-                    Voor bewoners in Amersfoort en omstreken. Voor €10 per maand heb
+                    Voor bewoners in {REGION_NOTE}. Voor €10 per maand heb
                     je een vast aanspreekpunt voor praktische hulp en organisatie
                     rondom je woning.
                 </p>
@@ -130,7 +126,7 @@ function RegionsSection(): JSX.Element {
             <div className="mx-auto max-w-3xl text-center">
                 <SectionLabel>Lokaal</SectionLabel>
                 <h2 className="font-serif text-display-lg font-semibold text-ink">
-                    Voor Amersfoort en omstreken
+                    Voor {REGION_NOTE}
                 </h2>
                 <p className="mx-auto mt-6 max-w-prose text-base leading-relaxed text-ink-muted">
                     Thuismeester richt zich in de eerste fase op Amersfoort en
@@ -140,7 +136,7 @@ function RegionsSection(): JSX.Element {
 
                 {/* Region pills */}
                 <ul className="mt-8 flex flex-wrap justify-center gap-3">
-                    {regio.map((plaats) => (
+                    {REGIONS.map((plaats) => (
                         <li key={plaats}>
                             <span className="inline-block rounded-full border border-green/30 bg-beige-light
                                    px-5 py-2 font-serif text-sm font-medium text-ink

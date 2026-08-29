@@ -1,6 +1,5 @@
+import { REGION_NOTE } from "@/lib/site";
 import Link from "next/link";
-
-const REGION_NOTE = "Amersfoort en omstreken";
 
 const footerLinks = [
     { label: "Hoe werkt het", href: "/hoe-werkt-het" },

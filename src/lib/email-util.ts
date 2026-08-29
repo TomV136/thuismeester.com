@@ -12,7 +12,7 @@
  * so Georgia stands in for Playfair Display and Arial for Inter.
  */
 
-import { CONTACT_EMAIL } from "./site";
+import { CONTACT_EMAIL, REGION_NOTE, REGIONS } from "./site";
 
 // Brand tokens — kept in sync with tailwind.config.js
 const COLOR = {
@@ -137,7 +137,7 @@ export function renderBrandedEmail({ title, preheader, bodyHtml, footnote }: Bra
           <tr>
             <td style="background-color:${COLOR.green};padding:28px 40px;">
               <span style="font-family:${FONT_SERIF};font-size:24px;font-weight:600;color:#ffffff;letter-spacing:-0.5px;">Thuismeester</span><br />
-              <span style="font-family:${FONT_SANS};font-size:11px;text-transform:uppercase;letter-spacing:2px;color:rgba(255,255,255,0.6);">Amersfoort en omstreken</span>
+              <span style="font-family:${FONT_SANS};font-size:11px;text-transform:uppercase;letter-spacing:2px;color:rgba(255,255,255,0.6);">${REGION_NOTE}</span>
             </td>
           </tr>
 
@@ -155,7 +155,7 @@ export function renderBrandedEmail({ title, preheader, bodyHtml, footnote }: Bra
             <td style="padding:24px 40px;">
               <p style="margin:0;font-family:${FONT_SANS};font-size:12px;line-height:19px;color:${COLOR.inkMuted};">
                 Thuismeester &middot; Jouw vaste aanspreekpunt voor praktische hulp rondom je woning<br />
-                Amersfoort &middot; Leusden &middot; Hoevelaken &middot; Nijkerk &middot; Soest
+                ${REGIONS.join(" &middot; ")}
               </p>
               <p style="margin:12px 0 0 0;font-family:${FONT_SANS};font-size:12px;line-height:19px;color:${COLOR.inkMuted};">
                 Vragen? Mail naar <a href="mailto:${CONTACT_EMAIL}" style="color:${COLOR.greenSoft};">${CONTACT_EMAIL}</a>

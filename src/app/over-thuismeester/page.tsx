@@ -3,6 +3,7 @@ import Image from "next/image";
 import SectionLabel from "@/components/SectionLabel";
 import HouseSilhouette from "@/components/HouseSilhouette";
 import { JSX } from "react";
+import { REGION_NOTE } from "@/lib/site";
 
 export const metadata: Metadata = {
     title: "Over Thuismeester",
@@ -93,7 +94,7 @@ function StorySection(): JSX.Element {
                             die helpt, meedenkt en coördineert.
                         </p>
                         <p>
-                            We starten bewust klein — in Amersfoort en omstreken — zodat
+                            We starten bewust klein — in {REGION_NOTE} — zodat
                             we onze beloftes waar kunnen maken. Persoonlijk, lokaal en
                             met aandacht voor wie jij bent en wat jouw woning nodig heeft.
                         </p>

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
+import { REGION_NOTE } from "@/lib/site";
 import "./globals.css";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -28,7 +29,7 @@ const playfair = Playfair_Display({
 // -------------------------------------------------------
 export const metadata: Metadata = {
     title: {
-        default: "Thuismeester — Rust in huis voor Amersfoort en omstreken",
+        default: `Thuismeester — Rust in huis voor ${REGION_NOTE}`,
         template: "%s | Thuismeester",
     },
     description:
@@ -47,7 +48,7 @@ export const metadata: Metadata = {
     ],
     authors: [{ name: "Thuismeester" }],
     openGraph: {
-        title: "Thuismeester — Rust in huis voor Amersfoort en omstreken",
+        title: `Thuismeester — Rust in huis voor ${REGION_NOTE}`,
         description:
             "Jouw vaste aanspreekpunt voor praktische hulp en organisatie rondom je woning.",
         locale: "nl_NL",

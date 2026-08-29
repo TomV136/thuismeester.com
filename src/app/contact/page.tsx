@@ -4,6 +4,7 @@ import SectionLabel from "@/components/SectionLabel";
 import ContactForm from "@/components/ContactForm";
 import HouseSilhouette from "@/components/HouseSilhouette";
 import { JSX } from "react";
+import { REGION_NOTE, REGIONS } from "@/lib/site";
 
 export const metadata: Metadata = {
     title: "Contact",
@@ -75,10 +76,10 @@ function Sidebar(): JSX.Element {
                     </p>
                     <p className="mt-1 text-sm text-ink-soft">
                         Actief in voorbereiding voor{" "}
-                        <strong>Amersfoort en omstreken</strong>
+                        <strong>{REGION_NOTE}</strong>
                     </p>
                     <p className="mt-1 text-xs text-ink-muted">
-                        Amersfoort · Leusden · Hoevelaken · Nijkerk · Soest
+                        {REGIONS.join(" · ")}
                     </p>
                 </div>
 

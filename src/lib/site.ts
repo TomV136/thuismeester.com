@@ -18,3 +18,13 @@ export const CONTACT_EMAIL = "contact@thuismeester.com";
  * internal contact notification). Replies are steered elsewhere via Reply-To.
  */
 export const NO_REPLY_ADDRESS = "no-reply@thuismeester.com";
+
+/** The short region description used in headers, footers and emails. */
+export const REGION_NOTE = "Amersfoort en omstreken";
+
+/**
+ * The places Thuismeester serves in the first phase. Used for the region
+ * pills on the homepage, the sidebar list and the dropdown on the signup
+ * page, the contact page and the email footer.
+ */
+export const REGIONS = ["Amersfoort", "Leusden", "Hoevelaken", "Nijkerk", "Soest"];

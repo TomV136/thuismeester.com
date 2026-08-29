@@ -4,14 +4,13 @@ import SectionLabel from "@/components/SectionLabel";
 import RegisterForm from "@/components/RegisterForm";
 import HouseSilhouette from "@/components/HouseSilhouette";
 import { JSX } from "react";
+import { REGIONS } from "@/lib/site";
 
 export const metadata: Metadata = {
     title: "Aanmelden",
     description:
         "Schrijf je vrijblijvend in voor Thuismeester in Amersfoort en omstreken. Start in januari 2027 bij voldoende aanmeldingen.",
 };
-
-const regions = ["Amersfoort", "Leusden", "Hoevelaken", "Nijkerk", "Soest"];
 
 /**
  * Top section.
@@ -86,7 +85,7 @@ function Sidebar(): JSX.Element {
                     Beschikbaar in
                 </p>
                 <ul className="space-y-2">
-                    {regions.map((r) => (
+                    {REGIONS.map((r) => (
                         <li
                             key={r}
                             className="flex items-center gap-2 text-sm text-ink-soft"

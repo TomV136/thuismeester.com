@@ -6,6 +6,7 @@
  */
 
 import { detailsTable, escapeHtml, paragraph, renderBrandedEmail, textToHtml, type EmailContent } from "@/lib/email-util";
+import { REGION_NOTE } from "@/lib/site";
 
 interface AanmeldingEmailData {
     name: string;
@@ -36,7 +37,7 @@ export function buildAanmeldBevestigingEmail(data: AanmeldingEmailData): EmailCo
         paragraph("Dit zijn de gegevens die je hebt ingevuld:"),
         detailsTable(details),
         paragraph(
-            "<strong>Hoe nu verder?</strong> Thuismeester gaat van start in januari 2027, zodra er voldoende aanmeldingen zijn in Amersfoort en omstreken. Je hoeft verder niets te doen: zodra we de startdatum bevestigen, ontvang je bericht op dit e-mailadres."
+            `<strong>Hoe nu verder?</strong> Thuismeester gaat van start in januari 2027, zodra er voldoende aanmeldingen zijn in ${REGION_NOTE}. Je hoeft verder niets te doen: zodra we de startdatum bevestigen, ontvang je bericht op dit e-mailadres.`
         ),
         paragraph(
             "Je aanmelding is volledig vrijblijvend en kosteloos. Je zit nergens aan vast en kunt je op elk moment weer afmelden."
