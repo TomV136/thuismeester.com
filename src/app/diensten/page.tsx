@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Button from "@/components/Button";
 import SectionLabel from "@/components/SectionLabel";
+import { JSX } from "react";
 
 export const metadata: Metadata = {
     title: "Diensten",
@@ -58,117 +59,147 @@ const services = [
     },
 ];
 
-export default function DienstenPage() {
-    return (
-        <>
-            {/* Page header */}
-            {/* Image: /images/diensten-header.jpg
-          Replace with a calm, professional image of a tidy living
-          space or a homeowner receiving help from a trusted person. */}
-            <section className="relative py-28 bg-green text-white overflow-hidden">
-                <Image
-                    src="https://images.unsplash.com/photo-1480074568708-e7b720bb3f09?w=1800&q=80"
-                    alt="Gewone gezinswoning in Amersfoort — praktische hulp bij woningzaken"
-                    fill
-                    priority
-                    className="object-cover object-center opacity-20"
-                    sizes="100vw"
-                />
-                <div className="section-wrapper relative z-10">
-                    <SectionLabel>
-                        <span className="text-white/60">Wat we doen</span>
-                    </SectionLabel>
-                    <h1 className="font-serif text-display-lg font-semibold">
-                        Diensten
-                    </h1>
-                    <p className="mt-5 max-w-prose text-base leading-relaxed text-white/75">
-                        Thuismeester biedt praktische ondersteuning rondom je woning — van
-                        organisatie en advies tot coördinatie en vakmansnetwerk.
-                    </p>
-                </div>
-            </section>
+/**
+ * Top section.
+ */
+function TopSection(): JSX.Element {
+    return (<>
+        <Image
+            src="https://images.unsplash.com/photo-1480074568708-e7b720bb3f09?w=1800&q=80"
+            alt="Gewone gezinswoning in Amersfoort — praktische hulp bij woningzaken"
+            fill
+            priority
+            className="object-cover object-center opacity-20"
+            sizes="100vw"
+        />
+        <div className="section-wrapper relative z-10">
+            <SectionLabel>
+                <span className="text-white/60">Wat we doen</span>
+            </SectionLabel>
+            <h1 className="font-serif text-display-lg font-semibold">
+                Diensten
+            </h1>
+            <p className="mt-5 max-w-prose text-base leading-relaxed text-white/75">
+                Thuismeester biedt praktische ondersteuning rondom je woning — van
+                organisatie en advies tot coördinatie en vakmansnetwerk.
+            </p>
+        </div>
+    </>);
+}
 
-            {/* Services grid */}
-            <section className="bg-beige-light py-section">
-                <div className="section-wrapper">
-                    <div className="grid gap-px bg-beige-dark sm:grid-cols-2 lg:grid-cols-3">
-                        {services.map((service) => (
-                            <div
-                                key={service.title}
-                                className="flex flex-col gap-4 bg-white p-10 transition-shadow hover:shadow-sm"
-                            >
-                                <h2 className="font-serif text-xl font-semibold text-ink">
-                                    {service.title}
-                                </h2>
-                                <p className="text-sm leading-relaxed text-ink-muted">
-                                    {service.description}
-                                </p>
-                                <p className="mt-auto pt-4 text-xs leading-relaxed text-ink-muted/70 border-t border-beige-dark">
-                                    {service.detail}
-                                </p>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </section>
-
-            {/* Not included / scope section */}
-            <section className="bg-beige py-section">
-                <div className="section-wrapper">
-                    <div className="mx-auto max-w-3xl">
-                        <SectionLabel>Afbakening</SectionLabel>
-                        <h2 className="font-serif text-display-md font-semibold text-ink">
-                            Wat doet Thuismeester niet?
+/**
+ * Section showing all services that thuismeester offers.
+ * Services arranged in a grid.
+ */
+function ServicesSection(): JSX.Element {
+    return (<>
+        <div className="section-wrapper">
+            <div className="grid gap-px bg-beige-dark sm:grid-cols-2 lg:grid-cols-3">
+                {services.map((service) => (
+                    <div
+                        key={service.title}
+                        className="flex flex-col gap-4 bg-white p-10 transition-shadow hover:shadow-sm"
+                    >
+                        <h2 className="font-serif text-xl font-semibold text-ink">
+                            {service.title}
                         </h2>
-                        <p className="mt-5 text-base leading-relaxed text-ink-muted">
-                            Thuismeester is geen vakman, aannemer, schoonmaakdienst of
-                            boodschappenservice. De focus ligt op organisatie, advies en het
-                            verbinden van bewoners met de juiste mensen. Werkzaamheden die
-                            specifieke vakkennis vereisen, worden uitgevoerd door ons netwerk
-                            van vakmensen — Thuismeester coördineert.
+                        <p className="text-sm leading-relaxed text-ink-muted">
+                            {service.description}
+                        </p>
+                        <p className="mt-auto pt-4 text-xs leading-relaxed text-ink-muted/70 border-t border-beige-dark">
+                            {service.detail}
                         </p>
                     </div>
-                </div>
-            </section>
+                ))}
+            </div>
+        </div>
+    </>);
+}
 
-            {/* Image + pricing CTA
-          Image: /images/contact-trust.jpg
-          Replace with a warm, professional photo of a
-          Thuismeester and a homeowner — calm, trustworthy atmosphere. */}
-            <section className="bg-green py-section text-white">
-                <div className="section-wrapper">
-                    <div className="grid items-center gap-12 lg:grid-cols-2">
-                        <div className="relative aspect-[4/3] overflow-hidden">
-                            <Image
-                                src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=900&q=80"
-                                alt="Betrouwbaar en persoonlijk contact met jouw Thuismeester"
-                                fill
-                                className="object-cover object-center"
-                                sizes="(min-width: 1024px) 50vw, 100vw"
-                            />
-                        </div>
-                        <div>
-                            <SectionLabel>
-                                <span className="text-white/60">Tarief</span>
-                            </SectionLabel>
-                            <h2 className="font-serif text-display-md font-semibold text-white">
-                                Vanaf €10 per maand
-                            </h2>
-                            <p className="mt-5 text-base leading-relaxed text-white/75">
-                                Het vaste abonnement van €10 per maand geeft je toegang tot
-                                Thuismeester. Extra hulp en werkzaamheden worden uitgevoerd
-                                tegen uurtarief of op offertebasis — altijd transparant en
-                                vooraf besproken.
-                            </p>
-                            <div className="mt-8">
-                                <Button href="/aanmelden" size="lg"
-                                    className="bg-white text-green hover:bg-beige">
-                                    Aanmelden
-                                </Button>
-                            </div>
-                        </div>
+/**
+ * Section describing what thuismeester does not do.
+ */
+function WhatDoesThuismeesterNotDoSection(): JSX.Element {
+    return (<>
+        <div className="section-wrapper">
+            <div className="mx-auto max-w-3xl">
+                <SectionLabel>Afbakening</SectionLabel>
+                <h2 className="font-serif text-display-md font-semibold text-ink">
+                    Wat doet Thuismeester niet?
+                </h2>
+                <p className="mt-5 text-base leading-relaxed text-ink-muted">
+                    Thuismeester is geen vakman, aannemer, schoonmaakdienst of
+                    boodschappenservice. De focus ligt op organisatie, advies en het
+                    verbinden van bewoners met de juiste mensen. Werkzaamheden die
+                    specifieke vakkennis vereisen, worden uitgevoerd door ons netwerk
+                    van vakmensen — Thuismeester coördineert.
+                </p>
+            </div>
+        </div>
+    </>);
+}
+
+/**
+ * Section with pricing information and button to sign up page.
+ */
+function PricingSection(): JSX.Element {
+    return (<>
+        <div className="section-wrapper">
+            <div className="grid items-center gap-12 lg:grid-cols-2">
+                <div className="relative aspect-[4/3] overflow-hidden">
+                    <Image
+                        src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=900&q=80"
+                        alt="Betrouwbaar en persoonlijk contact met jouw Thuismeester"
+                        fill
+                        className="object-cover object-center"
+                        sizes="(min-width: 1024px) 50vw, 100vw"
+                    />
+                </div>
+                <div>
+                    <SectionLabel>
+                        <span className="text-white/60">Tarief</span>
+                    </SectionLabel>
+                    <h2 className="font-serif text-display-md font-semibold text-white">
+                        Vanaf €10 per maand
+                    </h2>
+                    <p className="mt-5 text-base leading-relaxed text-white/75">
+                        Het vaste abonnement van €10 per maand geeft je toegang tot
+                        Thuismeester. Extra hulp en werkzaamheden worden uitgevoerd
+                        tegen uurtarief of op offertebasis — altijd transparant en
+                        vooraf besproken.
+                    </p>
+                    <div className="mt-8">
+                        <Button href="/aanmelden" size="lg"
+                            className="bg-white text-green hover:bg-beige">
+                            Aanmelden
+                        </Button>
                     </div>
                 </div>
+            </div>
+        </div>
+    </>);
+}
+
+/**
+ * @returns the services page
+ */
+export default function ServicesPage() {
+    return (
+        <>
+            <section className="relative py-28 bg-green text-white overflow-hidden">
+                <TopSection />
+            </section>
+
+            <section className="bg-beige-light py-section">
+                <ServicesSection />
+            </section>
+
+            <section className="bg-beige py-section">
+                <WhatDoesThuismeesterNotDoSection />
+            </section>
+
+            <section className="bg-green py-section text-white">
+                <PricingSection />
             </section>
         </>
     );

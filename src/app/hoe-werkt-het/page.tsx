@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Button from "@/components/Button";
 import SectionLabel from "@/components/SectionLabel";
+import { JSX } from "react";
 
 export const metadata: Metadata = {
     title: "Hoe werkt het",
@@ -62,105 +63,140 @@ const faqs = [
     },
 ];
 
+/**
+ * The top section. 
+ */
+function TopSection(): JSX.Element {
+    return (<>
+        <div className="section-wrapper">
+            <SectionLabel>
+                <span className="text-white/60">Werkwijze</span>
+            </SectionLabel>
+            <h1 className="font-serif text-display-lg font-semibold text-white">
+                Hoe werkt het?
+            </h1>
+            <p className="mt-5 max-w-prose text-base leading-relaxed text-white/75">
+                Van aanmelding tot jouw vaste aanspreekpunt — in drie heldere
+                stappen.
+            </p>
+        </div>
+    </>);
+}
+
+/**
+ * Section containing the steps of signingup->being notified.
+ */
+function StepsSection(): JSX.Element {
+    return (<>
+        <div className="section-wrapper">
+            <div className="space-y-28">
+                {steps.map((step, i) => (
+                    <div
+                        key={step.number}
+                        className={`grid items-center gap-16 lg:grid-cols-2 ${i % 2 === 1 ? "lg:[&>*:first-child]:order-last" : ""
+                            }`}
+                    >
+                        {/* Text */}
+                        <div>
+                            <p className="font-serif text-6xl font-semibold leading-none text-green/15">
+                                {step.number}
+                            </p>
+                            <h2 className="mt-4 font-serif text-display-md font-semibold text-ink">
+                                {step.title}
+                            </h2>
+                            <p className="mt-5 max-w-prose text-base leading-relaxed text-ink-muted">
+                                {step.body}
+                            </p>
+                        </div>
+
+                        {/* Image */}
+                        <div className="relative aspect-[4/3] overflow-hidden shadow-sm">
+                            <Image
+                                src={step.image}
+                                alt={step.imageAlt}
+                                fill
+                                className="object-cover object-center"
+                                sizes="(min-width: 1024px) 50vw, 100vw"
+                            />
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </>);
+}
+
+/**
+ * Sections containing FAQs.
+ */
+function FAQsSection(): JSX.Element {
+    return (<>
+        <div className="section-wrapper">
+            <div className="mx-auto max-w-3xl">
+                <SectionLabel>Veelgestelde vragen</SectionLabel>
+                <h2 className="font-serif text-display-md font-semibold text-ink">
+                    Veel gestelde vragen
+                </h2>
+
+                <div className="mt-12 divide-y divide-beige-dark">
+                    {faqs.map(({ q, a }) => (
+                        <details key={q} className="group py-6">
+                            <summary className="flex cursor-pointer list-none items-center justify-between
+                                      gap-4 font-serif text-base font-semibold text-ink">
+                                {q}
+                                <span className="shrink-0 text-green transition-transform group-open:rotate-45">
+                                    +
+                                </span>
+                            </summary>
+                            <p className="mt-4 text-sm leading-relaxed text-ink-muted">{a}</p>
+                        </details>
+                    ))}
+                </div>
+            </div>
+        </div>
+    </>);
+}
+
+/**
+ * Section asking user if they want to sign up.
+ */
+function FinalSection(): JSX.Element {
+    return (<>
+        <div className="section-wrapper text-center">
+            <h2 className="font-serif text-2xl font-semibold">
+                Klaar om je in te schrijven?
+            </h2>
+            <p className="mt-3 text-white/70">Vrijblijvend en gratis.</p>
+            <div className="mt-6">
+                <Button href="/aanmelden" size="lg"
+                    className="bg-white text-green hover:bg-beige">
+                    Aanmelden
+                </Button>
+            </div>
+        </div>
+    </>);
+}
+
+/**
+ * @returns the 'how does it work' page
+ */
 export default function HoeWerktHetPage() {
     return (
         <>
-            {/* Page header */}
             <section className="bg-green py-20 text-white">
-                <div className="section-wrapper">
-                    <SectionLabel>
-                        <span className="text-white/60">Werkwijze</span>
-                    </SectionLabel>
-                    <h1 className="font-serif text-display-lg font-semibold text-white">
-                        Hoe werkt het?
-                    </h1>
-                    <p className="mt-5 max-w-prose text-base leading-relaxed text-white/75">
-                        Van aanmelding tot jouw vaste aanspreekpunt — in drie heldere
-                        stappen.
-                    </p>
-                </div>
+                <TopSection />
             </section>
 
-            {/* Steps */}
             <section className="bg-beige-light py-section">
-                <div className="section-wrapper">
-                    <div className="space-y-28">
-                        {steps.map((step, i) => (
-                            <div
-                                key={step.number}
-                                className={`grid items-center gap-16 lg:grid-cols-2 ${i % 2 === 1 ? "lg:[&>*:first-child]:order-last" : ""
-                                    }`}
-                            >
-                                {/* Text */}
-                                <div>
-                                    <p className="font-serif text-6xl font-semibold leading-none text-green/15">
-                                        {step.number}
-                                    </p>
-                                    <h2 className="mt-4 font-serif text-display-md font-semibold text-ink">
-                                        {step.title}
-                                    </h2>
-                                    <p className="mt-5 max-w-prose text-base leading-relaxed text-ink-muted">
-                                        {step.body}
-                                    </p>
-                                </div>
-
-                                {/* Image */}
-                                <div className="relative aspect-[4/3] overflow-hidden shadow-sm">
-                                    <Image
-                                        src={step.image}
-                                        alt={step.imageAlt}
-                                        fill
-                                        className="object-cover object-center"
-                                        sizes="(min-width: 1024px) 50vw, 100vw"
-                                    />
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </div>
+                <StepsSection />
             </section>
 
-            {/* FAQ */}
             <section className="bg-beige py-section">
-                <div className="section-wrapper">
-                    <div className="mx-auto max-w-3xl">
-                        <SectionLabel>Veelgestelde vragen</SectionLabel>
-                        <h2 className="font-serif text-display-md font-semibold text-ink">
-                            Veel gestelde vragen
-                        </h2>
-
-                        <div className="mt-12 divide-y divide-beige-dark">
-                            {faqs.map(({ q, a }) => (
-                                <details key={q} className="group py-6">
-                                    <summary className="flex cursor-pointer list-none items-center justify-between
-                                      gap-4 font-serif text-base font-semibold text-ink">
-                                        {q}
-                                        <span className="shrink-0 text-green transition-transform group-open:rotate-45">
-                                            +
-                                        </span>
-                                    </summary>
-                                    <p className="mt-4 text-sm leading-relaxed text-ink-muted">{a}</p>
-                                </details>
-                            ))}
-                        </div>
-                    </div>
-                </div>
+                <FAQsSection />
             </section>
 
-            {/* CTA */}
             <section className="bg-green py-section-sm text-white">
-                <div className="section-wrapper text-center">
-                    <h2 className="font-serif text-2xl font-semibold">
-                        Klaar om je in te schrijven?
-                    </h2>
-                    <p className="mt-3 text-white/70">Vrijblijvend en gratis.</p>
-                    <div className="mt-6">
-                        <Button href="/aanmelden" size="lg"
-                            className="bg-white text-green hover:bg-beige">
-                            Aanmelden
-                        </Button>
-                    </div>
-                </div>
+                <FinalSection />
             </section>
         </>
     );
