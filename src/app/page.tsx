@@ -15,7 +15,7 @@ const regio = ["Amersfoort", "Leusden", "Hoevelaken", "Nijkerk", "Soest"];
 // -------------------------------------------------------
 // Services listed on homepage — keep broad and professional
 // -------------------------------------------------------
-const diensten = [
+const services = [
     {
         icon: "💬",
         title: "Vast aanspreekpunt",
@@ -302,7 +302,7 @@ export default function HomePage() {
                     </div>
 
                     <div className="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-                        {diensten.map((d) => (
+                        {services.map((d) => (
                             <div
                                 key={d.title}
                                 className="flex flex-col gap-4 border border-beige-dark bg-white p-8
