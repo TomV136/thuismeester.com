@@ -1,6 +1,7 @@
 "use client";
 
 import Button from "./Button";
+import { FormError, FormSuccess } from "./FormFeedback";
 import { useFormSubmit } from "@/lib/useFormSubmit";
 
 /**
@@ -24,27 +25,10 @@ export default function ContactForm() {
      */
     if (state === "success") {
         return (
-            <div className="rounded-sm border border-green/30 bg-green/5 p-8 text-center">
-                <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center
-                        rounded-full bg-green text-white text-xl">
-                    ✓
-                </div>
-                <h3 className="font-serif text-xl font-semibold text-ink">
-                    Bericht ontvangen
-                </h3>
-                <p className="mt-3 text-sm leading-relaxed text-ink-muted">
-                    Dank voor je bericht. We reageren zo snel mogelijk, doorgaans binnen
-                    één werkdag.
-                </p>
-                {/* Non-fatal issue (e.g. confirmation email failed): the
-                    message reached us, but the visitor should know why no
-                    confirmation email is coming. */}
-                {warningMessage && (
-                    <p className="mt-4 rounded-sm border border-amber-200 bg-amber-50 px-4 py-3 text-left text-sm leading-relaxed text-amber-800">
-                        {warningMessage}
-                    </p>
-                )}
-            </div>
+            <FormSuccess title="Bericht ontvangen" warningMessage={warningMessage}>
+                Dank voor je bericht. We reageren zo snel mogelijk, doorgaans binnen
+                één werkdag.
+            </FormSuccess>
         );
     }
 
@@ -122,7 +106,7 @@ export default function ContactForm() {
             </div>
 
             {state === "error" && errorMessage && (
-                <p className="text-sm text-red-600">{errorMessage}</p>
+                <FormError message={errorMessage} />
             )}
 
             {/* ── Submit button ── */}

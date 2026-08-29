@@ -2,6 +2,7 @@
 
 import { REGIONS } from "@/lib/site";
 import Button from "./Button";
+import { FormError, FormSuccess } from "./FormFeedback";
 import { useFormSubmit } from "@/lib/useFormSubmit";
 
 export const towns = REGIONS.concat(["Anders"]);
@@ -11,26 +12,10 @@ export default function RegisterForm() {
 
     if (state === "success") {
         return (
-            <div className="rounded-sm border border-green/30 bg-green/5 p-8 text-center">
-                <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-green text-white text-xl">
-                    ✓
-                </div>
-                <h3 className="font-serif text-xl font-semibold text-ink">
-                    Aanmelding ontvangen
-                </h3>
-                <p className="mt-3 text-sm leading-relaxed text-ink-muted">
-                    Bedankt voor je aanmelding. We hebben je gegevens ontvangen en nemen binnenkort contact met je op.
-                    Was je al aangemeld? Dan ontvang je daarvan per e-mail een bevestiging.
-                </p>
-                {/* Non-fatal issue (e.g. confirmation email failed): the
-                    registration succeeded, but the visitor should know why
-                    no email is coming. */}
-                {warningMessage && (
-                    <p className="mt-4 rounded-sm border border-amber-200 bg-amber-50 px-4 py-3 text-left text-sm leading-relaxed text-amber-800">
-                        {warningMessage}
-                    </p>
-                )}
-            </div>
+            <FormSuccess title="Aanmelding ontvangen" warningMessage={warningMessage}>
+                Bedankt voor je aanmelding. We hebben je gegevens ontvangen en nemen binnenkort contact met je op.
+                Was je al aangemeld? Dan ontvang je daarvan per e-mail een bevestiging.
+            </FormSuccess>
         );
     }
 
@@ -128,9 +113,7 @@ export default function RegisterForm() {
                 />
             </div>
             {state === "error" && errorMessage && (
-                <p className="rounded-sm bg-red-50 px-4 py-3 text-sm text-red-700">
-                    {errorMessage}
-                </p>
+                <FormError message={errorMessage} />
             )}
 
             {/* ── Submit button ── */}
