@@ -5,6 +5,7 @@ import PageHeader from "@/components/PageHeader";
 import Section from "@/components/Section";
 import SectionLabel from "@/components/SectionLabel";
 import { JSX } from "react";
+import founderPic from "@/media/founder-pic.png";
 
 export const metadata: Metadata = {
     title: "Over Thuismeester",
@@ -84,20 +85,16 @@ function StorySection(): JSX.Element {
 
 /**
  * Section containing about the founder.
- *
- * The bracketed placeholders must be filled in with the real name, place,
- * background and personal motivation — and the portrait replaced by a real
- * photo of the founder — before the site goes live.
  */
 function AboutFounderSection(): JSX.Element {
     return (<>
         <div className="section-wrapper">
             <div className="grid items-center gap-16 lg:grid-cols-[380px_1fr]">
-                {/* Portrait — replace with a real photo of the founder */}
+                {/* Portrait of the founder */}
                 <div className="relative mx-auto aspect-[3/4] w-full max-w-sm overflow-hidden shadow-sm">
                     <Image
-                        src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=800&q=80"
-                        alt="[NAAM], oprichter van Thuismeester"
+                        src={founderPic}
+                        alt="David, oprichter van Thuismeester"
                         fill
                         className="object-cover object-center"
                         sizes="(min-width: 1024px) 380px, 100vw"
@@ -108,29 +105,53 @@ function AboutFounderSection(): JSX.Element {
                 <div>
                     <SectionLabel>De oprichter</SectionLabel>
                     <h2 className="font-serif text-display-md font-semibold text-ink">
-                        Aangenaam, [NAAM]
+                        Aangenaam, David
                     </h2>
                     <div className="mt-6 space-y-5 max-w-prose text-base leading-relaxed text-ink-muted">
                         <p>
-                            Ik ben [NAAM], en woon en werk al [X] jaar in [PLAATS].
-                            Na [aantal] jaar in [vakgebied — bijvoorbeeld bouw,
-                            techniek, facilitaire dienstverlening] zag ik hoe vaak
-                            bewoners vastlopen op precies hetzelfde: geen tijd, geen
-                            overzicht en geen vakman in het adresboek die ze echt
-                            vertrouwen. [Eén persoonlijke zin over de concrete
-                            aanleiding.] Daarom ben ik Thuismeester begonnen — en
-                            straks ben ik het vaste gezicht voor bewoners hier in de
-                            regio.
+                            Ik ben David en woon en werk zelf in de regio
+                            Amersfoort. De afgelopen jaren zag ik in mijn eigen
+                            omgeving hoe vaak mensen vastlopen op iets wat
+                            eigenlijk heel gewoon zou moeten zijn: goed voor hun
+                            huis zorgen.
+                        </p>
+                        <p>
+                            Een offerte waarvan je niet weet of de prijs redelijk
+                            is. Een vakman die iets anders adviseert dan de
+                            vorige. Onderhoud waarvan je niet weet of het nu echt
+                            nodig is. Of simpelweg niemand hebben die je even kunt
+                            bellen en vragen: wat zou jij doen?
+                        </p>
+                        <p>
+                            Wat volgens mij ontbreekt, is niet nóg een
+                            vergelijkingssite of nóg een klusbedrijf. Het is
+                            iemand die aan jouw kant staat.
+                        </p>
+                        <p>
+                            Daarom ben ik Thuismeester gestart. Bewust lokaal en
+                            persoonlijk. Geen commissie op klussen en geen belang
+                            bij welke vakman je kiest. Gewoon iemand die je huis
+                            leert kennen en vanuit jouw belang met je meedenkt.
+                        </p>
+                        <p>
+                            Vanaf januari 2027 start Thuismeester in Amersfoort en
+                            omgeving.
                         </p>
                     </div>
 
                     {/* Signature-style closing */}
                     <p className="mt-8 font-serif text-xl italic text-ink">
-                        [NAAM]
+                        David
                     </p>
                     <p className="text-sm text-ink-muted">
                         Oprichter van Thuismeester
                     </p>
+
+                    <div className="mt-8">
+                        <Button href="/aanmelden">
+                            Meld je aan voor jouw regio
+                        </Button>
+                    </div>
                 </div>
             </div>
         </div>

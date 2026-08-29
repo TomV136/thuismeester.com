@@ -183,6 +183,14 @@ const SCENES: Record<
             { shape: "hedge", x: 214 },
         ],
     },
+    hof: {
+        width: 234,
+        items: [
+            { shape: "hedge", x: 0 },
+            { shape: "stepped", x: 68 },
+            { shape: "tree", x: 200 },
+        ],
+    },
 };
 
 interface SceneSilhouetteProps {
