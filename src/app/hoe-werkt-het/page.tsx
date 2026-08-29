@@ -27,21 +27,19 @@ function PracticalExampleSection(): JSX.Element {
     return (<>
         <div className="section-wrapper">
             <div className="mx-auto max-w-3xl text-center">
-                <SectionLabel>
-                    <span className="text-white/60">In de praktijk</span>
-                </SectionLabel>
-                <h2 className="font-serif text-display-md font-semibold">
+                <SectionLabel>In de praktijk</SectionLabel>
+                <h2 className="font-serif text-display-md font-semibold text-ink">
                     In de praktijk: de losse dakgoot
                 </h2>
             </div>
 
             <div className="mt-14 grid gap-10 sm:grid-cols-3">
                 {exampleScenario.map((body, i) => (
-                    <div key={i} className="border-l-2 border-purple-300/60 pl-5 text-left">
-                        <p className="font-serif text-3xl font-semibold text-white/30">
+                    <div key={i} className="border-l-2 border-purple pl-5 text-left">
+                        <p className="font-serif text-3xl font-semibold text-purple/50">
                             {i + 1}
                         </p>
-                        <p className="mt-3 text-sm leading-relaxed text-white/70">
+                        <p className="mt-3 text-base leading-relaxed text-ink-muted">
                             {body}
                         </p>
                     </div>

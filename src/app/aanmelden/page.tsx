@@ -32,7 +32,7 @@ function Form(): JSX.Element {
                 <RegisterForm />
             </div>
 
-            <p className="mt-6 text-xs leading-relaxed text-ink-muted">
+            <p className="mt-6 text-sm leading-relaxed text-ink-muted">
                 Wij starten zodra er voldoende aanmeldingen zijn in Amersfoort
                 en omstreken. Je gegevens worden vertrouwelijk behandeld en
                 alleen gebruikt voor communicatie over de start van
@@ -77,7 +77,7 @@ function Sidebar(): JSX.Element {
                         </li>
                     ))}
                 </ul>
-                <p className="mt-4 text-xs text-ink-muted">
+                <p className="mt-4 text-sm text-ink-muted">
                     Woon je ergens anders? Meld je toch aan — we kijken mee
                     naar uitbreiding.
                 </p>

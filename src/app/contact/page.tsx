@@ -58,7 +58,7 @@ function Sidebar(): JSX.Element {
                         Actief in voorbereiding voor{" "}
                         <strong>{REGION_NOTE}</strong>
                     </p>
-                    <p className="mt-1 text-xs text-ink-muted">
+                    <p className="mt-1 text-sm text-ink-muted">
                         {REGIONS.join(" · ")}
                     </p>
                 </div>

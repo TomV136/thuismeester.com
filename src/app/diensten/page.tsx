@@ -105,22 +105,19 @@ function PricingSection(): JSX.Element {
     return (<>
         <div className="section-wrapper">
             <div className="mx-auto max-w-3xl text-center">
-                <SectionLabel>
-                    <span className="text-white/60">Prijs</span>
-                </SectionLabel>
-                <h2 className="font-serif text-display-md font-semibold text-white">
+                <SectionLabel>Prijs</SectionLabel>
+                <h2 className="font-serif text-display-md font-semibold text-ink">
                     €10 per maand
                 </h2>
-                <p className="mx-auto mt-5 max-w-prose text-base leading-relaxed text-white/75">
+                <p className="mx-auto mt-5 max-w-prose text-base leading-relaxed text-ink-muted">
                     €10 per maand voor advies, aanspreekpunt en toegang tot het
                     vakmensennetwerk. Bekijk de volledige prijsopbouw op de{" "}
-                    <Link href="/" className="font-medium text-white underline underline-offset-2 hover:text-beige">
+                    <Link href="/" className="font-medium text-green underline underline-offset-2 hover:text-purple">
                         homepage
                     </Link>.
                 </p>
                 <div className="mt-8">
-                    <Button href="/aanmelden" size="lg"
-                        className="bg-white text-green hover:bg-beige">
+                    <Button href="/aanmelden" size="lg">
                         Nieuwsgierig? Meld je vrijblijvend aan
                     </Button>
                 </div>

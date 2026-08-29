@@ -157,7 +157,7 @@ function ValuesSection(): JSX.Element {
                         <h3 className="font-serif text-xl font-semibold text-ink">
                             {v.title}
                         </h3>
-                        <p className="mt-3 text-sm leading-relaxed text-ink-muted">
+                        <p className="mt-3 text-base leading-relaxed text-ink-muted">
                             {v.body}
                         </p>
                     </div>
@@ -173,13 +173,12 @@ function ValuesSection(): JSX.Element {
 function ContactCTASection(): JSX.Element {
     return (<>
         <div className="section-wrapper">
-            <div className="mx-auto max-w-2xl text-center text-white">
-                <h2 className="font-serif text-display-md font-semibold">
+            <div className="mx-auto max-w-2xl text-center">
+                <h2 className="font-serif text-display-md font-semibold text-ink">
                     Persoonlijk kennismaken?
                 </h2>
                 <div className="mt-8">
-                    <Button href="/contact" size="lg"
-                        className="bg-white text-green hover:bg-beige">
+                    <Button href="/contact" size="lg">
                         Stuur een bericht
                     </Button>
                 </div>

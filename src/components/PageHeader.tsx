@@ -70,12 +70,12 @@ export default function PageHeader({
         >
             <div className="section-wrapper">
                 <SectionLabel>
-                    <span className="text-white/60">{label}</span>
+                    <span className="text-white/80">{label}</span>
                 </SectionLabel>
                 <h1 className="font-serif text-display-lg font-semibold">
                     {title}
                 </h1>
-                <p className="mt-5 max-w-prose text-base leading-relaxed text-white/75">
+                <p className="mt-5 max-w-prose text-base leading-relaxed text-white/85">
                     {intro}
                 </p>
                 {children}

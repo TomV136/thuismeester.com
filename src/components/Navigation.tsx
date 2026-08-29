@@ -73,7 +73,7 @@ export default function Navigation() {
                             href={link.href}
                             className="inline-block bg-green px-5 py-2.5 text-sm font-medium text-white shadow-accent-b
                          transition-all duration-150 hover:bg-green-light
-                         hover:translate-y-[3px] active:bg-purple-light"
+                         hover:translate-y-[3px] active:bg-purple"
                         >
                             {link.label}
                         </Link>

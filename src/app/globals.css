@@ -41,7 +41,7 @@
     }
 
     .form-input {
-        @apply w-full rounded-none border border-beige-dark bg-white px-4 py-3 text-ink placeholder-stone transition-colors duration-150 focus:border-green focus:outline-none focus:ring-1 focus:ring-green;
+        @apply w-full rounded-none border border-beige-dark bg-white px-4 py-3 text-ink placeholder-stone-dark transition-colors duration-150 focus:border-green focus:outline-none focus:ring-1 focus:ring-green;
     }
 
     .form-label {

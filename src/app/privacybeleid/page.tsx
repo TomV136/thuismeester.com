@@ -56,10 +56,10 @@ function PolicySection(): JSX.Element {
 			<div className="mx-auto max-w-3xl divide-y divide-beige-dark border-y border-beige-dark">
 				{policySections.map(({ q, a }) => (
 					<div key={q} className="py-8">
-						<h2 className="font-serif text-base font-semibold text-ink">
+						<h2 className="font-serif text-lg font-semibold text-ink">
 							{q}
 						</h2>
-						<p className="mt-4 max-w-prose text-sm leading-relaxed text-ink-muted">
+						<p className="mt-4 max-w-prose text-base leading-relaxed text-ink-muted">
 							{a}
 						</p>
 					</div>
@@ -81,7 +81,7 @@ export default function PrivacybeleidPage() {
 					bewaren, waarom, en welke rechten je hebt."
 				silhouetteVariant="gable"
 			>
-				<p className="mt-4 text-xs uppercase tracking-widest text-white/50">
+				<p className="mt-4 text-xs uppercase tracking-widest text-white/70">
 					Laatst bijgewerkt: {LAST_UPDATED}
 				</p>
 			</PageHeader>

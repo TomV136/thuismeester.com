@@ -71,14 +71,14 @@ function FAQSection(): JSX.Element {
 							{items.map(({ q, a }) => (
 								<details key={q} className="group py-6">
 									<summary className="flex cursor-pointer list-none items-center justify-between
-                                          gap-4 font-serif text-base font-semibold text-ink">
+                                          gap-4 font-serif text-lg font-semibold text-ink">
 										{q}
 										{/* Purple accent: the +/× toggle indicator */}
 										<span className="shrink-0 text-purple transition-transform group-open:rotate-45">
 											+
 										</span>
 									</summary>
-									<p className="mt-4 max-w-prose text-sm leading-relaxed text-ink-muted">
+									<p className="mt-4 max-w-prose text-base leading-relaxed text-ink-muted">
 										{a}
 									</p>
 								</details>

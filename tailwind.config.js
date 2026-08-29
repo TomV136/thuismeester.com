@@ -64,11 +64,13 @@ module.exports = {
                     DEFAULT: "#9B9E97",
                     dark: "#5A5E57",
                 },
-                // Deep text colour
+                // Deep text colour. `muted` is kept dark enough to stay
+                // WCAG AA (≥4.5:1) on every section background, including
+                // bg-green-100 ("mint" sections).
                 ink: {
                     DEFAULT: "#1A2018",
                     soft: "#3D4438",
-                    muted: "#6B7266",
+                    muted: "#575E52",
                 },
             },
             fontFamily: {

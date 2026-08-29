@@ -18,25 +18,24 @@ function TopSection(): JSX.Element {
     return (
         <div className="section-wrapper pb-20 pt-32">
             <div className="max-w-2xl">
-                <span className="badge mb-6 border border-white/30 bg-white/10 text-white">
+                <span className="badge mb-6 border border-white/25 bg-green/90 text-white">
                     {REGION_NOTE} · Start januari 2027
                 </span>
                 <h1 className="font-serif text-4xl font-semibold leading-tight text-white sm:text-5xl lg:text-6xl">
                     Een onafhankelijk advies<br />
                     <span className="italic">vóórdat je tekent.</span>
                 </h1>
-                <p className="mt-6 max-w-xl text-base leading-relaxed text-white/80 sm:text-lg">
+                <p className="mt-6 max-w-xl text-base leading-relaxed text-white/90 sm:text-lg">
                     Twijfel je over een offerte, een klus of welk onderhoud nodig
                     is? Jouw Thuismeester denkt met je mee — niet als verkoper,
                     maar als vertrouwd aanspreekpunt dat alleen jouw belang dient.
                     Voor bewoners in {REGION_NOTE}, vanaf €10 per maand.
                 </p>
                 <div className="mt-8 flex flex-wrap gap-4">
-                    <Button href="/aanmelden" size="lg">
+                    <Button href="/aanmelden" variant="light" size="lg">
                         Meld je aan voor jouw regio
                     </Button>
-                    <Button href="/hoe-werkt-het" variant="outline" size="lg"
-                        className="border-white/60 text-white hover:bg-white hover:text-green">
+                    <Button href="/hoe-werkt-het" variant="outline-light" size="lg">
                         Hoe werkt het?
                     </Button>
                 </div>
@@ -105,8 +104,8 @@ function ProblemSection(): JSX.Element {
                             "Achter afspraken en terugbelverzoeken aan bellen",
                             "Niet weten welk onderhoud wanneer nodig is",
                         ].map((item) => (
-                            <li key={item} className="flex items-start gap-3 text-sm text-ink-soft">
-                                <span className="mt-0.5 h-5 w-5 shrink-0 rounded-full bg-beige-dark
+                            <li key={item} className="flex items-start gap-3 text-base text-ink-soft">
+                                <span className="mt-0.5 h-5 w-5 shrink-0 rounded-full bg-white
                                      flex items-center justify-center text-green text-xs">
                                     ✓
                                 </span>
@@ -152,12 +151,12 @@ function SolutionsSection(): JSX.Element {
                 {/* Text */}
                 <div>
                     <SectionLabel>
-                        <span className="text-white/60">De oplossing</span>
+                        <span className="text-white/80">De oplossing</span>
                     </SectionLabel>
                     <h2 className="font-serif text-display-md font-semibold text-white">
                         Eén onafhankelijk aanspreekpunt, aan jouw kant
                     </h2>
-                    <p className="mt-6 max-w-prose text-base leading-relaxed text-white/75">
+                    <p className="mt-6 max-w-prose text-base leading-relaxed text-white/85">
                         Thuismeester is geen klusbedrijf en geen verkoper van
                         vakmensen. Je krijgt één vaste persoon die jouw woning kent,
                         meedenkt over de beste aanpak, een eerlijke tweede mening
@@ -166,8 +165,7 @@ function SolutionsSection(): JSX.Element {
                         vanuit dat van een aannemer.
                     </p>
                     <div className="mt-8">
-                        <Button href="/diensten" variant="outline"
-                            className="border-white/60 text-white hover:bg-white hover:text-green">
+                        <Button href="/diensten" variant="outline-light">
                             Bekijk wat we voor je doen
                         </Button>
                     </div>
@@ -263,11 +261,13 @@ function PricingInfoSection(): JSX.Element {
             <div className="mx-auto max-w-4xl">
                 <div className="grid items-center gap-12 lg:grid-cols-2">
                     <div>
-                        <SectionLabel>Prijs</SectionLabel>
-                        <h2 className="font-serif text-display-md font-semibold text-ink">
+                        <SectionLabel>
+                            <span className="text-white/80">Prijs</span>
+                        </SectionLabel>
+                        <h2 className="font-serif text-display-md font-semibold text-white">
                             Heldere basis
                         </h2>
-                        <p className="mt-6 text-base leading-relaxed text-ink-muted">
+                        <p className="mt-6 text-base leading-relaxed text-white/85">
                             €10 per maand voor een vaste Thuismeester die je woning
                             kent, meedenkt bij vragen en toegang geeft tot ons
                             netwerk van vakmensen. Uitvoering wordt altijd vooraf
@@ -286,7 +286,7 @@ function PricingInfoSection(): JSX.Element {
                             €10
                             <span className="ml-2 text-lg font-normal text-ink-muted">/ maand</span>
                         </p>
-                        <p className="mt-6 text-sm text-ink-soft">
+                        <p className="mt-6 text-base text-ink-soft">
                             Geen verborgen kosten, maandelijks opzegbaar.
                         </p>
                     </div>
@@ -301,25 +301,21 @@ function PricingInfoSection(): JSX.Element {
  */
 function FinalSection(): JSX.Element {
     return (<>
-        <div className="section-wrapper relative z-10">
-            <div className="mx-auto max-w-2xl text-center text-white">
-                <SectionLabel>
-                    <span className="text-white/60">Afsluiting</span>
-                </SectionLabel>
-                <h2 className="font-serif text-display-lg font-semibold">
+        <div className="section-wrapper">
+            <div className="mx-auto max-w-2xl text-center">
+                <SectionLabel>Afsluiting</SectionLabel>
+                <h2 className="font-serif text-display-lg font-semibold text-ink">
                     We starten in januari 2027
                 </h2>
-                <p className="mx-auto mt-6 max-w-prose text-base leading-relaxed text-white/75">
+                <p className="mx-auto mt-6 max-w-prose text-base leading-relaxed text-ink-muted">
                     Zodra er voldoende aanmeldingen zijn in {REGION_NOTE}, gaan we
                     van start. Meld je vrijblijvend aan en blijf op de hoogte.
                 </p>
                 <div className="mt-8 flex flex-wrap justify-center gap-4">
-                    <Button href="/aanmelden" size="lg"
-                        className="bg-white text-green hover:bg-beige">
+                    <Button href="/aanmelden" size="lg">
                         Meld je aan voor jouw regio
                     </Button>
-                    <Button href="/contact" variant="outline" size="lg"
-                        className="border-white/60 text-white hover:bg-white hover:text-green">
+                    <Button href="/contact" variant="outline" size="lg">
                         Stel een vraag
                     </Button>
                 </div>
