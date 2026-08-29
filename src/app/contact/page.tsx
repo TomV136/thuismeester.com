@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import PageHeader from "@/components/PageHeader";
 import ContactForm from "@/components/ContactForm";
 import Section from "@/components/Section";
@@ -22,7 +23,7 @@ function Form(): JSX.Element {
                 Stuur een bericht
             </h2>
             <p className="mt-2 text-sm text-ink-muted">
-                We reageren zo snel mogelijk, doorgaans binnen één werkdag.
+                Ik reageer meestal binnen één werkdag.
             </p>
             <div className="mt-8">
                 <ContactForm />
@@ -80,9 +81,15 @@ export default function ContactPage() {
         <>
             <PageHeader
                 label="Bereikbaarheid"
-                title="Contact"
-                intro="Heb je een vraag over Thuismeester, de aanmelding of de dienst?
-                    Neem gerust contact op."
+                title="Nog een vraag voor je je aanmeldt?"
+                intro={<>
+                    Heb je een vraag over Thuismeester, de aanmelding of jouw
+                    regio? Stuur een bericht — ik reageer meestal binnen één
+                    werkdag. Weet je het al zeker? Ga direct naar{" "}
+                    <Link href="/aanmelden" className="font-medium text-white underline underline-offset-2 hover:text-beige">
+                        aanmelden
+                    </Link>.
+                </>}
                 silhouetteVariant="court"
                 silhouetteWidth="w-80"
             />

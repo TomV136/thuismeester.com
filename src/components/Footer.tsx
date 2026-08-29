@@ -22,8 +22,8 @@ export default function Footer() {
                             Thuismeester
                         </p>
                         <p className="mt-3 text-sm leading-relaxed text-white/70">
-                            Jouw vaste aanspreekpunt voor praktische hulp en organisatie
-                            rondom je woning.
+                            Jouw onafhankelijke thuisadviseur — voor onderhoud,
+                            reparaties en betrouwbare vakmensen.
                         </p>
                         <p className="mt-4 text-xs uppercase tracking-widest text-white/50">
                             {REGION_NOTE}

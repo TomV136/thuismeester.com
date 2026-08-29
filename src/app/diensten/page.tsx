@@ -1,78 +1,73 @@
 import type { Metadata } from "next";
-import Image from "next/image";
+import Link from "next/link";
 import Button from "@/components/Button";
 import PageHeader from "@/components/PageHeader";
 import Section from "@/components/Section";
 import SectionLabel from "@/components/SectionLabel";
-import ServicesCarousel from "@/components/ServicesCarousel";
 import { JSX } from "react";
 
 export const metadata: Metadata = {
     title: "Diensten",
     description:
-        "Bekijk wat Thuismeester voor jou kan betekenen: van praktische ondersteuning tot begeleiding bij vakmensen. Voor bewoners in Amersfoort en omstreken.",
+        "Thuismeester biedt twee dingen: onafhankelijk advies over je woning, en de juiste vakman geregeld en gecoördineerd. Voor bewoners in Amersfoort en omstreken.",
 };
 
-// -------------------------------------------------------
-// Main service categories — keep wording broad and professional
-// Add or remove services as the offering develops
-// -------------------------------------------------------
-const services = [
-    {
-        title: "Vast aanspreekpunt",
-        description:
-            "Je hebt één vaste persoon die jou en jouw woning kent. Geen zoekwerk, geen uitleggen van vooraf — gewoon bellen of sturen als er iets is.",
-        detail:
-            "Jouw Thuismeester leert je situatie kennen en denkt actief mee bij vragen en beslissingen rondom je woning.",
-    },
-    {
-        title: "Meedenken bij praktische zaken",
-        description:
-            "Of het nu gaat om een verbouwingsvraag, een lekkage of onduidelijkheid over een offerte — Thuismeester helpt je nadenken en de juiste stappen te zetten.",
-        detail:
-            "Niet als aannemer of vakman, maar als een betrouwbare organisator die jou helpt de regie te houden.",
-    },
-    {
-        title: "Onderhoud en kleine organisatievragen",
-        description:
-            "Regulier woningonderhoud vereist planning en overzicht. Thuismeester helpt je daar grip op te houden.",
-        detail:
-            "Van het plannen van schilderwerk tot het bijhouden van servicetermijnen — kleine zaken die anders blijven liggen.",
-    },
-    {
-        title: "Doorverwijzing naar vakmensen",
-        description:
-            "Thuismeester beschikt over een netwerk van gescreende, betrouwbare vakmensen in de regio.",
-        detail:
-            "Je hoeft niet zelf te zoeken, vergelijken of te gokken — Thuismeester verbindt je met de juiste persoon voor de klus.",
-    },
-    {
-        title: "Coördinatie van werkzaamheden",
-        description:
-            "Thuismeester coördineert bij terugkerende of eenmalige woningzaken, zodat jij er zo min mogelijk aan hoeft te denken.",
-        detail:
-            "Van het inplannen van een vakman tot het opvolgen van een offerte — Thuismeester houdt de regie.",
-    },
-    {
-        title: "Advies en second opinion",
-        description:
-            "Twijfel je over een offerte, aanpak of beslissing rondom je woning? Thuismeester denkt met je mee en geeft een helder beeld.",
-        detail:
-            "Geen partijdig advies, maar een eerlijke blik vanuit de belangen van de bewoner.",
-    },
-];
+/**
+ * Section describing the first service pillar: independent advice.
+ */
+function AdviceSection(): JSX.Element {
+    return (<>
+        <div className="section-wrapper">
+            <div className="mx-auto max-w-3xl">
+                <SectionLabel>Dienst één</SectionLabel>
+                <h2 className="font-serif text-display-md font-semibold text-ink">
+                    Onafhankelijk advies
+                </h2>
+                <p className="mt-5 text-base leading-relaxed text-ink-muted">
+                    Een verbouwingsplan, een lekkage, een offerte waar je niet
+                    uitkomt: ik denk met je mee, zet de opties op een rij en help
+                    je de juiste beslissing nemen. Niet als aannemer of verkoper,
+                    maar als iemand die naast jou staat en alleen jouw belang
+                    dient.
+                </p>
+                {/* Concrete example — purple accent border, like elsewhere on the site */}
+                <div className="mt-8 border-l-2 border-purple pl-5">
+                    <p className="text-base leading-relaxed text-ink-muted">
+                        Bijvoorbeeld: je hebt een offerte van €4.500 voor dakwerk.
+                        Ik beoordeel of de prijs en aanpak kloppen, vóórdat je
+                        tekent. Of: het buitenschilderwerk is over twee jaar aan de
+                        beurt — ik signaleer dat op tijd, zodat het geen
+                        achterstallig onderhoud wordt.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </>);
+}
 
 /**
- * Section showing all services that thuismeester offers.
- * Services arranged in a carousel.
+ * Section describing the second service pillar: vetted professionals and
+ * coordination of the work.
  */
-function ServicesSection(): JSX.Element {
+function ProfessionalsSection(): JSX.Element {
     return (<>
-        {/* Shifted left of centre. Adjust the pixel value to taste; only
-          Tailwind's own steps (…-6, …-24, …-48) or an arbitrary [value]
-          work here — a made-up step like -translate-x-50 generates nothing. */}
-        <div className="section-wrapper lg:-translate-x-[200px]">
-            <ServicesCarousel services={services} />
+        <div className="section-wrapper">
+            <div className="mx-auto max-w-3xl">
+                <SectionLabel>Dienst twee</SectionLabel>
+                <h2 className="font-serif text-display-md font-semibold text-ink">
+                    Vakmensen &amp; coördinatie
+                </h2>
+                <p className="mt-5 text-base leading-relaxed text-ink-muted">
+                    Geen reviews doorspitten of gokken op een onbekende klusser.
+                    Ik werk met een netwerk van gescreende, betrouwbare vakmensen
+                    uit de regio die ik persoonlijk ken — en blijf aanspreekbaar
+                    op de kwaliteit van hun werk. Van het aanvragen van de offerte
+                    tot het inplannen, opvolgen en controleren van de klus: ik
+                    houd de regie, zodat jij er niet achteraan hoeft te bellen.
+                    Jij krijgt één helder voorstel vooraf en één terugkoppeling
+                    achteraf.
+                </p>
+            </div>
         </div>
     </>);
 }
@@ -89,11 +84,14 @@ function WhatDoesThuismeesterNotDoSection(): JSX.Element {
                     Wat doet Thuismeester niet?
                 </h2>
                 <p className="mt-5 text-base leading-relaxed text-ink-muted">
-                    Thuismeester is geen vakman, aannemer, schoonmaakdienst of
-                    boodschappenservice. De focus ligt op organisatie, advies en het
-                    verbinden van bewoners met de juiste mensen. Werkzaamheden die
-                    specifieke vakkennis vereisen, worden uitgevoerd door ons netwerk
-                    van vakmensen — Thuismeester coördineert.
+                    Duidelijkheid werkt twee kanten op. Thuismeester is geen
+                    vakman, aannemer, schoonmaakdienst of boodschappenservice — en
+                    doet dus zelf geen uitvoerend werk dat specifieke vakkennis
+                    vereist. Dat werk laat ik bewust over aan de gescreende
+                    vakmensen uit mijn netwerk, die er hun vak van hebben gemaakt.
+                    Mijn meerwaarde zit in alles eromheen: weten wie je moet
+                    hebben, afspraken maken en bewaken, meedenken en het overzicht
+                    houden.
                 </p>
             </div>
         </div>
@@ -101,40 +99,30 @@ function WhatDoesThuismeesterNotDoSection(): JSX.Element {
 }
 
 /**
- * Section with pricing information and button to sign up page.
+ * Section with a short price reference and the single page CTA.
  */
 function PricingSection(): JSX.Element {
     return (<>
         <div className="section-wrapper">
-            <div className="grid items-center gap-12 lg:grid-cols-2">
-                <div className="relative aspect-[4/3] overflow-hidden">
-                    <Image
-                        src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=900&q=80"
-                        alt="Betrouwbaar en persoonlijk contact met jouw Thuismeester"
-                        fill
-                        className="object-cover object-center"
-                        sizes="(min-width: 1024px) 50vw, 100vw"
-                    />
-                </div>
-                <div>
-                    <SectionLabel>
-                        <span className="text-white/60">Tarief</span>
-                    </SectionLabel>
-                    <h2 className="font-serif text-display-md font-semibold text-white">
-                        Vanaf €10 per maand
-                    </h2>
-                    <p className="mt-5 text-base leading-relaxed text-white/75">
-                        Het vaste abonnement van €10 per maand geeft je toegang tot
-                        Thuismeester. Extra hulp en werkzaamheden worden uitgevoerd
-                        tegen uurtarief of op offertebasis — altijd transparant en
-                        vooraf besproken.
-                    </p>
-                    <div className="mt-8">
-                        <Button href="/aanmelden" size="lg"
-                            className="bg-white text-green hover:bg-beige">
-                            Aanmelden
-                        </Button>
-                    </div>
+            <div className="mx-auto max-w-3xl text-center">
+                <SectionLabel>
+                    <span className="text-white/60">Prijs</span>
+                </SectionLabel>
+                <h2 className="font-serif text-display-md font-semibold text-white">
+                    €10 per maand
+                </h2>
+                <p className="mx-auto mt-5 max-w-prose text-base leading-relaxed text-white/75">
+                    €10 per maand voor advies, aanspreekpunt en toegang tot het
+                    vakmensennetwerk. Bekijk de volledige prijsopbouw op de{" "}
+                    <Link href="/" className="font-medium text-white underline underline-offset-2 hover:text-beige">
+                        homepage
+                    </Link>.
+                </p>
+                <div className="mt-8">
+                    <Button href="/aanmelden" size="lg"
+                        className="bg-white text-green hover:bg-beige">
+                        Nieuwsgierig? Meld je vrijblijvend aan
+                    </Button>
                 </div>
             </div>
         </div>
@@ -150,8 +138,10 @@ export default function ServicesPage() {
             <PageHeader
                 label="Wat we doen"
                 title="Diensten"
-                intro="Thuismeester biedt praktische ondersteuning rondom je woning — van
-                    organisatie en advies tot coördinatie en vakmansnetwerk."
+                intro="Thuismeester biedt twee dingen: een onafhankelijk advies over je
+                    woning, en — als je dat wilt — de juiste vakman geregeld en
+                    gecoördineerd. Geen zes losse diensten, maar één duidelijke
+                    belofte."
                 silhouetteVariant="tall"
                 image={{
                     src: "https://images.unsplash.com/photo-1480074568708-e7b720bb3f09?w=1800&q=80",
@@ -160,7 +150,11 @@ export default function ServicesPage() {
             />
 
             <Section background="beige-light" scene="orchard" sceneWidth="w-[26rem]">
-                <ServicesSection />
+                <AdviceSection />
+            </Section>
+
+            <Section background="mint" scene="gable" sceneWidth="w-80">
+                <ProfessionalsSection />
             </Section>
 
             <Section background="green" scene="lane" sceneWidth="w-[30rem]">

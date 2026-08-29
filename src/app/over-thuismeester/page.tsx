@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import Button from "@/components/Button";
 import PageHeader from "@/components/PageHeader";
 import Section from "@/components/Section";
 import SectionLabel from "@/components/SectionLabel";
 import { JSX } from "react";
-import { REGION_NOTE } from "@/lib/site";
 
 export const metadata: Metadata = {
     title: "Over Thuismeester",
@@ -17,24 +17,24 @@ export const metadata: Metadata = {
 // -------------------------------------------------------
 const values = [
     {
+        title: "Onafhankelijk",
+        body:
+            "Ik verkoop geen producten of eigen uitvoering. Mijn advies dient alleen jouw belang.",
+    },
+    {
         title: "Lokaal",
         body:
-            "We beginnen klein en bewust. Thuismeester richt zich in de eerste fase uitsluitend op Amersfoort en omliggende plaatsen, zodat we bewoners echt persoonlijk kunnen helpen.",
+            `Ik begin klein en bewust: alleen Amersfoort, Leusden, Hoevelaken, Nijkerk, en Soest. Persoonlijke dienstverlening werkt alleen als je de buurt en de vakmensen echt kent.`,
     },
     {
         title: "Betrouwbaar",
         body:
-            "Een vertrouwensband opbouwen kost tijd. Thuismeester investeert daar actief in — door consistent te zijn, afspraken na te komen en eerlijk te communiceren.",
+            "Vertrouwen verdien je niet met een mooie website, maar door afspraken na te komen. Ik beloof alleen wat ik kan waarmaken.",
     },
     {
         title: "Persoonlijk",
         body:
-            "Geen callcenter, geen ticketsysteem. Jij hebt één vast aanspreekpunt dat jou en jouw woning echt kent.",
-    },
-    {
-        title: "Praktisch",
-        body:
-            "Thuismeester richt zich op wat werkt. Geen ingewikkelde processen, maar heldere afspraken en daadkrachtige hulp bij zaken die er toe doen.",
+            "Geen callcenter, geen ticketsysteem. Jij hebt één vaste Thuismeester die weet wie je bent en wat je woning nodig heeft.",
     },
 ];
 
@@ -48,26 +48,23 @@ function StorySection(): JSX.Element {
                 <div>
                     <SectionLabel>Het verhaal</SectionLabel>
                     <h2 className="font-serif text-display-md font-semibold text-ink">
-                        Waarom Thuismeester?
+                        Waarom Thuismeester
                     </h2>
                     <div className="mt-6 space-y-5 text-base leading-relaxed text-ink-muted">
                         <p>
-                            Veel huiseigenaren zijn druk. Ze hebben een fijn huis, een
-                            volle agenda en weinig tijd voor de praktische zaken die bij
-                            een woning komen kijken. Onderhoud, kleine regelzaken, het
-                            vinden van de juiste vakman — het kost aandacht die er
-                            simpelweg niet altijd is.
+                            Iedere huiseigenaar kent het: de kraan die al weken drupt,
+                            de dakgoot die eigenlijk schoongemaakt moet worden, de
+                            schilder die maar niet terugbelt en de offerte waarvan je
+                            niet weet of die redelijk is. Stuk voor stuk kleine
+                            dingen — maar samen vormen ze een lijstje dat nooit af is.
                         </p>
                         <p>
-                            Thuismeester is ontstaan vanuit de overtuiging dat bewoners
-                            recht hebben op een betrouwbaar aanspreekpunt dichtbij huis.
-                            Niet een onpersoonlijk platform, maar een vertrouwde persoon
-                            die helpt, meedenkt en coördineert.
-                        </p>
-                        <p>
-                            We starten bewust klein — in {REGION_NOTE} — zodat
-                            we onze beloftes waar kunnen maken. Persoonlijk, lokaal en
-                            met aandacht voor wie jij bent en wat jouw woning nodig heeft.
+                            Thuismeester is ontstaan vanuit een simpele overtuiging:
+                            bewoners verdienen één onafhankelijk, betrouwbaar
+                            aanspreekpunt dichtbij huis. Niet een anoniem platform met
+                            wisselende klussers, maar een vertrouwde persoon die jou
+                            en je woning kent, meedenkt vanuit jouw belang — en niet
+                            vanuit dat van een verkoper.
                         </p>
                     </div>
                 </div>
@@ -87,12 +84,16 @@ function StorySection(): JSX.Element {
 
 /**
  * Section containing about the founder.
+ *
+ * The bracketed placeholders must be filled in with the real name, place,
+ * background and personal motivation — and the portrait replaced by a real
+ * photo of the founder — before the site goes live.
  */
 function AboutFounderSection(): JSX.Element {
     return (<>
         <div className="section-wrapper">
             <div className="grid items-center gap-16 lg:grid-cols-[380px_1fr]">
-                {/* Portrait */}
+                {/* Portrait — replace with a real photo of the founder */}
                 <div className="relative mx-auto aspect-[3/4] w-full max-w-sm overflow-hidden shadow-sm">
                     <Image
                         src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=800&q=80"
@@ -107,29 +108,19 @@ function AboutFounderSection(): JSX.Element {
                 <div>
                     <SectionLabel>De oprichter</SectionLabel>
                     <h2 className="font-serif text-display-md font-semibold text-ink">
-                        Aangenaam: [NAAM], jouw Thuismeester
+                        Aangenaam, [NAAM]
                     </h2>
                     <div className="mt-6 space-y-5 max-w-prose text-base leading-relaxed text-ink-muted">
                         <p>
-                            Thuismeester is het initiatief van [NAAM], geboren en
-                            getogen in [PLAATS — bijv. de regio Amersfoort]. Na
-                            [ACHTERGROND — bijv. jaren ervaring in techniek, bouw of
-                            facilitaire dienstverlening] zag hij hoe vaak bewoners
-                            vastlopen op precies hetzelfde: geen tijd, geen overzicht en
-                            geen betrouwbare vakman in het adresboek.
-                        </p>
-                        <p>
-                            [PERSOONLIJKE MOTIVATIE — bijv. &ldquo;Toen mijn ouders
-                            ouder werden, merkte ik hoeveel rust het gaf dat er iemand
-                            was die alles rondom hun huis in de gaten hield. Dat gun ik
-                            iedere bewoner.&rdquo;]
-                        </p>
-                        <p>
-                            Als Thuismeester is hij straks het vaste gezicht voor
-                            bewoners in de regio: de persoon die je belt bij een vraag,
-                            die de juiste vakman regelt en die zorgt dat afspraken
-                            worden nagekomen. Persoonlijk kennismaken? Dat kan altijd —
-                            stuur gerust een bericht via de contactpagina.
+                            Ik ben [NAAM], en woon en werk al [X] jaar in [PLAATS].
+                            Na [aantal] jaar in [vakgebied — bijvoorbeeld bouw,
+                            techniek, facilitaire dienstverlening] zag ik hoe vaak
+                            bewoners vastlopen op precies hetzelfde: geen tijd, geen
+                            overzicht en geen vakman in het adresboek die ze echt
+                            vertrouwen. [Eén persoonlijke zin over de concrete
+                            aanleiding.] Daarom ben ik Thuismeester begonnen — en
+                            straks ben ik het vaste gezicht voor bewoners hier in de
+                            regio.
                         </p>
                     </div>
 
@@ -177,63 +168,21 @@ function ValuesSection(): JSX.Element {
 }
 
 /**
- * Section containing 2 pictures and generic text.
+ * Final section with the single contextual CTA of this page.
  */
-function FillerSection(): JSX.Element {
+function ContactCTASection(): JSX.Element {
     return (<>
         <div className="section-wrapper">
-            <div className="grid gap-6 sm:grid-cols-2">
-                <div className="relative aspect-square overflow-hidden">
-                    <Image
-                        src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=900&q=80"
-                        alt="Nette voordeur van een gewone Nederlandse woning"
-                        fill
-                        className="object-cover object-center"
-                        sizes="(min-width: 640px) 50vw, 100vw"
-                    />
-                </div>
-                <div className="relative aspect-square overflow-hidden">
-                    <Image
-                        src="https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?w=900&q=80"
-                        alt="Rustige, nette woonruimte met warme sfeer"
-                        fill
-                        className="object-cover object-center"
-                        sizes="(min-width: 640px) 50vw, 100vw"
-                    />
-                </div>
-            </div>
-
-            <p className="mt-6 text-center text-xs text-ink-muted">
-                Thuismeester - voor bewoners die het beste willen voor hun woning
-            </p>
-        </div>
-    </>);
-}
-
-/**
- * Section containing general info.
- */
-function GeneralInfoSection(): JSX.Element {
-    return (<>
-        <div className="section-wrapper">
-            <div className="mx-auto max-w-3xl">
-                <SectionLabel>
-                    <span className="text-white/60">Onze aanpak</span>
-                </SectionLabel>
-                <h2 className="font-serif text-display-md font-semibold text-white">
-                    Geen goedkope klusdienst, maar een betrouwbaar aanspreekpunt
+            <div className="mx-auto max-w-2xl text-center text-white">
+                <h2 className="font-serif text-display-md font-semibold">
+                    Persoonlijk kennismaken?
                 </h2>
-                <p className="mt-6 text-base leading-relaxed text-white/75">
-                    Thuismeester positioneert zich bewust niet als een generieke
-                    klus- of onderhoudsdienst. De focus ligt op organisatie, advies
-                    en vertrouwen — aangeboden aan huiseigenaren die prijs stellen op
-                    kwaliteit en persoonlijk contact.
-                </p>
-                <p className="mt-4 text-base leading-relaxed text-white/75">
-                    We werken met vakmensen die we kennen en vertrouwen. We maken
-                    heldere afspraken. En we leren jou en jouw woning kennen, zodat
-                    we je op de lange termijn goed kunnen begeleiden.
-                </p>
+                <div className="mt-8">
+                    <Button href="/contact" size="lg"
+                        className="bg-white text-green hover:bg-beige">
+                        Stuur een bericht
+                    </Button>
+                </div>
             </div>
         </div>
     </>);
@@ -245,12 +194,12 @@ export default function OverThuismeesterPage() {
             <PageHeader
                 label="Over ons"
                 title="Over Thuismeester"
-                intro="Lokaal, betrouwbaar en persoonlijk. Dat is de kern van
-                    Thuismeester."
+                intro="Onafhankelijk, lokaal, betrouwbaar en persoonlijk. Dat is de
+                    kern van Thuismeester."
                 silhouetteVariant="row"
                 image={{
                     src: "https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?w=1800&q=80",
-                    alt: "Over Thuismeester — lokaal, betrouwbaar en persoonlijk",
+                    alt: "Over Thuismeester — onafhankelijk, lokaal, betrouwbaar en persoonlijk",
                 }}
             />
             <Section background="beige-light" scene="play" sceneWidth="w-80">
@@ -263,10 +212,7 @@ export default function OverThuismeesterPage() {
                 <ValuesSection />
             </Section>
             <Section background="mint" scene="gable" sceneWidth="w-72">
-                <FillerSection />
-            </Section>
-            <Section background="beige-light" scene="row" sceneWidth="w-[36rem]">
-                <GeneralInfoSection />
+                <ContactCTASection />
             </Section>
         </>
     );

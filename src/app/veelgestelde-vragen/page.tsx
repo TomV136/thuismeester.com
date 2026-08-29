@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Button from "@/components/Button";
 import PageHeader from "@/components/PageHeader";
 import Section from "@/components/Section";
 import SectionLabel from "@/components/SectionLabel";
@@ -17,27 +18,39 @@ export const metadata: Metadata = {
 // -------------------------------------------------------
 const faqGroups = [
 	{
-		group: "General",
+		group: "Algemeen",
 		items: [
 			{
-				q: "Wanneer gaat Thuismeester van start?",
-				a: "De dienstverlening start in januari 2027, zodra er voldoende aanmeldingen zijn in Amersfoort en omstreken.",
+				q: "Wat is Thuismeester precies?",
+				a: "Eén vast, onafhankelijk aanspreekpunt voor alles rondom je woning. Je belt of appt één iemand — die denkt mee, regelt de rest en bewaakt dat het goed gebeurt.",
+			},
+			{
+				q: "Is Thuismeester echt onafhankelijk?",
+				a: "Ja. Ik verkoop geen producten, materialen of eigen uitvoerend personeel, en ontvang geen commissie van vakmensen voor doorverwijzingen. Mijn enige belang is dat jij een eerlijk advies en een goede vakman krijgt.",
+			},
+			{
+				q: "Is Thuismeester een klusbedrijf?",
+				a: "Nee. Ik organiseer, adviseer en coördineer. Het uitvoerende werk wordt gedaan door gescreende vakmensen uit mijn netwerk.",
 			},
 			{
 				q: "Wat kost Thuismeester?",
-				a: "Het vaste abonnement kost €10 per maand. Extra hulp en werkzaamheden worden uitgevoerd tegen uurtarief of op offertebasis.",
+				a: "€10 per maand voor je vaste aanspreekpunt, advies en toegang tot het vakmensennetwerk. Uitvoerend werk wordt apart afgesproken, tegen uurtarief of offertebasis.",
 			},
 			{
-				q: "In welke gebieden is Thuismeester actief?",
-				a: "In de eerste fase richt Thuismeester zich op Amersfoort, Leusden, Hoevelaken, Nijkerk en Soest.",
+				q: "Zijn er verborgen kosten of lange contracten?",
+				a: "Nee. Maandelijks opzegbaar, en extra werk wordt altijd vooraf besproken en akkoord bevonden.",
 			},
 			{
-				q: "Zit ik vast aan een contract bij aanmelding?",
-				a: "Nee. De aanmelding is volledig vrijblijvend en gratis. Je geeft alleen aan dat je geïnteresseerd bent.",
+				q: "Hoe worden de vakmensen geselecteerd?",
+				a: "Uitsluitend vakmensen uit de regio die ik zelf ken en vertrouw, op vakmanschap, betrouwbaarheid en communicatie. Ben je niet tevreden, dan is dat mijn probleem — niet het jouwe.",
 			},
 			{
-				q: "Wat voor soort hulp kan ik verwachten?",
-				a: "Thuismeester helpt bij praktische zaken rondom je woning: van organisatievragen en onderhoud tot het vinden van betrouwbare vakmensen en coördinatie van klussen.",
+				q: "Wanneer gaat Thuismeester van start?",
+				a: "In januari 2027, zodra er voldoende aanmeldingen zijn in Amersfoort en omstreken.",
+			},
+			{
+				q: "Is aanmelden vrijblijvend?",
+				a: "Ja. Gratis, geen verplichtingen, op elk moment weer af te melden.",
 			},
 		],
 	},
@@ -73,6 +86,13 @@ function FAQSection(): JSX.Element {
 						</div>
 					</div>
 				))}
+
+				{/* Single contextual CTA of this page */}
+				<div className="text-center">
+					<Button href="/contact" variant="outline">
+						Vraag niet beantwoord? Neem contact op
+					</Button>
+				</div>
 			</div>
 		</div>
 	</>);

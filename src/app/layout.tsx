@@ -29,18 +29,18 @@ const playfair = Playfair_Display({
 // -------------------------------------------------------
 export const metadata: Metadata = {
     title: {
-        default: `Thuismeester — Rust in huis voor ${REGION_NOTE}`,
+        default: `Thuismeester — Jouw onafhankelijke thuisadviseur voor ${REGION_NOTE}`,
         template: "%s | Thuismeester",
     },
     description:
-        "Thuismeester is jouw vaste aanspreekpunt voor praktische hulp en organisatie rondom je woning. Voor bewoners in Amersfoort, Leusden, Hoevelaken, Nijkerk en Soest. Vanaf €10 per maand.",
+        "Jouw onafhankelijke thuisadviseur — voor onderhoud, reparaties en betrouwbare vakmensen. Voor bewoners in Amersfoort, Leusden, Hoevelaken, Nijkerk en Soest. Vanaf €10 per maand.",
     keywords: [
         "thuismeester",
         "Amersfoort",
-        "woning hulp",
-        "huisbeheer",
-        "praktische hulp thuis",
+        "onafhankelijk advies",
         "woningonderhoud",
+        "second opinion offerte",
+        "betrouwbare vakmensen",
         "Leusden",
         "Hoevelaken",
         "Nijkerk",
@@ -48,9 +48,9 @@ export const metadata: Metadata = {
     ],
     authors: [{ name: "Thuismeester" }],
     openGraph: {
-        title: `Thuismeester — Rust in huis voor ${REGION_NOTE}`,
+        title: `Thuismeester — Jouw onafhankelijke thuisadviseur voor ${REGION_NOTE}`,
         description:
-            "Jouw vaste aanspreekpunt voor praktische hulp en organisatie rondom je woning.",
+            "Jouw onafhankelijke thuisadviseur — voor onderhoud, reparaties en betrouwbare vakmensen.",
         locale: "nl_NL",
         type: "website",
     },
