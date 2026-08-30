@@ -2,8 +2,12 @@ import { NextRequest, NextResponse } from "next/server";
 import { getSupabaseClient } from '@/lib/supabase'
 import { CONTACT_EMAIL, NO_REPLY_ADDRESS } from "@/lib/site";
 import { isValidEmail, normalisePostcode, sanitiseMultiLine, sanitiseSingleLine } from "@/lib/validation";
+import { clientIpFrom, exceedsBodySize, isRateLimited } from "@/lib/request-guards";
 import { sendMail } from "@/lib/email";
 import { buildAanmeldBevestigingEmail, buildDubbeleAanmeldingEmail } from "./emails";
+// The form's own dropdown values double as the server-side allowlist for
+// "area", so the two can never drift apart.
+import { towns } from "@/components/RegisterForm";
 
 /**
  * The one message shown for every server-side failure: it tells the visitor
@@ -37,17 +41,21 @@ function validatePayload(body: unknown): { valid: true; data: RegistrationDetail
 
     const b = body as Record<string, unknown>;
 
-    if (!b.name || typeof b.name !== "string" || b.name.trim().length < 2)
+    if (!b.name || typeof b.name !== "string" || b.name.trim().length < 2 || b.name.trim().length > 200)
         return { valid: false, message: "Vul een geldige naam in." };
 
-    if (!b.email || typeof b.email !== "string" || !isValidEmail(b.email))
+    if (!b.email || typeof b.email !== "string" || b.email.length > 200 || !isValidEmail(b.email))
         return { valid: false, message: "Vul een geldig e-mailadres in." };
 
-    if (!b.postcode || typeof b.postcode !== "string" || b.postcode.trim().length < 4)
+    if (!b.postcode || typeof b.postcode !== "string" || b.postcode.trim().length < 4 || b.postcode.trim().length > 10)
         return { valid: false, message: "Vul een geldige postcode in." };
 
-    if (!b.area || typeof b.area !== "string" || b.area.trim().length < 1)
+    // Must be one of the dropdown's own values.
+    if (!b.area || typeof b.area !== "string" || !towns.includes(b.area.trim()))
         return { valid: false, message: "Selecteer een woonplaats." };
+
+    if (b.remark && (typeof b.remark !== "string" || b.remark.length > 2000))
+        return { valid: false, message: "Houd je opmerking korter dan 2000 tekens." };
 
     // Single-line fields go through sanitiseSingleLine to strip control
     // characters (CR/LF included): they end up in email content and in log
@@ -67,6 +75,27 @@ function validatePayload(body: unknown): { valid: true; data: RegistrationDetail
 }
 
 export async function POST(req: NextRequest) {
+    // Rate limit before any work happens. This endpoint is unauthenticated
+    // and triggers a database write plus an outbound email, so without a
+    // brake a script could flood the database and burn through the email
+    // provider's quota/reputation. Humans never hit this limit.
+    const clientIp = clientIpFrom(req);
+    if (isRateLimited("register", clientIp)) {
+        console.log(`[Thuismeester] Signup: rate limit exceeded for ${clientIp}, returning 429`);
+        return NextResponse.json(
+            { message: "Te veel aanmeldingen achter elkaar. Wacht een paar minuten en probeer het opnieuw." },
+            { status: 429 }
+        );
+    }
+
+    // Reject oversized payloads before buffering/parsing them: the per-field
+    // length checks below only run after a full JSON parse, so without this
+    // a multi-megabyte body would be processed in full first.
+    if (exceedsBodySize(req)) {
+        console.log(`[Thuismeester] Signup: rejected, request body too large (content-length: ${req.headers.get("content-length")})`);
+        return NextResponse.json({ message: "Verzoek is te groot." }, { status: 413 });
+    }
+
     let body: unknown;
     try {
         // Read and parse the JSON body that the browser sent

@@ -1,9 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getSupabaseClient } from '@/lib/supabase'
 import { isValidEmail, sanitiseMultiLine, sanitiseSingleLine } from "@/lib/validation";
+import { clientIpFrom, exceedsBodySize, isRateLimited } from "@/lib/request-guards";
 import { CONTACT_EMAIL, NO_REPLY_ADDRESS } from "@/lib/site";
 import { buildContactBevestigingEmail, buildContactNotificatieEmail } from "./emails";
 import { sendMail } from "@/lib/email";
+// The form's own dropdown values double as the server-side allowlist for
+// "subject", so the two can never drift apart.
+import { topics } from "@/components/ContactForm";
 
 /**
  * The one message shown for every server-side failure: it tells the visitor
@@ -47,20 +51,25 @@ function validatePayload(body: unknown): { valid: true; data: ContactFormDetails
 
     const b = body as Record<string, unknown>;
 
-    if (!b.name || typeof b.name !== "string" || b.name.trim().length < 2) {
+    if (!b.name || typeof b.name !== "string" || b.name.trim().length < 2 || b.name.trim().length > 200) {
         return { valid: false, message: "Vul een geldige naam in." };
     }
 
-    if (!b.email || typeof b.email !== "string" || !isValidEmail(b.email)) {
+    if (!b.email || typeof b.email !== "string" || b.email.length > 200 || !isValidEmail(b.email)) {
         return { valid: false, message: "Vul een geldig e-mailadres in." };
     }
     // Required so every inquiry is categorised — the dropdown offers "Anders"
-    // for anything that doesn't fit the listed topics.
-    if (!b.subject || typeof b.subject !== "string" || b.subject.trim().length < 1) {
+    // for anything that doesn't fit the listed topics. Must be one of the
+    // dropdown's own values. (This also makes a length cap
+    // unnecessary.)
+    if (!b.subject || typeof b.subject !== "string" || !topics.includes(b.subject.trim())) {
         return { valid: false, message: "Selecteer een onderwerp." };
     }
     if (!b.message || typeof b.message !== "string" || b.message.trim().length < 10) {
         return { valid: false, message: "Schrijf een bericht van minimaal 10 tekens." };
+    }
+    if (b.message.length > 5000) {
+        return { valid: false, message: "Houd je bericht korter dan 5000 tekens." };
     }
 
     // The name and subject are interpolated into the *subject line* of the
@@ -81,6 +90,28 @@ function validatePayload(body: unknown): { valid: true; data: ContactFormDetails
 }
 
 export async function POST(req: NextRequest) {
+    // Rate limit before any work happens. This endpoint is the most abusable
+    // on the site: it is unauthenticated and sends an email to a
+    // visitor-supplied address, so without a brake a script could use it to
+    // flood a victim's inbox — and the resulting bounces/complaints would
+    // wreck the domain's sender reputation. Humans never hit this limit.
+    const clientIp = clientIpFrom(req);
+    if (isRateLimited("contact", clientIp)) {
+        console.log(`[Thuismeester] Contact: rate limit exceeded for ${clientIp}, returning 429`);
+        return NextResponse.json(
+            { message: "Te veel berichten achter elkaar. Wacht een paar minuten en probeer het opnieuw." },
+            { status: 429 }
+        );
+    }
+
+    // Reject oversized payloads before buffering/parsing them: the per-field
+    // length checks below only run after a full JSON parse, so without this
+    // a multi-megabyte body would be processed in full first.
+    if (exceedsBodySize(req)) {
+        console.log(`[Thuismeester] Contact: rejected, request body too large (content-length: ${req.headers.get("content-length")})`);
+        return NextResponse.json({ message: "Verzoek is te groot." }, { status: 413 });
+    }
+
     let body: unknown;
     try {
         body = await req.json();
