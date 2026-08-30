@@ -8,7 +8,7 @@ type FormState = "idle" | "loading" | "success" | "error";
 // -------------------------------------------------------
 // Contact topics — edit this list as needed
 // -------------------------------------------------------
-const topics = [
+export const topics = [
     "Vraag over de dienst",
     "Vraag over aanmelden",
     "Vraag over mijn regio",

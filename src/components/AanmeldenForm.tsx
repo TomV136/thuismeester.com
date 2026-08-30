@@ -5,7 +5,7 @@ import Button from "./Button";
 
 type FormState = "idle" | "loading" | "success" | "error";
 
-const woonplaatsen = [
+export const woonplaatsen = [
     "Amersfoort",
     "Leusden",
     "Hoevelaken",
