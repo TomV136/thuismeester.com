@@ -5,7 +5,7 @@
  * route.ts via sendMail().
  */
 
-import { detailsTable, escapeHtml, paragraph, renderBrandedEmail, textToHtml, type EmailContent } from "@/lib/email-util";
+import { CONTACT_MAILTO, detailsTable, escapeHtml, paragraph, renderBrandedEmail, textToHtml, type EmailContent } from "@/lib/email-util";
 import { REGION_NOTE } from "@/lib/site";
 
 interface AanmeldingEmailData {
@@ -52,7 +52,7 @@ export function buildAanmeldBevestigingEmail(data: AanmeldingEmailData): EmailCo
             preheader: "Je aanmelding bij Thuismeester is goed ontvangen.",
             bodyHtml,
             footnote:
-                "Je ontvangt deze e-mail omdat dit adres is gebruikt bij een aanmelding op thuismeester.com. Klopt dat niet? Laat het ons weten via contact@thuismeester.com.",
+                `Je ontvangt deze e-mail omdat dit adres is gebruikt bij een aanmelding op thuismeester.com. Klopt dat niet? Laat het ons weten via ${CONTACT_MAILTO}.`,
         }),
     };
 }

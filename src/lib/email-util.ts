@@ -29,6 +29,12 @@ const FONT_SERIF = "Georgia, 'Times New Roman', serif";
 const FONT_SANS = "Arial, Helvetica, sans-serif";
 
 /**
+ * CONTACT_MAILTO — the contact address as a ready-made mailto link in the
+ * house style, for use anywhere an e-mail template mentions the address.
+ */
+export const CONTACT_MAILTO = `<a href="mailto:${CONTACT_EMAIL}" style="color:${COLOR.greenSoft};">${CONTACT_EMAIL}</a>`;
+
+/**
  * escapeHtml — makes user-supplied text safe to embed in e-mail HTML.
  * Form values (name, message, …) must always pass through this before they
  * are placed in a template, otherwise a submitted value like
@@ -158,7 +164,7 @@ export function renderBrandedEmail({ title, preheader, bodyHtml, footnote }: Bra
                 ${REGIONS.join(" &middot; ")}
               </p>
               <p style="margin:12px 0 0 0;font-family:${FONT_SANS};font-size:12px;line-height:19px;color:${COLOR.inkMuted};">
-                Vragen? Mail naar <a href="mailto:${CONTACT_EMAIL}" style="color:${COLOR.greenSoft};">${CONTACT_EMAIL}</a>
+                Vragen? Mail naar ${CONTACT_MAILTO}
               </p>
             </td>
           </tr>

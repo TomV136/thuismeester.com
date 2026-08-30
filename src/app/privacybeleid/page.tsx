@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import PageHeader from "@/components/PageHeader";
 import Section from "@/components/Section";
-import { JSX } from "react";
+import { JSX, ReactNode } from "react";
+import { CONTACT_EMAIL } from "@/lib/site";
 
 export const metadata: Metadata = {
 	title: "Privacybeleid",
@@ -11,15 +12,32 @@ export const metadata: Metadata = {
 
 const LAST_UPDATED = "18 juli 2026";
 
+/**
+ * MailLink — the contact address as a clickable mailto link,
+ * used inside the policy answers below.
+ */
+function MailLink(): JSX.Element {
+	return (
+		<a
+			href={`mailto:${CONTACT_EMAIL}`}
+			className="font-medium text-green underline underline-offset-2 hover:text-green-light"
+		>
+			{CONTACT_EMAIL}
+		</a>
+	);
+}
+
 // -------------------------------------------------------
 // Policy content — one question-and-answer per topic.
 // Add or edit entries here; the page renders each one as
 // its own heading with the answer below it.
 // -------------------------------------------------------
-const policySections = [
+const policySections: { q: string; a: ReactNode }[] = [
 	{
 		q: "Wie is verantwoordelijk voor jouw gegevens?",
-		a: "Thuismeester is de verwerkingsverantwoordelijke voor de persoonsgegevens die je via deze website achterlaat. Heb je vragen over privacy? Mail naar contact@thuismeester.com.",
+		a: (<>
+			Thuismeester is de verwerkingsverantwoordelijke voor de persoonsgegevens die je via deze website achterlaat. Heb je vragen over privacy? Mail naar <MailLink />.
+		</>),
 	},
 	{
 		q: "Welke gegevens verzamelen we?",
@@ -43,7 +61,9 @@ const policySections = [
 	},
 	{
 		q: "Wat zijn jouw rechten?",
-		a: "Je hebt het recht om je gegevens in te zien, te laten corrigeren of verwijderen, de verwerking te laten beperken, bezwaar te maken en je toestemming in te trekken. Mail daarvoor naar contact@thuismeester.com; we reageren binnen een maand. Ben je niet tevreden over hoe we met je gegevens omgaan, dan kun je een klacht indienen bij de Autoriteit Persoonsgegevens.",
+		a: (<>
+			Je hebt het recht om je gegevens in te zien, te laten corrigeren of verwijderen, de verwerking te laten beperken, bezwaar te maken en je toestemming in te trekken. Mail daarvoor naar <MailLink />; we reageren binnen een maand. Ben je niet tevreden over hoe we met je gegevens omgaan, dan kun je een klacht indienen bij de Autoriteit Persoonsgegevens.
+		</>),
 	},
 ]
 

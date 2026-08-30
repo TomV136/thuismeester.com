@@ -1,4 +1,5 @@
 import { JSX, ReactNode } from "react";
+import { CONTACT_EMAIL } from "@/lib/site";
 
 /**
  * Shared feedback blocks for the site's forms (RegisterForm + ContactForm).
@@ -39,11 +40,37 @@ export function FormSuccess({ title, warningMessage, children }: { title: string
 /**
  * FormError — the message shown above the submit button when a
  * submission fails. The form stays editable so the visitor can retry.
+ *
+ * Error messages (both the client-side fallbacks and the ones the API
+ * routes send back) often end with "mail ons gerust via
+ * contact@thuismeester.com" — linkify() turns that address into a
+ * clickable mailto link wherever it appears in the message.
+ * 
+ * This is a little strange since we do not look at the email. But
+ * to change the code such that this is strucurally possible is a 
+ * lot of work for a change that now already works.
  */
+function linkify(message: string): ReactNode {
+    return message.split(CONTACT_EMAIL).flatMap((part, i) =>
+        i === 0
+            ? [part]
+            : [
+                  <a
+                      key={i}
+                      href={`mailto:${CONTACT_EMAIL}`}
+                      className="font-medium underline underline-offset-2"
+                  >
+                      {CONTACT_EMAIL}
+                  </a>,
+                  part,
+              ]
+    );
+}
+
 export function FormError({ message }: { message: string }): JSX.Element {
     return (
         <p className="rounded-sm bg-red-50 px-4 py-3 text-sm text-red-700">
-            {message}
+            {linkify(message)}
         </p>
     );
 }

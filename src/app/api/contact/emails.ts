@@ -12,7 +12,7 @@
  * route.ts via sendMail().
  */
 
-import { detailsTable, escapeHtml, paragraph, renderBrandedEmail, textToHtml, type EmailContent } from "@/lib/email-util";
+import { CONTACT_MAILTO, detailsTable, escapeHtml, paragraph, renderBrandedEmail, textToHtml, type EmailContent } from "@/lib/email-util";
 
 interface ContactEmailData {
     name: string;
@@ -53,7 +53,7 @@ export function buildContactNotificatieEmail(data: ContactEmailData): EmailConte
             preheader: `Nieuw bericht van ${data.name} via thuismeester.com.`,
             bodyHtml,
             footnote:
-                "Interne notificatie — automatisch verstuurd door het contactformulier op thuismeester.com.",
+                `Interne notificatie voor ${CONTACT_MAILTO} — automatisch verstuurd door het contactformulier op thuismeester.com.`,
         }),
     };
 }
@@ -76,7 +76,7 @@ export function buildContactBevestigingEmail(data: ContactEmailData): EmailConte
         paragraph("Dit is het bericht dat je hebt verstuurd:"),
         detailsTable(details),
         paragraph(
-            "Wil je in de tussentijd nog iets toevoegen of aanvullen? Dat kan door simpelweg te antwoorden op deze e-mail of te mailen naar contact@thuismeester.com."
+            `Wil je in de tussentijd nog iets toevoegen of aanvullen? Dat kan door simpelweg te antwoorden op deze e-mail of te mailen naar ${CONTACT_MAILTO}.`
         ),
         paragraph("Met vriendelijke groet,<br />Thuismeester"),
     ].join("");
@@ -88,7 +88,7 @@ export function buildContactBevestigingEmail(data: ContactEmailData): EmailConte
             preheader: "Bedankt voor je bericht — we reageren doorgaans binnen één werkdag.",
             bodyHtml,
             footnote:
-                "Je ontvangt deze e-mail omdat dit adres is gebruikt bij het contactformulier op thuismeester.com. Klopt dat niet? Laat het ons weten via contact@thuismeester.com.",
+                `Je ontvangt deze e-mail omdat dit adres is gebruikt bij het contactformulier op thuismeester.com. Klopt dat niet? Laat het ons weten via ${CONTACT_MAILTO}.`,
         }),
     };
 }
