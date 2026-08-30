@@ -28,3 +28,27 @@ export const REGION_NOTE = "Amersfoort en omstreken";
  * page, the contact page and the email footer.
  */
 export const REGIONS = ["Amersfoort", "Leusden", "Hoevelaken", "Nijkerk", "Soest"];
+
+/**
+ * The options in the signup form's woonplaats dropdown, and the allowlist
+ * the register route validates submissions against. Defined here — a plain
+ * shared module — because both a client component and a server route need
+ * it: importing it from the form itself doesn't work, since a "use client"
+ * module's exports become client-reference proxies (not real values) inside
+ * a server bundle at runtime.
+ */
+export const AREA_OPTIONS = [...REGIONS, "Anders"];
+
+/**
+ * The options in the contact form's subject dropdown, and the allowlist the
+ * contact route validates submissions against (same reasoning as
+ * AREA_OPTIONS). "Anders" covers anything that doesn't fit the listed
+ * topics.
+ */
+export const TOPICS = [
+    "Vraag over de dienst",
+    "Vraag over aanmelden",
+    "Vraag over mijn regio",
+    "Samenwerking / partnerschap",
+    "Anders",
+];

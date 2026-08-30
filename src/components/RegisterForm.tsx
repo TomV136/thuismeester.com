@@ -1,11 +1,9 @@
 "use client";
 
-import { REGIONS } from "@/lib/site";
+import { AREA_OPTIONS } from "@/lib/site";
 import Button from "./Button";
 import { FormError, FormSuccess } from "./FormFeedback";
 import { useFormSubmit } from "@/lib/useFormSubmit";
-
-export const towns = REGIONS.concat(["Anders"]);
 
 export default function RegisterForm() {
     const { state, errorMessage, warningMessage, handleSubmit } = useFormSubmit("/api/register");
@@ -91,7 +89,7 @@ export default function RegisterForm() {
                         defaultValue=""
                     >
                         <option value="" disabled>Selecteer woonplaats</option>
-                        {towns.map((w) => (
+                        {AREA_OPTIONS.map((w) => (
                             <option key={w} value={w}>{w}</option>
                         ))}
                     </select>

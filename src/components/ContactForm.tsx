@@ -3,17 +3,7 @@
 import Button from "./Button";
 import { FormError, FormSuccess } from "./FormFeedback";
 import { useFormSubmit } from "@/lib/useFormSubmit";
-
-/**
- * topics — options for the subject dropdown.
- */
-export const topics = [
-    "Vraag over de dienst",
-    "Vraag over aanmelden",
-    "Vraag over mijn regio",
-    "Samenwerking / partnerschap",
-    "Anders",
-];
+import { TOPICS } from "@/lib/site";
 
 export default function ContactForm() {
     const { state, errorMessage, warningMessage, handleSubmit } = useFormSubmit("/api/contact");
@@ -84,7 +74,7 @@ export default function ContactForm() {
                     <option value="" disabled>
                         Selecteer een onderwerp
                     </option>
-                    {topics.map((t) => (
+                    {TOPICS.map((t) => (
                         <option key={t} value={t}>{t}</option>
                     ))}
                 </select>

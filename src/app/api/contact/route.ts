@@ -2,12 +2,13 @@ import { NextRequest, NextResponse } from "next/server";
 import { getSupabaseClient } from '@/lib/supabase'
 import { isValidEmail, sanitiseMultiLine, sanitiseSingleLine } from "@/lib/validation";
 import { clientIpFrom, exceedsBodySize, isRateLimited } from "@/lib/request-guards";
-import { CONTACT_EMAIL, NO_REPLY_ADDRESS } from "@/lib/site";
+// TOPICS is both the form's dropdown list and this route's allowlist, so
+// the two can never drift apart. It lives in site.ts rather than in the
+// form component: a "use client" module's exports are client-reference
+// proxies (not real values) when imported into a server bundle at runtime.
+import { CONTACT_EMAIL, NO_REPLY_ADDRESS, TOPICS } from "@/lib/site";
 import { buildContactBevestigingEmail, buildContactNotificatieEmail } from "./emails";
 import { sendMail } from "@/lib/email";
-// The form's own dropdown values double as the server-side allowlist for
-// "subject", so the two can never drift apart.
-import { topics } from "@/components/ContactForm";
 
 /**
  * The one message shown for every server-side failure: it tells the visitor
@@ -62,7 +63,7 @@ function validatePayload(body: unknown): { valid: true; data: ContactFormDetails
     // for anything that doesn't fit the listed topics. Must be one of the
     // dropdown's own values. (This also makes a length cap
     // unnecessary.)
-    if (!b.subject || typeof b.subject !== "string" || !topics.includes(b.subject.trim())) {
+    if (!b.subject || typeof b.subject !== "string" || !TOPICS.includes(b.subject.trim())) {
         return { valid: false, message: "Selecteer een onderwerp." };
     }
     if (!b.message || typeof b.message !== "string" || b.message.trim().length < 10) {

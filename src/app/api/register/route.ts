@@ -1,13 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getSupabaseClient } from '@/lib/supabase'
-import { CONTACT_EMAIL, NO_REPLY_ADDRESS } from "@/lib/site";
+// AREA_OPTIONS is both the form's dropdown list and this route's allowlist,
+// so the two can never drift apart. It lives in site.ts rather than in the
+// form component: a "use client" module's exports are client-reference
+// proxies (not real values) when imported into a server bundle at runtime.
+import { AREA_OPTIONS, CONTACT_EMAIL, NO_REPLY_ADDRESS } from "@/lib/site";
 import { isValidEmail, normalisePostcode, sanitiseMultiLine, sanitiseSingleLine } from "@/lib/validation";
 import { clientIpFrom, exceedsBodySize, isRateLimited } from "@/lib/request-guards";
 import { sendMail } from "@/lib/email";
 import { buildAanmeldBevestigingEmail, buildDubbeleAanmeldingEmail } from "./emails";
-// The form's own dropdown values double as the server-side allowlist for
-// "area", so the two can never drift apart.
-import { towns } from "@/components/RegisterForm";
 
 /**
  * The one message shown for every server-side failure: it tells the visitor
@@ -51,7 +52,7 @@ function validatePayload(body: unknown): { valid: true; data: RegistrationDetail
         return { valid: false, message: "Vul een geldige postcode in." };
 
     // Must be one of the dropdown's own values.
-    if (!b.area || typeof b.area !== "string" || !towns.includes(b.area.trim()))
+    if (!b.area || typeof b.area !== "string" || !AREA_OPTIONS.includes(b.area.trim()))
         return { valid: false, message: "Selecteer een woonplaats." };
 
     if (b.remark && (typeof b.remark !== "string" || b.remark.length > 2000))
