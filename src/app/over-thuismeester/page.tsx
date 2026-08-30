@@ -6,6 +6,8 @@ import Section from "@/components/Section";
 import SectionLabel from "@/components/SectionLabel";
 import { JSX } from "react";
 import founderPic from "@/media/founder-pic.png";
+import kokenInDeKeuken from "@/media/koken-in-de-keuken.jpg";
+import handenIneen from "@/media/handen-ineen.jpg";
 
 export const metadata: Metadata = {
     title: "Over Thuismeester",
@@ -71,7 +73,7 @@ function StorySection(): JSX.Element {
                 </div>
                 <div className="relative aspect-[4/3] overflow-hidden shadow-sm">
                     <Image
-                        src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=900&q=80"
+                        src={kokenInDeKeuken}
                         alt="Thuismeester — rust en overzicht in huis"
                         fill
                         className="object-cover object-center"
@@ -218,7 +220,7 @@ export default function OverThuismeesterPage() {
                     kern van Thuismeester."
                 silhouetteVariant="row"
                 image={{
-                    src: "https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?w=1800&q=80",
+                    src: handenIneen,
                     alt: "Over Thuismeester — onafhankelijk, lokaal, betrouwbaar en persoonlijk",
                 }}
             />

@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import Section from "./Section";
 import SectionLabel from "./SectionLabel";
 import SceneSilhouette from "./SceneSilhouette";
@@ -36,7 +36,7 @@ interface PageHeaderProps {
     /** Tailwind width class for the silhouette. */
     silhouetteWidth?: string;
     /** Optional full-bleed photo faded behind the header. */
-    image?: { src: string; alt: string };
+    image?: { src: string | StaticImageData; alt: string };
     /** Optional extra content rendered below the intro paragraph. */
     children?: ReactNode;
 }

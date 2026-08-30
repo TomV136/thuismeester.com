@@ -7,6 +7,9 @@ import SectionLabel from "@/components/SectionLabel";
 import { JSX } from "react";
 import { REGION_NOTE, REGIONS } from "@/lib/site";
 import founderPic from "@/media/founder-pic.png";
+import kokenInDeKeuken from "@/media/koken-in-de-keuken.jpg";
+import gesprekAanTafel from "@/media/gesprek-aan-tafel.jpg";
+import rustigeWoonstraat from "@/media/rustige-woonstraat.jpg";
 import iconAdvice from "@/media/communication.png";
 import iconOverview from "@/media/clipboard2.png";
 import iconProfessionals from "@/media/trustworthy.png";
@@ -183,7 +186,7 @@ function ProblemSection(): JSX.Element {
                 {/* Image block */}
                 <div className="relative aspect-[4/3] overflow-hidden rounded-sm shadow-sm lg:aspect-square">
                     <Image
-                        src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=900&q=80"
+                        src={kokenInDeKeuken}
                         alt="Drukke huiseigenaar met weinig tijd voor woningbeheer"
                         fill
                         className="object-cover object-center"
@@ -205,7 +208,7 @@ function SolutionsSection(): JSX.Element {
                 {/* Image block — left on desktop */}
                 <div className="relative aspect-[4/3] overflow-hidden rounded-sm shadow-lg order-last lg:order-first">
                     <Image
-                        src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=900&q=80"
+                        src={gesprekAanTafel}
                         alt="Thuismeester in gesprek met een bewoner — betrouwbaar en persoonlijk"
                         fill
                         className="object-cover object-center"
@@ -580,7 +583,7 @@ export default function HomePage(): JSX.Element {
                 sceneWidth="w-[32rem]"
                 backdrop={<>
                     <Image
-                        src="https://images.unsplash.com/photo-1449844908441-8829872d2607?w=1800&q=80"
+                        src={rustigeWoonstraat}
                         alt="Rustige woonstraat in Amersfoort en omstreken"
                         fill
                         className="object-cover object-center"

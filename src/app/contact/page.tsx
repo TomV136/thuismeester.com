@@ -6,6 +6,7 @@ import ContactForm from "@/components/ContactForm";
 import Section from "@/components/Section";
 import { JSX } from "react";
 import { REGION_NOTE, REGIONS } from "@/lib/site";
+import woonkamerInterieur from "@/media/woonkamer-interieur.jpg";
 
 export const metadata: Metadata = {
     title: "Contact",
@@ -40,7 +41,7 @@ function Sidebar(): JSX.Element {
         <aside className="space-y-8">
             <div className="relative aspect-[4/3] overflow-hidden">
                 <Image
-                    src="https://images.unsplash.com/photo-1560185007-cde436f6a4d0?w=700&q=80"
+                    src={woonkamerInterieur}
                     alt="Thuismeester — betrouwbaar aanspreekpunt in Amersfoort"
                     fill
                     className="object-cover object-center"

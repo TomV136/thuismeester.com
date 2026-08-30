@@ -10,6 +10,7 @@ import iconAdvice from "@/media/communication.png";
 import iconOverview from "@/media/clipboard2.png";
 import iconProfessionals from "@/media/trustworthy.png";
 import iconCoordination from "@/media/tools.png";
+import gezinswoningMetTuin from "@/media/gezinswoning-met-tuin.jpg";
 
 export const metadata: Metadata = {
     title: "Diensten",
@@ -189,7 +190,7 @@ export default function ServicesPage() {
                     maar één duidelijke belofte."
                 silhouetteVariant="tall"
                 image={{
-                    src: "https://images.unsplash.com/photo-1480074568708-e7b720bb3f09?w=1800&q=80",
+                    src: gezinswoningMetTuin,
                     alt: "Gewone gezinswoning in Amersfoort — praktische hulp bij woningzaken",
                 }}
             />
