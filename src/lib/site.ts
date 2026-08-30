@@ -12,3 +12,9 @@
  * emails, so replies land in the public inbox instead of at no-reply.
  */
 export const CONTACT_EMAIL = "contact@thuismeester.com";
+
+/**
+ * The From address on every email the site sends (confirmations and the
+ * internal contact notification). Replies are steered elsewhere via Reply-To.
+ */
+export const NO_REPLY_ADDRESS = "no-reply@thuismeester.com";

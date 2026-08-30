@@ -1,7 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getSupabaseClient } from '@/lib/supabase'
+import { CONTACT_EMAIL, NO_REPLY_ADDRESS } from "@/lib/site";
 import { isValidEmail, normalisePostcode, sanitiseMultiLine, sanitiseSingleLine } from "@/lib/validation";
-import { CONTACT_EMAIL } from "@/lib/site";
+import { sendMail } from "@/lib/email";
+import { buildAanmeldBevestigingEmail, buildDubbeleAanmeldingEmail } from "./emails";
 
 /**
  * The one message shown for every server-side failure: it tells the visitor
@@ -10,6 +12,15 @@ import { CONTACT_EMAIL } from "@/lib/site";
 const FAILURE_MESSAGE =
     `Er is bij ons iets misgegaan en je aanmelding is niet opgeslagen. ` +
     `Probeer het later opnieuw, of mail ons gerust via ${CONTACT_EMAIL}.`;
+
+/**
+ * Shown (as a `warning` next to the success message) when the registration
+ * went through but the confirmation email could not be sent: the visitor
+ * should not retry, but does deserve to know why no email is coming.
+ */
+const EMAIL_WARNING =
+    `Let op: je aanmelding is gelukt, maar het versturen van de bevestigingsmail is helaas niet gelukt. ` +
+    `Je hoeft niets opnieuw te doen. Vragen? Mail ons gerust via ${CONTACT_EMAIL}.`;
 
 interface RegistrationDetails {
     name: string;
@@ -114,13 +125,27 @@ export async function POST(req: NextRequest) {
                 ? `[Thuismeester] Signup: ${cleanedData.email} is already registered — sending repeat-signup email, responding as success`
                 : `[Thuismeester] Signup for ${cleanedData.email}: stored in 'subscriptions', sending confirmation email`
         );
-        // TODO: Send the person an email confirming they have applied
+
+        // The registration is safely stored (or already was), so from here
+        // nothing may fail the request anymore. Await so the send isn't cut
+        // off when the response goes out; a failed email is logged by
+        // sendMail and reported to the visitor as a warning, but doesn't fail
+        // the registration. Replies to either email go to the public inbox.
+        const { subject, html } = isDuplicate
+            ? buildDubbeleAanmeldingEmail()
+            : buildAanmeldBevestigingEmail(cleanedData);
+        const emailSent = await sendMail(NO_REPLY_ADDRESS, cleanedData.email, subject, html, CONTACT_EMAIL);
 
         // Completion marker (the contact route has the same): its absence in
         // the logs after a "stored in 'subscriptions'" line pinpoints a
         // failure to the email step when diagnosing an incident.
-        console.log(`[Thuismeester] Signup: completed for ${cleanedData.email}`);
-        return NextResponse.json({ message: "Aanmelding ontvangen." }, { status: 200 });
+        console.log(`[Thuismeester] Signup: completed for ${cleanedData.email}${emailSent ? "" : " (without confirmation email)"}`);
+        return NextResponse.json(
+            emailSent
+                ? { message: "Aanmelding ontvangen." }
+                : { message: "Aanmelding ontvangen.", warning: EMAIL_WARNING },
+            { status: 200 }
+        );
     } catch (err) {
         console.error("[Thuismeester] Signup: unexpected error:", err);
         return NextResponse.json(

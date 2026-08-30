@@ -1,7 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getSupabaseClient } from '@/lib/supabase'
 import { isValidEmail, sanitiseMultiLine, sanitiseSingleLine } from "@/lib/validation";
-import { CONTACT_EMAIL } from "@/lib/site";
+import { CONTACT_EMAIL, NO_REPLY_ADDRESS } from "@/lib/site";
+import { buildContactBevestigingEmail, buildContactNotificatieEmail } from "./emails";
+import { sendMail } from "@/lib/email";
 
 /**
  * The one message shown for every server-side failure: it tells the visitor
@@ -10,6 +12,23 @@ import { CONTACT_EMAIL } from "@/lib/site";
 const FAILURE_MESSAGE =
     `Er is bij ons iets misgegaan en je bericht is niet opgeslagen. ` +
     `Probeer het later opnieuw, of mail ons gerust via ${CONTACT_EMAIL}.`;
+
+/**
+ * Shown when the internal notification email could not be sent. Without that
+ * email nobody at Thuismeester ever sees the message, so this failure must
+ * be surfaced as a real error: the visitor should try again or mail directly.
+ */
+const NOTIFICATION_FAILURE_MESSAGE =
+    `Er is iets misgegaan bij het versturen van je bericht. ` +
+    `Probeer het later opnieuw, of mail ons direct via ${CONTACT_EMAIL}.`;
+
+/**
+ * Shown (as a `warning` next to the success message) when the message reached
+ * us but the confirmation email to the visitor could not be sent.
+ */
+const EMAIL_WARNING =
+    `Let op: je bericht is goed ontvangen, maar het versturen van de bevestigingsmail is helaas niet gelukt. ` +
+    `Je hoeft niets opnieuw te doen. Vragen? Mail ons gerust via ${CONTACT_EMAIL}.`;
 
 interface ContactFormDetails {
     name: string;
@@ -107,10 +126,47 @@ export async function POST(req: NextRequest) {
             );
         }
         console.log("[Thuismeester] Contact: stored in 'inquiries'");
-        // TODO: Send an email to contact@thuismeester.com and to the recipient telling them that they asked a question
 
-        console.log(`[Thuismeester] Contact: completed for ${cleanedData.name} <${cleanedData.email}>`);
-        return NextResponse.json({ message: "Bericht ontvangen." }, { status: 200 });
+        // The internal notification is the only way the message ever gets
+        // read and answered — the 'inquiries' row is a backup, not an inbox.
+        // So unlike the confirmation below, a failure here fails the request:
+        // the visitor is told to try again or mail us directly. (A retry
+        // stores a second 'inquiries' row; harmless, and the rows make the
+        // failed attempt recoverable.) Awaited so the sends aren't cut off
+        // when the response goes out.
+        // Reply-To on the internal notification is the visitor, so replying
+        // from the inbox answers them directly.
+        console.log("[Thuismeester] Contact: sending internal notification email");
+        const { subject, html } = buildContactNotificatieEmail(cleanedData);
+        const notificationSent = await sendMail(NO_REPLY_ADDRESS, CONTACT_EMAIL, subject, html, cleanedData.email);
+
+        if (!notificationSent) {
+            // No confirmation email either: it would promise the visitor a
+            // reply to a message nobody is going to see.
+            console.error(`[Thuismeester] Contact: internal notification failed for ${cleanedData.email} — returning error to visitor`);
+            return NextResponse.json(
+                { message: NOTIFICATION_FAILURE_MESSAGE },
+                { status: 500 }
+            );
+        }
+
+        // The message reached us, so from here nothing may fail the request
+        // anymore: a failed confirmation is logged by sendMail and reported
+        // to the visitor as a warning, but the submission still succeeds.
+        console.log(`[Thuismeester] Contact: sending confirmation email to ${cleanedData.email}`);
+        const { subject: subject2, html: html2 } = buildContactBevestigingEmail(cleanedData);
+        
+        // Reply-To on the visitor's confirmation is the public inbox, so a
+        // reply to it reaches us instead of no-reply.
+        const confirmationSent = await sendMail(NO_REPLY_ADDRESS, cleanedData.email, subject2, html2, CONTACT_EMAIL);
+
+        console.log(`[Thuismeester] Contact: completed for ${cleanedData.name} <${cleanedData.email}>${confirmationSent ? "" : " (without confirmation email)"}`);
+        return NextResponse.json(
+            confirmationSent
+                ? { message: "Bericht ontvangen." }
+                : { message: "Bericht ontvangen.", warning: EMAIL_WARNING },
+            { status: 200 }
+        );
     } catch (err) {
         console.error("[Thuismeester] Contact: unexpected error:", err);
         return NextResponse.json(
