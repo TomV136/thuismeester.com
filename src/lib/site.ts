@@ -7,6 +7,15 @@
  */
 
 /**
+ * The canonical production URL. Used as the metadataBase for absolute
+ * Open Graph URLs and in robots.txt and the sitemap.
+ */
+export const SITE_URL =
+  process.env.VERCEL_ENV === 'production'
+    ? 'https://thuismeester.com'
+    : `https://${process.env.VERCEL_URL}`;
+
+/**
  * The public contact address. Shown to visitors whenever something goes
  * wrong ("mail ons gerust via …") and used as the reply-to on confirmation
  * emails, so replies land in the public inbox instead of at no-reply.

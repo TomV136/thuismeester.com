@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
-import { REGION_NOTE } from "@/lib/site";
+import { REGION_NOTE, SITE_URL } from "@/lib/site";
 import "./globals.css";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -28,6 +28,9 @@ const playfair = Playfair_Display({
 // Customise per-page via generateMetadata() in each page file.
 // -------------------------------------------------------
 export const metadata: Metadata = {
+    // Base for resolving relative URLs in metadata (og:image, canonical, …)
+    // to absolute ones — social platforms require absolute URLs.
+    metadataBase: new URL(SITE_URL),
     title: {
         default: `Thuismeester — Jouw onafhankelijke thuisadviseur voor ${REGION_NOTE}`,
         template: "%s | Thuismeester",
@@ -51,6 +54,8 @@ export const metadata: Metadata = {
         title: `Thuismeester — Jouw onafhankelijke thuisadviseur voor ${REGION_NOTE}`,
         description:
             "Jouw onafhankelijke thuisadviseur — voor onderhoud, reparaties en betrouwbare vakmensen.",
+        url: SITE_URL,
+        siteName: "Thuismeester",
         locale: "nl_NL",
         type: "website",
     },
